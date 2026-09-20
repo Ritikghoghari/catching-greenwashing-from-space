@@ -1,0 +1,42 @@
+=== gar: 50 mills ===
+gar: 2021=22106.2, 2022=26433.4, 2023=43867.5, 2024=38349.8, 2025=40479.2, sum=171236.2
+=== sdguthrie: 42 mills ===
+sdguthrie: 2021=27011.7, 2022=26864.5, 2023=32742.8, 2024=27903.8, 2025=27608.4, sum=142131.3
+=== wilmar: 45 mills ===
+wilmar: 2021=23533.4, 2022=21936.5, 2023=28018.6, 2024=30912.0, 2025=23205.3, sum=127605.7
+=== klk: 30 mills ===
+klk: 2021=16395.3, 2022=15434.1, 2023=22633.6, 2024=19732.3, 2025=18013.6, sum=92208.9
+=== astraagro: 34 mills ===
+astraagro: 2021=16407.9, 2022=13391.4, 2023=22611.6, 2024=18499.7, 2025=16287.5, sum=87198.1
+=== ioi: 15 mills ===
+ioi: 2021=10115.4, 2022=13188.9, 2023=18380.8, 2024=20358.5, 2025=12341.8, sum=74385.4
+=== musimmas: 18 mills ===
+musimmas: 2021=8068.4, 2022=7374.4, 2023=14737.4, 2024=11180.9, 2025=11698.4, sum=53059.6
+=== genting: 15 mills ===
+genting: 2021=8416.2, 2022=6901.7, 2023=10591.4, 2024=10529.8, 2025=7923.2, sum=44362.4
+=== firstresources: 16 mills ===
+firstresources: 2021=7275.8, 2022=5972.5, 2023=10692.3, 2024=7766.8, 2025=8382.9, sum=40090.3
+=== bumitama: 14 mills ===
+bumitama: 2021=3135.1, 2022=5971.6, 2023=8043.9, 2024=7528.5, 2025=5870.4, sum=30549.3
+=== sipef: 11 mills ===
+sipef: 2021=7855.9, 2022=5207.9, 2023=5507.2, 2024=5341.8, 2025=3428.1, sum=27340.9
+
+=== Sanity check vs master_forest_loss.csv ===
+       company  sum_2021_2025  loss_post2020_ha  diff_ha  match
+           gar      171236.17     171236.168128      0.0   True
+     sdguthrie      142131.28     142131.279201      0.0   True
+        wilmar      127605.65     127605.651214     -0.0   True
+           klk       92208.92      92208.918345      0.0   True
+     astraagro       87198.09      87198.086458      0.0   True
+           ioi       74385.36      74385.364496     -0.0   True
+      musimmas       53059.55      53059.552603     -0.0   True
+       genting       44362.42      44362.418926      0.0   True
+firstresources       40090.27      40090.269846      0.0   True
+      bumitama       30549.33      30549.328832      0.0   True
+         sipef       27340.87      27340.872005     -0.0   True
+
+All 11 companies matched master_forest_loss.csv within 1 ha.
+
+Saved:
+ - Results/all_companies_yearly_loss_summary.csv
+ - Results/all_companies_yearly_loss_per_mill.csv

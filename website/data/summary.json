@@ -1,0 +1,152 @@
+{
+  "title": "Catching Greenwashing from Space",
+  "subtitle": "Verifying Palm Oil Zero-Deforestation Claims Using Satellite Data and Natural Language Processing",
+  "author": "Ritik Ghoghari",
+  "degree": "M.Sc. Data Science, AI & Digital Business",
+  "institution": "GISMA University of Applied Sciences, Berlin",
+  "supervisor": "Professor Mohamad Hoseini",
+  "submission_deadline": "26 September 2026",
+  "total_companies": 11,
+  "total_mills": 290,
+  "total_loss_ha": 890168,
+  "total_claims": 403,
+  "total_maps": 290,
+  "scoring_weights": {
+    "forest_loss": 0.35,
+    "specificity": 0.35,
+    "sentiment": 0.15,
+    "spatial_match": 0.15
+  },
+  "weights_sum": 1.0,
+  "rank_1_company": "KLK",
+  "rank_1_score": 65.6,
+  "rank_11_company": "Astra Agro",
+  "rank_11_score": 17.6,
+  "prithvi_network_mills": 290,
+  "prithvi_network_mean_rho": 0.172,
+  "prithvi_network_mean_iou": 0.086,
+  "prithvi_poc_rho": 0.597,
+  "prithvi_linear_probe_rho": 0.805,
+  "prithvi_linear_probe_iou": 0.765,
+  "prithvi_linear_probe_precision": 0.897,
+  "prithvi_linear_probe_recall": 0.839,
+  "models_count_total": 9,
+  "models_count_nlp": 5,
+  "models_count_satellite": 4,
+  "models_inventory": {
+    "summary": {
+      "total_models": 9,
+      "nlp_models_count": 5,
+      "satellite_systems_count": 4
+    },
+    "nlp_models": [
+      {
+        "id": "nlp_1",
+        "name": "climatebert/environmental-claims",
+        "role": "Claim Detection & Extraction",
+        "architecture": "DistilRoBERTa (Transformer)",
+        "accuracy": 0.973,
+        "precision": 1.0,
+        "recall": 0.962,
+        "f1": 0.981,
+        "eval_sample": "n = 150 gold-annotated palm oil claims",
+        "baseline": "Keyword matching: 70.7% Acc, 0.828 F1",
+        "description": "Filters genuine zero-deforestation commitments from boilerplate corporate disclosures."
+      },
+      {
+        "id": "nlp_2",
+        "name": "climatebert/distilroberta-base-climate-specificity",
+        "role": "Commitment Specificity Scoring",
+        "architecture": "DistilRoBERTa (Transformer)",
+        "accuracy": 0.538,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "eval_sample": "n = 106 claims (continuous 0\u2013100 scale)",
+        "baseline": "Regex number/date rule: 61.3% Acc",
+        "description": "Measures whether promises contain auditable metrics, targets, and dates versus vague promises."
+      },
+      {
+        "id": "nlp_3",
+        "name": "ProsusAI/finbert",
+        "role": "Financial Tone & Promotional Sentiment",
+        "architecture": "BERT (Transformer)",
+        "accuracy": 0.811,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "eval_sample": "n = 106 claims",
+        "baseline": "Standard financial sentiment: 62.4% Acc",
+        "description": "Scores corporate promotional cheerfulness; directly feeds the composite mismatch formula (weight 0.15)."
+      },
+      {
+        "id": "nlp_4",
+        "name": "climatebert/distilroberta-base-climate-sentiment",
+        "role": "SASB Opportunity vs Risk Framing",
+        "architecture": "DistilRoBERTa (Transformer)",
+        "accuracy": 0.509,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "eval_sample": "n = 106 claims",
+        "baseline": "Standard sentiment lexicon: 44.1% Acc",
+        "description": "Comparative climate signal showing 99.8% of palm oil claims framed as commercial opportunities."
+      },
+      {
+        "id": "nlp_5",
+        "name": "nbroad/ESG-BERT",
+        "role": "SASB ESG Topic Classification",
+        "architecture": "BERT (Transformer)",
+        "accuracy": 0.802,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "eval_sample": "n = 106 claims",
+        "baseline": "Keyword tags: 18.9% Acc",
+        "description": "Categorizes corporate commitments into official SASB ESG topics (Land Use, Emissions, Labor)."
+      }
+    ],
+    "satellite_systems": [
+      {
+        "id": "sat_1",
+        "name": "Hansen Global Forest Change v1.13",
+        "role": "Primary Deforestation Telemetry",
+        "technology": "Landsat 30m Time-Series Random Forest",
+        "accuracy": 0.995,
+        "metric_label": "Global Acc (88.0% Tropical User Acc)",
+        "result": "890,168 ha post-2020 loss detected across 290 mills",
+        "description": "Quantifies annual canopy loss >5m height within 10 km radial mill catchments post-EUDR cutoff."
+      },
+      {
+        "id": "sat_2",
+        "name": "Descals Global Oil Palm 10m Map",
+        "role": "Agricultural Attribution Overlay",
+        "technology": "Sentinel-1 SAR + Sentinel-2 CNN",
+        "accuracy": 0.869,
+        "metric_label": "Overall Classification Accuracy",
+        "result": "56.0% of post-2020 buffer clearing verified oil palm (89.8% for IOI)",
+        "description": "Verifies that forest clearings were converted directly to industrial oil palm plantations."
+      },
+      {
+        "id": "sat_3",
+        "name": "RADD Radar Disturbance Alerts",
+        "role": "Cloud-Penetrating Validation",
+        "technology": "Sentinel-1 C-band Synthetic Aperture Radar (SAR)",
+        "accuracy": 0.95,
+        "metric_label": "User Accuracy (>95%)",
+        "result": "Active weekly clearing confirmed at 4 of top 5 highest-loss mills",
+        "description": "Pierces persistent tropical storm clouds and monsoon haze to verify real-time disturbance."
+      },
+      {
+        "id": "sat_4",
+        "name": "NASA/IBM Prithvi-EO-2.0-300M + Linear Probe",
+        "role": "Earth Observation Foundation Model",
+        "technology": "Vision Transformer (ViT) with Supervised Linear Probe",
+        "accuracy": 0.897,
+        "metric_label": "Precision (5-Fold CV)",
+        "result": "Spearman rho = 0.805, IoU = 0.765, Recall = 0.839 (+34.8% correlation gain)",
+        "description": "Adapts pre-trained 300M ViT embeddings via a lightweight linear probe without expensive retraining."
+      }
+    ]
+  }
+}

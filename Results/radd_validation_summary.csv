@@ -1,0 +1,6 @@
+company,mill_name,lat,lon,hansen_post2020_ha,radd_alert_ha,agreement_ratio,interpretation
+Wilmar,Sabahmas,5.179162,118.405246,6675.04,0.0,0.0,No RADD alerts — check coverage
+GAR,NAGA SAKTI,0.7827,101.049567,10197.37,8.13,0.0008,Very low — possible RADD gap or Hansen over-count
+IOI,SYARIMO,5.334037,117.781334,12317.76,15.02,0.0012,Very low — possible RADD gap or Hansen over-count
+KLK,BORNION,5.609,117.7899,6767.92,53.93,0.008,Very low — possible RADD gap or Hansen over-count
+SD Guthrie,GIRAM (SOU 29),4.586785,118.193914,7774.63,22.13,0.0028,Very low — possible RADD gap or Hansen over-count

@@ -1,0 +1,13 @@
+claim,deforestation,traceability,ndpe,peat,deadline,strength,specificity,specificity_score
+"Oil palm F1 Hybrids have
+the potential to double yield per hectare, thereby
+helping to meet demand while mitigating risks of
+deforestation and biodiversity loss.",True,False,False,False,,soft,spec,0.5035901069641113
+"achieving a 100% Roundtable on Sustainable Palm
+Oil (RSPO) certified supply base for its palm oil
+Key commitments and requirements: production, and for the smallholders delivering to
+E 100% certification and traceability of products its mills.",False,True,False,False,,soft,spec,0.5044359564781189
+"Locked-in emissions from assets However, by proactively addressing these potential
+SIPEF has committed to no deforestation or new risks by implementing its policy on no deforestation
+plantings on peatland (NDPE) since 2015 in order to or new plantings on peatland NDPE and applying
+reduce emissions from land use change.",True,False,True,True,,hard,spec,0.7108718752861023

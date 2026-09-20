@@ -1,0 +1,8 @@
+claim,deforestation,traceability,ndpe,peat,deadline,strength,specificity,specificity_score
+"At First Resources, To manage peatlands effectively, we have implemented
+and per our 2015 Policy on Sustainable Palm Oil, we several strategies, including blocking canals and
+are committed to no further planting on peat.",False,False,False,True,,soft,spec,0.6012188196182251
+"To achieve this, we are heavily investing in
+Scope 1 FLAG emissions is our firm commitment to methane capture facilities to trap its release from
+no deforestation and no planting on peat, ensuring that the POME treatment process.",True,False,True,True,,hard,spec,0.7520287036895752
+8 The supplier has made commitments to ensure that all volumes comply with the relevant no deforestation and no peat commitments and is planning or implement it for existing suppliers in 2025.,True,False,True,True,2025,hard,spec,0.6107345819473267

@@ -1,0 +1,74 @@
+[
+  {
+    "task": "claim detection",
+    "model": "environmental-claims model",
+    "accuracy": 0.973,
+    "precision": 1.0,
+    "recall": 0.962,
+    "f1": 0.981,
+    "n": 150
+  },
+  {
+    "task": "claim detection",
+    "model": "keyword filter (baseline)",
+    "accuracy": 0.707,
+    "precision": 0.707,
+    "recall": 1.0,
+    "f1": 0.828,
+    "n": 150
+  },
+  {
+    "task": "specificity",
+    "model": "climate-specificity model",
+    "accuracy": 0.559,
+    "precision": 0.547,
+    "recall": 0.609,
+    "f1": 0.519,
+    "n": 102
+  },
+  {
+    "task": "specificity",
+    "model": "number/date/% rule (baseline)",
+    "accuracy": 0.613,
+    "precision": 0.339,
+    "recall": 0.57,
+    "f1": 0.418,
+    "n": 106
+  },
+  {
+    "task": "sentiment",
+    "model": "FinBERT",
+    "accuracy": 0.843,
+    "precision": 0.425,
+    "recall": 0.415,
+    "f1": 0.42,
+    "n": 102
+  },
+  {
+    "task": "sentiment",
+    "model": "climate-sentiment",
+    "accuracy": 0.529,
+    "precision": 0.344,
+    "recall": 0.344,
+    "f1": 0.29,
+    "n": 102
+  },
+  {
+    "task": "ESG topic",
+    "model": "ESG-BERT (E/S/G)",
+    "accuracy": 0.802,
+    "precision": 0.479,
+    "recall": 0.541,
+    "f1": 0.492,
+    "n": 106
+  },
+  {
+    "task": "ESG topic",
+    "model": "keyword tags (baseline)",
+    "accuracy": 0.189,
+    "precision": 0.381,
+    "recall": 0.107,
+    "f1": 0.167,
+    "n": 106
+  }
+]

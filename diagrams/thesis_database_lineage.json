@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Database & Data Store Lineage Architecture",
+    "output": "diagrams/thesis_database_lineage.html",
+    "quality_profile": "showcase",
+    "viewBox": [1260, 560],
+    "views": [
+      {
+        "id": "tabular-lineage",
+        "label": "Core data lineage",
+        "focus": ["raw_uml", "raw_reports", "mill_tables", "nlp_candidates", "satellite_loss_db", "enriched_claims_db", "master_scores_db"],
+        "note": "Follow raw inputs through intermediate transformations to the master scores dataset."
+      },
+      {
+        "id": "validation-lineage",
+        "label": "Validation datasets",
+        "focus": ["master_scores_db", "prithvi_results", "descals_results", "radd_results"],
+        "note": "Inspect the independent multi-sensor benchmark tables and cross-validation stores."
+      }
+    ]
+  },
+  "components": [
+    { "id": "raw_uml", "type": "database", "label": "UML Registry", "sublabel": "Universal_Mill_List.csv", "pos": [40, 140], "size": [140, 60], "tag": "Raw Registry" },
+    { "id": "raw_reports", "type": "database", "label": "Report Corpus", "sublabel": "11 Corporate PDFs", "pos": [40, 380], "size": [140, 60], "tag": "Raw PDFs" },
+    { "id": "mill_tables", "type": "database", "label": "Mill Coordinates", "sublabel": "data/mills/*_mills.csv", "pos": [255, 140], "size": [150, 60], "tag": "290 Cleaned Mills" },
+    { "id": "nlp_candidates", "type": "database", "label": "Raw Claims Store", "sublabel": "data/nlp/*_claims.csv", "pos": [255, 380], "size": [150, 60], "tag": "403 Extracted Claims" },
+    { "id": "satellite_loss_db", "type": "database", "label": "Forest Loss Store", "sublabel": "master_forest_loss.csv", "pos": [485, 140], "size": [150, 60], "tag": "890,168 ha loss" },
+    { "id": "enriched_claims_db", "type": "database", "label": "Enriched Claims", "sublabel": "claims_enriched.csv", "pos": [485, 380], "size": [150, 60], "tag": "Spec + Sent + ESG" },
+    { "id": "master_scores_db", "type": "database", "label": "Master Scores DB", "sublabel": "Results/master_scores.csv", "pos": [705, 260], "size": [155, 64], "tag": "11 Firms Ranked" },
+    { "id": "prithvi_results", "type": "database", "label": "Prithvi Batch DB", "sublabel": "prithvi_batch_290.csv", "pos": [1020, 140], "size": [150, 60], "tag": "rho=0.172 ViT Embeddings" },
+    { "id": "descals_results", "type": "database", "label": "Land Cover DB", "sublabel": "descals_overlay.csv", "pos": [1020, 260], "size": [150, 60], "tag": "56% Oil Palm Cover" },
+    { "id": "radd_results", "type": "database", "label": "RADD Radar DB", "sublabel": "radd_validation.csv", "pos": [1020, 380], "size": [150, 60], "tag": "Sentinel-1 Disturbance" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Raw Ingestion Layer", "wraps": ["raw_uml", "raw_reports"], "pad": 16 },
+    { "kind": "region", "label": "Intermediate Transformations", "wraps": ["mill_tables", "nlp_candidates", "satellite_loss_db", "enriched_claims_db"], "pad": 16 },
+    { "kind": "region", "label": "Verification & Benchmark Repositories", "wraps": ["prithvi_results", "descals_results", "radd_results"], "pad": 16 }
+  ],
+  "connections": [
+    { "id": "c-uml-clean", "from": "raw_uml", "to": "mill_tables", "label": "parse GPS", "variant": "default" },
+    { "id": "c-reports-claims", "from": "raw_reports", "to": "nlp_candidates", "label": "extract text", "variant": "default" },
+    { "id": "c-mills-loss", "from": "mill_tables", "to": "satellite_loss_db", "label": "GEE buffer", "variant": "emphasis" },
+    { "id": "c-claims-enrich", "from": "nlp_candidates", "to": "enriched_claims_db", "label": "score models", "variant": "emphasis" },
+    { "id": "c-loss-master", "from": "satellite_loss_db", "to": "master_scores_db", "label": "loss (50%)", "variant": "emphasis" },
+    { "id": "c-claims-master", "from": "enriched_claims_db", "to": "master_scores_db", "label": "claims (50%)", "variant": "emphasis" },
+    { "id": "c-master-prithvi", "from": "master_scores_db", "to": "prithvi_results", "label": "correlate", "variant": "security", "fromSide": "top", "toSide": "left" },
+    { "id": "c-master-descals", "from": "master_scores_db", "to": "descals_results", "label": "overlay", "variant": "security", "fromSide": "right", "toSide": "left" },
+    { "id": "c-master-radd", "from": "master_scores_db", "to": "radd_results", "label": "radar check", "variant": "security", "fromSide": "bottom", "toSide": "left" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Textual Data Lineage",
+      "items": [
+        "Ingests 11 corporate sustainability PDFs from Reports directory",
+        "Generates candidate sentence tables and enriches with specificity, FinBERT, and ESG-BERT",
+        "Produces claims_enriched.csv containing 403 verified assertions"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Geospatial Data Lineage",
+      "items": [
+        "Extracts 290 verified mills from the Universal Mill List registry",
+        "Computes 10 km buffer pixel reductions in Google Earth Engine using Hansen GFC v1.13",
+        "Stores per-mill and company-level tables recording 890,168 ha of post-2020 loss"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Analytical & Benchmark Databases",
+      "items": [
+        "Master scores database synthesizes 4 weighted dimensions into canonical 0-100 scores",
+        "Prithvi batch database records embedding dissimilarity across 290 mills (mean rho = 0.172)",
+        "Descals and RADD validation tables store crop-specific and radar disturbance ground truth"
+      ]
+    }
+  ]
+}

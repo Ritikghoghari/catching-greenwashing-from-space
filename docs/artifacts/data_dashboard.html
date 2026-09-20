@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greenwashing from Space — Data Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0d1a0f;
+  --surface: #141f15;
+  --card: #1a2b1c;
+  --border: #253528;
+  --text: #e8f0e8;
+  --muted: #7a9b7d;
+  --dim: #3d5e40;
+  --green: #4caf6e;
+  --amber: #f0a844;
+  --red: #e05555;
+  --blue: #7ecde8;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.header {
+  padding: 40px 32px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+.eyebrow {
+  font-family: monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.header h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; }
+.header h1 span { color: var(--green); }
+.header p { color: var(--muted); font-size: 14px; }
+
+/* STAT PILLS */
+.stats {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  max-width: 1200px; margin: 24px auto; padding: 0 32px;
+}
+.stat {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 20px; flex: 1; min-width: 120px;
+}
+.stat-n { font-size: 26px; font-weight: 700; color: var(--green); line-height: 1; }
+.stat-l { font-size: 11px; color: var(--muted); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* GRID */
+.grid {
+  max-width: 1200px; margin: 0 auto; padding: 0 32px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 24px;
+}
+.card.full { grid-column: 1 / -1; }
+.card h2 { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.card p { font-size: 12px; color: var(--muted); margin-bottom: 18px; line-height: 1.5; }
+.chart-wrap { position: relative; }
+
+/* TABLE */
+.data-table {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+}
+.data-table th {
+  text-align: left; padding: 8px 12px;
+  font-family: monospace; font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 10px 12px; border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.company-name { font-weight: 600; text-transform: uppercase; font-size: 12px; }
+.bar-mini {
+  height: 8px; border-radius: 4px; background: var(--green);
+  margin-top: 3px;
+}
+.badge {
+  display: inline-block; font-family: monospace; font-size: 10px;
+  padding: 2px 7px; border-radius: 4px;
+  background: rgba(76,175,110,0.15); color: var(--green);
+}
+.badge.red { background: rgba(224,85,85,0.15); color: var(--red); }
+.badge.amber { background: rgba(240,168,68,0.15); color: var(--amber); }
+
+/* KEY INSIGHT */
+.insight {
+  background: rgba(76,175,110,0.06);
+  border: 1px solid rgba(76,175,110,0.2);
+  border-radius: 8px; padding: 14px 18px;
+  margin-top: 16px; font-size: 13px; color: var(--muted);
+  line-height: 1.65;
+}
+.insight strong { color: var(--text); }
+
+@media (max-width: 700px) {
+  .grid { grid-template-columns: 1fr; }
+  .card.full { grid-column: 1; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">M.Sc. Thesis · GISMA University · 2026</div>
+  <h1>Catching Greenwashing <span>from Space</span></h1>
+  <p>Satellite evidence vs corporate claims — verified data across 11 palm oil producers</p>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-n">11</div><div class="stat-l">Companies</div></div>
+  <div class="stat"><div class="stat-n">312</div><div class="stat-l">Mills matched</div></div>
+  <div class="stat"><div class="stat-n">991K</div><div class="stat-l">Ha lost post-2020</div></div>
+  <div class="stat"><div class="stat-n">58</div><div class="stat-l">Claims extracted</div></div>
+  <div class="stat"><div class="stat-n">75.0</div><div class="stat-l">Top mismatch score (IOI)</div></div>
+  <div class="stat"><div class="stat-n">9/11</div><div class="stat-l">Have ≥1 hard/specific claim</div></div>
+</div>
+<p style="max-width:1200px;margin:0 auto;padding:0 32px;font-size:12px;color:var(--muted)">
+  All numbers on this page are read directly from <code>Results/master_scores.csv</code>
+  (reproduce with <code>scripts/compute_scores.py</code>). Two UML matching bugs fixed
+  2026-08-16, both in <code>scripts/mill_matching.py</code> with regression tests guarding
+  against recurrence: (1) GAR's Group Name is "SINAR MAS", not "GOLDEN AGRI"/"SMART" — was
+  matching 3 of 50 real mills. (2) ~95 UML rows use a non-breaking space (\xa0) inside
+  Group Name / Parent Company (e.g. "SIME\xa0DARBY") which a literal-space keyword
+  silently failed to match — undercounted SD Guthrie (42→66 mills) and Genting
+  (7→14 mills). SD Guthrie's mismatch score moved 52.7→57.7, Genting's 0.0→16.1.
+</p>
+
+<div class="grid">
+
+  <!-- CHART 1: Post-2020 loss by company (horizontal bar) -->
+  <div class="card full">
+    <h2>Post-2020 Forest Loss by Company (hectares)</h2>
+    <p>Total forest loss after the EUDR cutoff date (31 Dec 2020) within 10 km of each company's mills. 9 of 11 companies have at least one hard/specific no-deforestation-style claim on record; Wilmar and Genting have none.</p>
+    <div class="chart-wrap" style="height:320px">
+      <canvas id="chart1"></canvas>
+    </div>
+    <div class="insight">
+      <strong>Key finding:</strong> GAR shows the highest total loss (171,236 ha) because it has the most mills (50). But IOI has the highest <em>per-mill</em> intensity (4,959 ha/mill). Total hectares and per-mill intensity tell different stories — the scoring layer must account for this.
+    </div>
+  </div>
+
+  <!-- CHART 2: claim strength score -->
+  <div class="card">
+    <h2>Claim Strength — Share of Hard-Language Claims</h2>
+    <p>% of each company's kept environmental claims using specific, measurable language ("no deforestation", "zero", "deforestation-free") vs. vague/aspirational wording. Feeds the mismatch score's claim-strength half.</p>
+    <div class="chart-wrap" style="height:280px">
+      <canvas id="chart2"></canvas>
+    </div>
+  </div>
+
+  <!-- CHART 3: ha per mill -->
+  <div class="card">
+    <h2>Forest Loss per Mill (ha/mill)</h2>
+    <p>Average loss per mill — the most direct intensity measure. IOI ranks #1 here despite having fewer total mills than GAR or Wilmar.</p>
+    <div class="chart-wrap" style="height:280px">
+      <canvas id="chart3"></canvas>
+    </div>
+  </div>
+
+  <!-- CHART 4: Scatter — claim strength vs forest-loss score -->
+  <div class="card full">
+    <h2>Claim vs. Reality — Where the Mismatch Score Comes From</h2>
+    <p>X-axis: claim strength (% hard-language claims). Y-axis: forest-loss score (normalized ha/mill, 0-100). Bubble size = number of mills. Top-right = strong claims + high measured loss = biggest gap.</p>
+    <div class="chart-wrap" style="height:340px">
+      <canvas id="chart4"></canvas>
+    </div>
+    <div class="insight">
+      <strong>IOI</strong> and <strong>KLK</strong> sit top-right — strong/hard claims paired with high measured forest-loss intensity, driving their #1 and #2 mismatch scores. <strong>Wilmar</strong> and <strong>Genting</strong> made no hard claims at all (0% claim strength), so despite real forest loss their mismatch score is low — there's no strong claim to contradict.
+    </div>
+  </div>
+
+  <!-- CHART 5: loss total vs loss post2020 -->
+  <div class="card full">
+    <h2>Forest Loss — Before and After the EUDR Cutoff</h2>
+    <p>Orange = total forest lost 2001-2020. Red = loss specifically after 2020 (EUDR-relevant window). Stacked to show proportion.</p>
+    <div class="chart-wrap" style="height:320px">
+      <canvas id="chart5"></canvas>
+    </div>
+  </div>
+
+  <!-- CHART 6: Wilmar year by year -->
+  <div class="card">
+    <h2>Year-by-Year Loss — Wilmar Sabahmas Mill</h2>
+    <p>Post-2020 clearing at one mill. Shows that loss continued every year after the NDPE commitment — not a one-off event.</p>
+    <div class="chart-wrap" style="height:260px">
+      <canvas id="chart6"></canvas>
+    </div>
+  </div>
+
+  <!-- CHART 7: Mills count comparison -->
+  <div class="card">
+    <h2>Number of Mills per Company</h2>
+    <p>Mill count drives total loss. Companies with more mills cover more land — this is why per-mill and % metrics matter alongside absolute hectares.</p>
+    <div class="chart-wrap" style="height:260px">
+      <canvas id="chart7"></canvas>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="card full">
+    <h2>Complete Data Table — All 11 Companies</h2>
+    <p>Full verified results from Results/master_scores.csv, sorted by mismatch score. Every number reproducible from raw UML + Earth Engine data via scripts/compute_scores.py.</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Company</th>
+          <th>Mills</th>
+          <th>Claim strength</th>
+          <th>Loss post-2020 (ha)</th>
+          <th>ha / mill</th>
+          <th>Mismatch score</th>
+          <th>Coverage</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+// ---- DATA ----
+// GENERATED — do not hand-edit. Regenerate with:
+//   venv/Scripts/python.exe scripts/generate_dashboard_data.py
+// then paste its "const data = [...]" output over this block.
+// Source: Results/master_scores.csv
+const data = [
+  {"company": "IOI", "n_claims": 4, "claim_strength": 50.0, "n_mills": 15, "loss_total": 292262, "loss_post2020": 74385, "ha_per_mill": 4959, "forest_loss_score": 100.0, "mismatch": 75.0, "low_coverage": false},
+  {"company": "KLK", "n_claims": 1, "claim_strength": 100.0, "n_mills": 30, "loss_total": 502074, "loss_post2020": 92209, "ha_per_mill": 3074, "forest_loss_score": 32.1, "mismatch": 66.1, "low_coverage": false},
+  {"company": "SD Guthrie", "n_claims": 15, "claim_strength": 60.0, "n_mills": 66, "loss_total": 1111155, "loss_post2020": 245619, "ha_per_mill": 3721, "forest_loss_score": 55.4, "mismatch": 57.7, "low_coverage": false},
+  {"company": "Musim Mas", "n_claims": 13, "claim_strength": 61.5, "n_mills": 18, "loss_total": 301861, "loss_post2020": 53060, "ha_per_mill": 2948, "forest_loss_score": 27.6, "mismatch": 44.6, "low_coverage": false},
+  {"company": "First Resources", "n_claims": 3, "claim_strength": 66.7, "n_mills": 16, "loss_total": 267096, "loss_post2020": 40090, "ha_per_mill": 2506, "forest_loss_score": 11.7, "mismatch": 39.2, "low_coverage": false},
+  {"company": "GAR", "n_claims": 7, "claim_strength": 28.6, "n_mills": 50, "loss_total": 792971, "loss_post2020": 171236, "ha_per_mill": 3425, "forest_loss_score": 44.7, "mismatch": 36.7, "low_coverage": false},
+  {"company": "Astra Agro", "n_claims": 2, "claim_strength": 50.0, "n_mills": 33, "loss_total": 503021, "loss_post2020": 85421, "ha_per_mill": 2589, "forest_loss_score": 14.6, "mismatch": 32.3, "low_coverage": false},
+  {"company": "SIPEF", "n_claims": 3, "claim_strength": 33.3, "n_mills": 11, "loss_total": 145321, "loss_post2020": 27341, "ha_per_mill": 2486, "forest_loss_score": 10.9, "mismatch": 22.1, "low_coverage": false},
+  {"company": "Bumitama", "n_claims": 6, "claim_strength": 33.3, "n_mills": 14, "loss_total": 237176, "loss_post2020": 30549, "ha_per_mill": 2182, "forest_loss_score": 0.0, "mismatch": 16.7, "low_coverage": false},
+  {"company": "Genting", "n_claims": 1, "claim_strength": 0.0, "n_mills": 14, "loss_total": 228350, "loss_post2020": 43054, "ha_per_mill": 3075, "forest_loss_score": 32.2, "mismatch": 16.1, "low_coverage": false},
+  {"company": "Wilmar", "n_claims": 3, "claim_strength": 0.0, "n_mills": 45, "loss_total": 711441, "loss_post2020": 127606, "ha_per_mill": 2836, "forest_loss_score": 23.5, "mismatch": 11.8, "low_coverage": false},
+];
+
+const names = data.map(d => d.company);
+const GREEN = 'rgba(76,175,110,0.85)';
+const AMBER = 'rgba(240,168,68,0.85)';
+const RED   = 'rgba(224,85,85,0.85)';
+const BLUE  = 'rgba(126,205,232,0.85)';
+const MUTED = 'rgba(122,155,125,0.4)';
+
+const DEF = {
+  plugins: { legend: { labels: { color: '#7a9b7d', font: { size: 11 } } } },
+  scales: {
+    x: { ticks: { color: '#7a9b7d', font: { size: 11 } }, grid: { color: '#1f2e21' } },
+    y: { ticks: { color: '#7a9b7d', font: { size: 11 } }, grid: { color: '#1f2e21' } }
+  }
+};
+
+// Chart 1 — horizontal bar, post-2020 loss
+new Chart(document.getElementById('chart1'), {
+  type: 'bar',
+  data: {
+    labels: names,
+    datasets: [{
+      label: 'Post-2020 forest loss (ha)',
+      data: data.map(d => d.loss_post2020),
+      backgroundColor: data.map(d => d.mismatch > 50 ? RED : d.mismatch > 25 ? AMBER : GREEN),
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: {
+      callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} ha` }
+    }},
+    scales: {
+      x: { ticks: { color: '#7a9b7d', font: { size: 11 },
+            callback: v => (v/1000).toFixed(0)+'K' }, grid: { color: '#1f2e21' } },
+      y: { ticks: { color: '#e8f0e8', font: { size: 12, weight: '600' } }, grid: { color: '#1f2e21' } }
+    }
+  }
+});
+
+// Chart 2 — claim strength score (share of "hard"/measurable claims, 0-100)
+new Chart(document.getElementById('chart2'), {
+  type: 'bar',
+  data: {
+    labels: names,
+    datasets: [{
+      label: '% of kept claims using hard language',
+      data: data.map(d => d.claim_strength),
+      backgroundColor: data.map(d => d.claim_strength === 0 ? MUTED : d.claim_strength > 60 ? RED : d.claim_strength > 30 ? AMBER : GREEN),
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: {
+      callbacks: { label: ctx => ` ${ctx.raw}% hard-language claims` }
+    }},
+    scales: {
+      x: { ticks: { color: '#7a9b7d', font: { size: 11 },
+            callback: v => v+'%' }, grid: { color: '#1f2e21' }, max: 100 },
+      y: { ticks: { color: '#e8f0e8', font: { size: 11 } }, grid: { color: '#1f2e21' } }
+    }
+  }
+});
+
+// Chart 3 — ha per mill
+new Chart(document.getElementById('chart3'), {
+  type: 'bar',
+  data: {
+    labels: names,
+    datasets: [{
+      label: 'ha per mill',
+      data: data.map(d => d.ha_per_mill),
+      backgroundColor: data.map(d => d.ha_per_mill > 4000 ? RED : d.ha_per_mill > 3000 ? AMBER : GREEN),
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: {
+      callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} ha/mill` }
+    }},
+    scales: {
+      x: { ticks: { color: '#7a9b7d', font: { size: 11 } }, grid: { color: '#1f2e21' } },
+      y: { ticks: { color: '#e8f0e8', font: { size: 11 } }, grid: { color: '#1f2e21' } }
+    }
+  }
+});
+
+// Chart 4 — Scatter (pct vs ha_per_mill, bubble = mills)
+new Chart(document.getElementById('chart4'), {
+  type: 'bubble',
+  data: {
+    datasets: data.map(d => ({
+      label: d.company,
+      data: [{ x: d.claim_strength, y: d.forest_loss_score, r: Math.sqrt(d.n_mills) * 3 }],
+      backgroundColor: d.mismatch > 50 ? 'rgba(224,85,85,0.7)' : d.mismatch > 25 ? 'rgba(240,168,68,0.7)' : 'rgba(76,175,110,0.7)',
+    }))
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: {
+        label: ctx => `${ctx.dataset.label}: ${ctx.raw.x}% hard claims, forest-loss score ${ctx.raw.y}`
+      }}
+    },
+    scales: {
+      x: { title: { display: true, text: 'claim strength score (% hard language)', color: '#7a9b7d' },
+           ticks: { color: '#7a9b7d', callback: v => v+'%' }, grid: { color: '#1f2e21' } },
+      y: { title: { display: true, text: 'forest-loss score (normalized ha/mill)', color: '#7a9b7d' },
+           ticks: { color: '#7a9b7d' }, grid: { color: '#1f2e21' } }
+    }
+  }
+});
+
+// Chart 5 — Stacked: forest remaining vs loss_pre2020 vs loss_post2020
+new Chart(document.getElementById('chart5'), {
+  type: 'bar',
+  data: {
+    labels: names,
+    datasets: [
+      {
+        label: 'Loss 2001–2020',
+        data: data.map(d => d.loss_total - d.loss_post2020),
+        backgroundColor: 'rgba(240,168,68,0.6)',
+      },
+      {
+        label: 'Loss post-2020 (EUDR window)',
+        data: data.map(d => d.loss_post2020),
+        backgroundColor: 'rgba(224,85,85,0.85)',
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#7a9b7d', font: { size: 11 } } } },
+    scales: {
+      x: { stacked: true, ticks: { color: '#e8f0e8', font: { size: 11 } }, grid: { color: '#1f2e21' } },
+      y: { stacked: true, ticks: { color: '#7a9b7d', font: { size: 11 },
+            callback: v => (v/1000).toFixed(0)+'K ha' }, grid: { color: '#1f2e21' } }
+    }
+  }
+});
+
+// Chart 6 — Wilmar year by year
+new Chart(document.getElementById('chart6'), {
+  type: 'bar',
+  data: {
+    labels: ['2021', '2022', '2023', '2024', '2025'],
+    datasets: [{
+      label: 'Forest loss (ha)',
+      data: [2025, 589, 1438, 1372, 1251],
+      backgroundColor: [RED, AMBER, RED, AMBER, AMBER],
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      annotation: {},
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} ha` } }
+    },
+    scales: {
+      x: { ticks: { color: '#7a9b7d' }, grid: { color: '#1f2e21' } },
+      y: { ticks: { color: '#7a9b7d', callback: v => v.toLocaleString() }, grid: { color: '#1f2e21' } }
+    }
+  }
+});
+
+// Chart 7 — mills count
+new Chart(document.getElementById('chart7'), {
+  type: 'doughnut',
+  data: {
+    labels: names,
+    datasets: [{
+      data: data.map(d => d.n_mills),
+      backgroundColor: [
+        '#4caf6e','#5bc47e','#6cd98e','#f0a844','#e88c2e',
+        '#e05555','#7ecde8','#5bb8d4','#9b7ecc','#cc9b7e','#7ecca0'
+      ],
+      borderWidth: 1, borderColor: '#0d1a0f'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#7a9b7d', font: { size: 11 }, padding: 8 } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw} mills` } }
+    }
+  }
+});
+
+// TABLE
+const tbody = document.getElementById('tableBody');
+const maxLoss = Math.max(...data.map(d => d.loss_post2020));
+const sorted = [...data].sort((a, b) => b.mismatch - a.mismatch);
+sorted.forEach((d, i) => {
+  const intensity = d.mismatch > 50 ? 'red' : d.mismatch > 25 ? 'amber' : '';
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td style="color:var(--muted);font-family:monospace">${i+1}</td>
+    <td><div class="company-name">${d.company}</div></td>
+    <td>${d.n_mills}</td>
+    <td>${d.claim_strength}%</td>
+    <td>
+      ${d.loss_post2020.toLocaleString()}
+      <div class="bar-mini" style="width:${(d.loss_post2020/maxLoss*100).toFixed(0)}%;background:${d.mismatch>50?'var(--red)':d.mismatch>25?'var(--amber)':'var(--green)'}"></div>
+    </td>
+    <td>${d.ha_per_mill.toLocaleString()}</td>
+    <td><span class="badge ${intensity}">${d.mismatch}</span></td>
+    <td>${d.low_coverage ? '<span class="badge amber">low (n&lt;5)</span>' : 'ok'}</td>
+  `;
+  tbody.appendChild(row);
+});
+</script>
+</body>
+</html>

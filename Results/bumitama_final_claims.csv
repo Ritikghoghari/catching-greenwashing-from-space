@@ -1,0 +1,23 @@
+claim,deforestation,traceability,ndpe,peat,deadline,strength,specificity,specificity_score
+"In partnership with local government authorities, we support restoration
+programmes covering up to 20,000 hectares of forest and peatland, enhance sustainable palm oil production, and improve
+the livelihoods of smallholders.",False,False,False,True,,soft,spec,0.7613872289657593
+"Since 2016, IDH and Bumitama have
+collaborated in several programmes, including conservation
+initiatives within Bumitama’s concessions, establishing the KEE
+with the government, and setting up and implementing the PPI
+Compact to achieve deforestation-free supply chains.",True,False,False,False,,hard,spec,0.5814718008041382
+"| Sustainability Report 2024 - 32 - PEAT CONSERVATION Our team is pursuing carbon certification for our methane
+capture and biocharcoal projects, which will quantify
+[GRI 2-23, 2-24, 3-3, 13.4.1, 13.4.2]
+emissions reductions and potentially generate verified
+Bumitama remains committed to a policy of zero new carbon credits.",False,False,False,True,,hard,spec,0.7473086714744568
+"monitor our annual GHG emissions, ensuring a consistent
+As of December 2024, our total peatland area stands at 9,171 application of the methodology across all operations,
+hectares, of which 8,089 hectares are planted (4.3% of our regardless of certification status.",False,False,False,True,,soft,spec,0.8883042335510254
+We aim to achieve 100% traceability to plantation by the end of 2026.,False,True,False,False,,soft,spec,0.8498300909996033
+"We monitor our suppliers’ adherence to our no-deforestation
+To support smallholders in overcoming these challenges,
+and peat development commitments through a satellite-
+we provide targeted assistance to help them achieve
+based monitoring system covering over 140,000 hectares.",True,False,False,True,,soft,spec,0.5425875186920166

@@ -1,0 +1,14 @@
+pdfplumber
+pandas
+numpy
+transformers
+torch
+sentencepiece
+accelerate
+geemap
+folium
+earthengine-api
+streamlit
+matplotlib
+requests
+tqdm

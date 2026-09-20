@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_b92bd26723315c3dbcea7db00dd17ddc {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_b92bd26723315c3dbcea7db00dd17ddc" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_b92bd26723315c3dbcea7db00dd17ddc = L.map(
+                "map_b92bd26723315c3dbcea7db00dd17ddc",
+                {
+                    center: [-1.13766, 122.33446],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 8,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_33a3da4db570d76037f9b53947ccec0b = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_33a3da4db570d76037f9b53947ccec0b.addTo(map_b92bd26723315c3dbcea7db00dd17ddc);
+        
+    
+            var tile_layer_3d6ebbda92d392c024cc9375d8b2072f = L.tileLayer(
+                "https://mt1.google.com/vt/lyrs=s\u0026x={x}\u0026y={y}\u0026z={z}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Satellite",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_3d6ebbda92d392c024cc9375d8b2072f.addTo(map_b92bd26723315c3dbcea7db00dd17ddc);
+        
+    
+            var tile_layer_08903a4470b65164fd25f50ef37752bb = L.tileLayer(
+                "https://earthengine.googleapis.com/v1/projects/thesis-greenwashing/maps/ddc6b62df350557d638dce57694b8d22-1b3aff3c45c87aefd7033c8d1628c3cc/tiles/{z}/{x}/{y}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Google Earth Engine",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_08903a4470b65164fd25f50ef37752bb.addTo(map_b92bd26723315c3dbcea7db00dd17ddc);
+        
+    
+            var marker_f01e9201bfa1ef269f546ec5507a70ce = L.marker(
+                [-6.58087, 146.64222],
+                {
+}
+            ).addTo(map_b92bd26723315c3dbcea7db00dd17ddc);
+        
+    
+        var popup_3a8c7c37231dd8fc2151fac1df3f985f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7ba09f1caefc6ce32ada806e23023a64 = $(`<div id="html_7ba09f1caefc6ce32ada806e23023a64" style="width: 100.0%; height: 100.0%;">ERAP / MARKHAM FAMRING  (-6.58087, 146.64222)</div>`)[0];
+                popup_3a8c7c37231dd8fc2151fac1df3f985f.setContent(html_7ba09f1caefc6ce32ada806e23023a64);
+            
+        
+
+        marker_f01e9201bfa1ef269f546ec5507a70ce.bindPopup(popup_3a8c7c37231dd8fc2151fac1df3f985f)
+        ;
+
+        
+    
+    
+            var marker_2e0de569c1cbb4be84222781294efa1d = L.marker(
+                [4.30555, 98.0267],
+                {
+}
+            ).addTo(map_b92bd26723315c3dbcea7db00dd17ddc);
+        
+    
+        var popup_f754413132ba917a319fbc3b88f10f1e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0ab22e45453507ac125970ee38bb4623 = $(`<div id="html_0ab22e45453507ac125970ee38bb4623" style="width: 100.0%; height: 100.0%;">TAMIANG POM (4.30555, 98.0267)</div>`)[0];
+                popup_f754413132ba917a319fbc3b88f10f1e.setContent(html_0ab22e45453507ac125970ee38bb4623);
+            
+        
+
+        marker_2e0de569c1cbb4be84222781294efa1d.bindPopup(popup_f754413132ba917a319fbc3b88f10f1e)
+        ;
+
+        
+    
+    
+            var layer_control_6d41faec39dd0ead4041dfd149233d96_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_33a3da4db570d76037f9b53947ccec0b,
+                    "Google Satellite" : tile_layer_3d6ebbda92d392c024cc9375d8b2072f,
+                },
+                overlays :  {
+                    "Forest cover / loss" : tile_layer_08903a4470b65164fd25f50ef37752bb,
+                },
+            };
+            let layer_control_6d41faec39dd0ead4041dfd149233d96 = L.control.layers(
+                layer_control_6d41faec39dd0ead4041dfd149233d96_layers.base_layers,
+                layer_control_6d41faec39dd0ead4041dfd149233d96_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_b92bd26723315c3dbcea7db00dd17ddc);
+
+        
+</script>
+</html>

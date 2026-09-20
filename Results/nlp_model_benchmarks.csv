@@ -1,0 +1,6 @@
+model,task,metric,value,test_data,source
+climatebert/environmental-claims,environmental claim detection (binary),F1,0.9,Stammbach et al. 2022 environmental-claims test split,"Stammbach et al. 2022, arXiv:2209.00507"
+climatebert/distilroberta-base-climate-specificity,claim specificity (specific vs non-specific),accuracy,0.87,ClimateBERT climate-specificity test split,"Bingler et al. 2022, Finance Research Letters 47"
+ProsusAI/finbert,financial sentiment (3-class),accuracy,0.86,Financial PhraseBank (Malo et al. 2014),"Araci 2019, arXiv:1908.10063"
+climatebert/distilroberta-base-climate-sentiment,climate sentiment (risk/neutral/opportunity),accuracy,0.84,ClimateBERT climate-sentiment test split,"Webersinke et al. 2022, arXiv:2110.12010"
+nbroad/ESG-BERT,ESG topic classification (26 SASB classes),accuracy,0.9,author's SASB-labelled sustainability-report corpus,nbroad/ESG-BERT model card

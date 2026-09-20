@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology + Literature Review — Catching Greenwashing from Space</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #f5f7f5;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #1a1a1a;
+}
+
+/* NAV TABS */
+.tabs {
+  display: flex;
+  background: #1a3c1f;
+  padding: 0 32px;
+  gap: 4px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.tab {
+  padding: 14px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  user-select: none;
+}
+.tab:hover { color: white; }
+.tab.active { color: white; border-bottom-color: #7ecb8a; }
+
+/* PAGES */
+.page { display: none; padding: 40px 32px 80px; max-width: 960px; margin: 0 auto; }
+.page.active { display: block; }
+
+/* PAGE TITLE */
+.page-title { text-align: center; margin-bottom: 36px; }
+.page-title h1 { font-size: 22px; font-weight: 700; color: #1a3c1f; margin-bottom: 6px; }
+.page-title p { font-size: 13px; color: #666; }
+.click-hint { text-align: center; font-size: 12px; color: #888; margin-bottom: 28px; }
+
+/* FLOWCHART SHAPES */
+.fc-wrap { position: relative; }
+
+.row { display: flex; justify-content: center; align-items: stretch; position: relative; z-index: 1; }
+
+.shape-oval {
+  background: #1a3c1f; color: white;
+  border-radius: 50px; padding: 10px 40px;
+  font-size: 14px; font-weight: 700;
+  text-align: center; min-width: 120px;
+}
+
+.shape-rect {
+  background: white; border: 2px solid #2e6b35;
+  border-radius: 6px; padding: 0;
+  min-width: 280px; max-width: 340px;
+  cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+.shape-rect:hover { border-color: #1a3c1f; box-shadow: 0 4px 16px rgba(46,107,53,0.15); transform: translateY(-1px); }
+.shape-rect.active { border-color: #1a3c1f; }
+
+.rect-header {
+  background: #1a3c1f; padding: 10px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.rect-badge {
+  background: rgba(255,255,255,0.2); color: white;
+  font-size: 10px; font-weight: 700; font-family: monospace;
+  padding: 2px 8px; border-radius: 10px; white-space: nowrap;
+}
+.rect-title { color: white; font-size: 13.5px; font-weight: 600; }
+
+.rect-body { padding: 10px 16px 12px; }
+.rect-body p { font-size: 12px; color: #555; line-height: 1.5; margin-bottom: 6px; }
+.rect-body p:last-child { margin-bottom: 0; }
+
+/* Paper tags on cards */
+.paper-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.ptag {
+  display: inline-block; font-family: monospace; font-size: 10px;
+  padding: 2px 7px; border-radius: 4px; border: 1px solid;
+  cursor: help;
+}
+.ptag.blue { background: #e8f4fd; color: #1565c0; border-color: #90caf9; }
+.ptag.green { background: #e8f5e9; color: #2e6b35; border-color: #a5d6a7; }
+.ptag.orange { background: #fff3e0; color: #e65100; border-color: #ffcc80; }
+.ptag.purple { background: #f3e5f5; color: #6a1b9a; border-color: #ce93d8; }
+
+/* Diamond */
+.diamond-wrap { display: flex; justify-content: center; align-items: center; padding: 10px 0; }
+.shape-diamond {
+  background: white; border: 2px solid #c0392b;
+  transform: rotate(45deg); width: 120px; height: 120px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+}
+.shape-diamond:hover { background: #fdf2f2; }
+.shape-diamond.active { background: #fdf2f2; }
+.diamond-text {
+  transform: rotate(-45deg); text-align: center;
+  font-size: 11.5px; font-weight: 600; color: #c0392b; line-height: 1.3; padding: 6px;
+}
+
+/* Side boxes */
+.row-sides {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+.side-left { display: flex; justify-content: flex-end; align-items: center; }
+.side-right { display: flex; justify-content: flex-start; align-items: center; }
+.side-box {
+  background: #fff8e1; border: 1.5px solid #f9a825;
+  border-radius: 6px; padding: 8px 12px;
+  font-size: 11.5px; font-weight: 600; color: #5d4037;
+  text-align: center; max-width: 130px; line-height: 1.4;
+}
+.side-line { width: 36px; height: 2px; background: #f9a825; flex-shrink: 0; }
+
+/* Arrow */
+.arrow-wrap {
+  display: flex; justify-content: center; align-items: center;
+  height: 32px; position: relative; z-index: 1;
+}
+
+/* Detail panel */
+.detail { display: none; margin: 4px auto 8px; max-width: 820px; }
+.detail.show { display: block; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+
+.detail-inner {
+  background: white; border: 1.5px solid #2e6b35;
+  border-left: 4px solid #2e6b35; border-radius: 6px; padding: 20px 24px;
+}
+.detail-inner.red { border-color: #c0392b; border-left-color: #c0392b; }
+
+.detail-inner h4 { font-size: 14px; color: #1a3c1f; margin-bottom: 10px; }
+.detail-inner.red h4 { color: #c0392b; }
+.detail-inner p { font-size: 13px; color: #444; line-height: 1.65; margin-bottom: 8px; }
+.detail-inner p:last-child { margin-bottom: 0; }
+.detail-inner strong { color: #1a1a1a; }
+
+.papers-used {
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px dashed #cde0ce;
+}
+.papers-used h5 {
+  font-size: 11px; font-family: monospace; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #888; margin-bottom: 8px;
+}
+.paper-ref {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin-bottom: 6px; font-size: 12px;
+}
+.paper-ref .num {
+  background: #1a3c1f; color: white; border-radius: 50%;
+  width: 18px; height: 18px; font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.paper-ref .num.red { background: #c0392b; }
+.paper-ref .num.amber { background: #f9a825; color: #333; }
+.paper-ref .num.blue { background: #1565c0; }
+.paper-ref .txt { color: #444; line-height: 1.5; }
+.paper-ref .txt strong { color: #1a1a1a; }
+
+/* Yes/No labels */
+.yes-label { text-align: center; font-size: 11px; font-weight: 700; color: #27ae60; margin: -4px 0 4px; }
+.no-row { display: flex; align-items: center; justify-content: center; height: 40px; position: relative; z-index: 1; }
+
+/* LEGEND */
+.legend {
+  display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+  margin: 36px auto 0; max-width: 820px;
+  font-size: 12px; color: #555;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-box { width: 14px; height: 14px; border-radius: 3px; border: 2px solid; }
+
+/* ============================================================
+   LITERATURE REVIEW PAGE
+   ============================================================ */
+.lit-section { margin-bottom: 48px; }
+.lit-section h2 {
+  font-size: 17px; font-weight: 700; color: #1a3c1f;
+  margin-bottom: 4px; padding-bottom: 8px;
+  border-bottom: 2px solid #2e6b35;
+}
+.lit-section > p { font-size: 13px; color: #666; margin: 8px 0 20px; }
+
+.paper-card {
+  background: white; border: 1px solid #dde8dd;
+  border-left: 4px solid #2e6b35; border-radius: 6px;
+  padding: 18px 20px; margin-bottom: 14px;
+  display: grid; grid-template-columns: 1fr auto; gap: 12px;
+}
+.paper-card.amber-card { border-left-color: #f9a825; }
+.paper-card.blue-card { border-left-color: #1565c0; }
+.paper-card.orange-card { border-left-color: #e65100; }
+.paper-card.purple-card { border-left-color: #6a1b9a; }
+
+.paper-card h3 { font-size: 13.5px; color: #1a3c1f; margin-bottom: 4px; }
+.paper-card .authors { font-size: 12px; color: #888; margin-bottom: 8px; font-style: italic; }
+.paper-card p { font-size: 13px; color: #444; line-height: 1.6; }
+.paper-card .used-in {
+  font-family: monospace; font-size: 10px;
+  background: #e8f5e9; color: #2e6b35;
+  padding: 3px 9px; border-radius: 4px;
+  white-space: nowrap; height: fit-content; align-self: start; margin-top: 2px;
+}
+.paper-card.amber-card .used-in { background: #fff3e0; color: #e65100; }
+.paper-card.blue-card .used-in { background: #e8f4fd; color: #1565c0; }
+.paper-card.orange-card .used-in { background: #fff3e0; color: #e65100; }
+.paper-card.purple-card .used-in { background: #f3e5f5; color: #6a1b9a; }
+
+.cite-table {
+  width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 20px;
+}
+.cite-table th {
+  text-align: left; padding: 8px 12px;
+  font-family: monospace; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.07em; color: #888; border-bottom: 1px solid #dde8dd;
+}
+.cite-table td { padding: 10px 12px; border-bottom: 1px solid #f0f5f0; vertical-align: top; }
+.cite-table td:first-child { color: #2e6b35; font-weight: 600; font-size: 12px; }
+
+.gap-box {
+  background: #e8f5e9; border: 1.5px solid #2e6b35;
+  border-radius: 8px; padding: 18px 22px; margin-top: 24px;
+}
+.gap-box h3 { font-size: 14px; color: #1a3c1f; margin-bottom: 8px; }
+.gap-box p { font-size: 13px; color: #444; line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="showPage('flowchart', this)">📊 Methodology Flowchart</div>
+  <div class="tab" onclick="showPage('literature', this)">📚 Literature Review</div>
+  <div class="tab" onclick="showPage('connection', this)">🔗 Papers → Methodology</div>
+</div>
+
+<!-- ============================================================
+     PAGE 1 — FLOWCHART
+     ============================================================ -->
+<div class="page active" id="flowchart">
+<div class="page-title">
+  <h1>Research Methodology — Step by Step</h1>
+  <p>Catching Greenwashing from Space · M.Sc. Data Science, AI &amp; Digital Business · GISMA 2026</p>
+</div>
+<p class="click-hint">👆 Click any step to see detailed explanation + which research papers justify it</p>
+
+<div class="fc-wrap">
+
+<!-- START -->
+<div class="row"><div class="shape-oval">START</div></div>
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- STEP 1 -->
+<div class="row">
+  <div class="shape-rect" onclick="toggle('d1',this)">
+    <div class="rect-header"><span class="rect-badge">STEP 1</span><span class="rect-title">Foundations &amp; Related Work</span></div>
+    <div class="rect-body">
+      <p>Background: palm oil supply chains, satellite remote sensing, transformer NLP, EUDR regulation. Related work: NLP for ESG, satellite deforestation monitoring, greenwashing detection.</p>
+      <div class="paper-tags">
+        <span class="ptag blue">Calamai 2025</span>
+        <span class="ptag green">Stammbach 2022</span>
+        <span class="ptag orange">Hansen 2013</span>
+        <span class="ptag purple">EUDR 2023</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail" id="d1">
+  <div class="detail-inner">
+    <h4>Step 1 — Foundations and Related Work (Chapters 2 &amp; 3)</h4>
+    <p>Chapter 2 (Foundations) establishes the background concepts: how palm oil mills operate and source fruit, how Hansen satellite data detects forest loss at 30 m resolution, how BERT-family models were adapted to climate text, and what EUDR requires. Chapter 3 (Related Work) reviews what has already been done and identifies the verification gap.</p>
+    <p><strong>Key finding from literature:</strong> No existing tool combines NLP claim extraction from sustainability reports with independent satellite verification for palm oil producers. Calamai et al. (2025) and Ong et al. (2025) both name this gap explicitly.</p>
+    <div class="papers-used">
+      <h5>Research papers used in this step</h5>
+      <div class="paper-ref"><div class="num blue">C</div><div class="txt"><strong>Calamai et al. (2025)</strong> arXiv:2502.07541 — Greenwashing NLP survey. Reviewed 61 papers, found that combining NLP with third-party evidence (satellite data) is rare and recommended. <em>Proves the research gap is real.</em></div></div>
+      <div class="paper-ref"><div class="num red">O</div><div class="txt"><strong>Ong et al. (2025)</strong> arXiv:2502.15821 — Shows existing ESG NLP models do not verify claims against reality. <em>Proves the novelty of this thesis.</em></div></div>
+      <div class="paper-ref"><div class="num amber">B</div><div class="txt"><strong>Bingler et al. (2022)</strong> — "Cheap Talk" — proved corporate climate language is systematically vague. <em>Motivates why claim specificity scoring is needed.</em></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- STEP 2 -->
+<div class="row">
+  <div class="shape-rect" onclick="toggle('d2',this)">
+    <div class="rect-header"><span class="rect-badge">STEP 2</span><span class="rect-title">Company Selection (Purposive Sampling)</span></div>
+    <div class="rect-body">
+      <p>11 largest palm oil producers selected — must have sustainability report + appear in UML. Verified via SPOTT.</p>
+      <div class="paper-tags">
+        <span class="ptag green">PalmWatch</span>
+        <span class="ptag orange">SPOTT / ZSL</span>
+        <span class="ptag purple">EUDR 2023</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail" id="d2">
+  <div class="detail-inner">
+    <h4>Step 2 — Company Selection</h4>
+    <p><strong>11 companies:</strong> GAR, SD Guthrie, Wilmar, KLK, Astra Agro, IOI, Musim Mas, Genting, First Resources, Bumitama, SIPEF.</p>
+    <p><strong>Why palm oil only:</strong> Only commodity with public verified mill-to-company attribution data (Universal Mill List). Soy and cocoa lack this — so those sectors cannot be studied with the same methodology.</p>
+    <p><strong>Why purposive, not random:</strong> Goal is to test the methodology on the most significant producers — not to make a statistically representative claim about the whole industry.</p>
+    <div class="papers-used">
+      <h5>Research papers used in this step</h5>
+      <div class="paper-ref"><div class="num green">P</div><div class="txt"><strong>PalmWatch methodology</strong> — Used the same approach of focusing on major producers with traceable mills. <em>Justifies the sample selection logic.</em></div></div>
+      <div class="paper-ref"><div class="num purple">E</div><div class="txt"><strong>EUDR (2023/1115)</strong> — Regulation covers palm oil specifically. Connecting the sample to real policy relevance.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- STEP 3 -->
+<div class="row">
+  <div class="shape-rect" onclick="toggle('d3',this)">
+    <div class="rect-header"><span class="rect-badge">STEP 3</span><span class="rect-title">Sustainability Report Collection (PDF)</span></div>
+    <div class="rect-body">
+      <p>Download annual NDPE / sustainability reports as PDFs. Parse text using pdfplumber. Clean with regex.</p>
+      <div class="paper-tags">
+        <span class="ptag blue">Glitter or Gold 2023</span>
+        <span class="ptag orange">SPOTT verified</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail" id="d3">
+  <div class="detail-inner">
+    <h4>Step 3 — PDF Report Collection</h4>
+    <p>Annual sustainability and NDPE reports downloaded directly from company websites. Verified against SPOTT for completeness and currency.</p>
+    <p><strong>Tool:</strong> pdfplumber (Python) — extracts text page by page. Regex cleaning applied to fix broken sentences from PDF column layouts.</p>
+    <p><strong>Challenge:</strong> PDFs are unstructured — tables, headers, and multi-column layouts break sentences. This is a known limitation of PDF-based NLP.</p>
+    <div class="papers-used">
+      <h5>Research papers used in this step</h5>
+      <div class="paper-ref"><div class="num blue">G</div><div class="txt"><strong>"Glitter or Gold?" (2023)</strong> arXiv:2310.05628 — showed LLMs can extract structured insights from sustainability reports if prompted carefully. <em>Justifies the PDF-to-NLP approach.</em></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- STEP 4 — with sides -->
+<div class="row-sides">
+  <div class="side-left"><div class="side-box">5 NLP models:<br/>claims · specificity<br/>sentiment · ESG</div><div class="side-line"></div></div>
+  <div class="shape-rect" onclick="toggle('d4',this)">
+    <div class="rect-header"><span class="rect-badge">STEP 4</span><span class="rect-title">NLP Claim Extraction (5 Models)</span></div>
+    <div class="rect-body">
+      <p>Detect environmental claims, score specificity (0-1), sentiment (FinBERT + ClimateBERT), ESG category (ESG-BERT). 403 enriched claims across 11 companies.</p>
+      <div class="paper-tags">
+        <span class="ptag green">Stammbach 2022</span>
+        <span class="ptag blue">Webersinke 2022</span>
+        <span class="ptag amber">Bingler 2022</span>
+        <span class="ptag purple">Araci 2019</span>
+      </div>
+    </div>
+  </div>
+  <div class="side-right"><div class="side-line"></div><div class="side-box">ClimateBERT<br/>FinBERT<br/>ESG-BERT</div></div>
+</div>
+
+<div class="detail" id="d4">
+  <div class="detail-inner">
+    <h4>Step 4 — NLP Claim Extraction (5 Models)</h4>
+    <p>Five ClimateBERT/BERT-family models run in sequence on every sentence from every sustainability report.</p>
+    <p><strong>Model 1 (Stammbach 2022):</strong> climatebert/environmental-claims — flags real environmental commitments vs general language.</p>
+    <p><strong>Model 2 (Webersinke 2022):</strong> climate-specificity — scores each claim 0–1. Near 1.0 = measurable, dated, checkable. Near 0 = vague aspiration.</p>
+    <p><strong>Model 3 (Araci 2019):</strong> ProsusAI/finbert — financial sentiment (positive/neutral/negative). Feeds directly into the mismatch score as sentiment_score.</p>
+    <p><strong>Model 4:</strong> climatebert/distilroberta-base-climate-sentiment — climate framing (risk/neutral/opportunity). Used as comparison signal.</p>
+    <p><strong>Model 5:</strong> nbroad/ESG-BERT — classifies each claim into SASB ESG category.</p>
+    <p><strong>Result:</strong> 403 enriched claims (claims_enriched.csv) across 11 companies. FinBERT and climate-sentiment agree on only 53% of claims (κ=0.078) — they measure different things; FinBERT used in the mismatch formula, climate-sentiment reported separately.</p>
+    <div class="papers-used">
+      <h5>Research papers used in this step</h5>
+      <div class="paper-ref"><div class="num green">S</div><div class="txt"><strong>Stammbach et al. (2022)</strong> arXiv:2209.00507 — built the environmental-claims dataset and model.</div></div>
+      <div class="paper-ref"><div class="num blue">W</div><div class="txt"><strong>Webersinke et al. (2022)</strong> arXiv:2110.12010 — ClimateBERT base model for all climate classifiers.</div></div>
+      <div class="paper-ref"><div class="num amber">B</div><div class="txt"><strong>Bingler et al. (2022)</strong> — "cheap talk" distinction motivates why specificity scoring matters.</div></div>
+      <div class="paper-ref"><div class="num blue">A</div><div class="txt"><strong>Araci (2019)</strong> arXiv:1908.10063 — FinBERT financial sentiment model used for sentiment_score in the mismatch formula.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- STEP 5 — with sides -->
+<div class="row-sides">
+  <div class="side-left"><div class="side-box">Universal Mill List<br/>(Rainforest Alliance)</div><div class="side-line"></div></div>
+  <div class="shape-rect" onclick="toggle('d5',this)">
+    <div class="rect-header"><span class="rect-badge">STEP 5</span><span class="rect-title">Mill Location Matching (UML)</span></div>
+    <div class="rect-body">
+      <p>Match each company to GPS coordinates via UML. Search Group Name + Parent Company columns. 290 mills matched across 11 companies.</p>
+      <div class="paper-tags">
+        <span class="ptag green">PalmWatch method</span>
+        <span class="ptag orange">UML Jan 2026</span>
+      </div>
+    </div>
+  </div>
+  <div class="side-right"><div class="side-line"></div><div class="side-box">290 mills<br/>GPS coordinates</div></div>
+</div>
+
+<div class="detail" id="d5">
+  <div class="detail-inner">
+    <h4>Step 5 — Mill Location Matching</h4>
+    <p>Universal Mill List (Rainforest Alliance / Global Forest Watch, Jan 2026) — 2,386 mills globally with GPS coordinates.</p>
+    <p><strong>Three matching bugs found and fixed across development:</strong></p>
+    <p>1. Initial code searched only the Group Name column. Many companies list mills under Parent Company instead. SD Guthrie: 2 mills → 42 mills after searching both columns.</p>
+    <p>2. GAR's UML Group Name is "SINAR MAS" (operating subsidiary). GAR: 3 mills → 50 after fixing the keyword.</p>
+    <p>3. ~95 UML rows use a non-breaking space character inside Group Name, which a literal-space keyword silently failed to match. All companies reprocessed after normalizing whitespace.</p>
+    <p><strong>Final verified count: 290 mills across 11 companies</strong> (GAR 50, SD Guthrie 42, Wilmar 45, KLK 30, Astra Agro 34, IOI 15, Musim Mas 18, Genting 15, First Resources 16, Bumitama 14, SIPEF 11).</p>
+    <div class="papers-used">
+      <h5>Research papers used in this step</h5>
+      <div class="paper-ref"><div class="num green">P</div><div class="txt"><strong>PalmWatch methodology</strong> — uses the same UML + mill catchment approach. <em>Justifies using UML as the source of mill locations and 10 km catchment as the standard.</em></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- STEP 6 — with sides -->
+<div class="row-sides">
+  <div class="side-left"><div class="side-box">10 km buffer<br/>per mill</div><div class="side-line"></div></div>
+  <div class="shape-rect" onclick="toggle('d6',this)">
+    <div class="rect-header"><span class="rect-badge">STEP 6</span><span class="rect-title">Satellite Forest Loss Analysis</span></div>
+    <div class="rect-body">
+      <p>Google Earth Engine + Hansen GFC v1.13. lossyear ≥ 21 = post-2020 only. 890,168 ha post-2020 loss across 290 mills.</p>
+      <div class="paper-tags">
+        <span class="ptag orange">Hansen 2013</span>
+        <span class="ptag purple">EUDR cutoff 2020</span>
+        <span class="ptag green">PalmWatch proxy</span>
+      </div>
+    </div>
+  </div>
+  <div class="side-right"><div class="side-line"></div><div class="side-box">Hansen GFC v1.13<br/>lossyear ≥ 21</div></div>
+</div>
+
+<div class="detail" id="d6">
+  <div class="detail-inner">
+    <h4>Step 6 — Satellite Forest Loss Analysis</h4>
+    <p>For each of the 290 mills, a 10 km circle is drawn. Hansen data measures how much forest inside that circle was cleared after 31 December 2020 (lossyear ≥ 21).</p>
+    <p><strong>Why 10 km:</strong> PalmWatch standard — fresh fruit bunch typically travels within 10 km of a mill. Buffer sensitivity analysis run at 5–30 km (Results/buffer_sensitivity.csv); ranking is stable.</p>
+    <p><strong>Why post-2020:</strong> EUDR cutoff is 31 December 2020.</p>
+    <p><strong>Result: 890,168 ha post-2020 loss across 11 companies, 290 mills.</strong> Every single mill shows measurable loss — minimum 105 ha. IOI highest intensity at 4,959 ha/mill. GAR highest total at 171,236 ha.</p>
+    <p><strong>Cross-validation:</strong> RADD SAR alerts (Wageningen) provided independent detection cross-check. Descals et al. (2021) oil palm overlay confirmed 56.0% of post-2020 loss near mills is oil palm land cover.</p>
+    <div class="papers-used">
+      <h5>Research papers used in this step</h5>
+      <div class="paper-ref"><div class="num orange">H</div><div class="txt"><strong>Hansen et al. (2013)</strong> Science 342(6160) — the global forest-loss dataset. <em>Cite for every forest-loss figure.</em></div></div>
+      <div class="paper-ref"><div class="num purple">E</div><div class="txt"><strong>EUDR (Regulation EU 2023/1115)</strong> — sets the 31 December 2020 cutoff.</div></div>
+      <div class="paper-ref"><div class="num green">P</div><div class="txt"><strong>PalmWatch methodology</strong> — same mill catchment proxy method, same attribution limitation.</div></div>
+      <div class="paper-ref"><div class="num green">D</div><div class="txt"><strong>Descals et al. (2021)</strong> Earth System Science Data — 10 m global oil palm map used for land-cover overlay. <em>56.0% of cleared land near mills is oil palm.</em></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- STEP 7 -->
+<div class="row">
+  <div class="shape-rect" onclick="toggle('d7',this)">
+    <div class="rect-header"><span class="rect-badge">STEP 7</span><span class="rect-title">Mismatch Scoring (0–100)</span></div>
+    <div class="rect-body">
+      <p>Score = 0.35 × Forest Loss + 0.35 × Claim Specificity + 0.15 × Sentiment + 0.15 × Spatial Match. Normalised per forest-2000 baseline. Weights sum = 1.0.</p>
+      <div class="paper-tags">
+        <span class="ptag blue">Calamai 2025</span>
+        <span class="ptag green">Stammbach 2022</span>
+        <span class="ptag orange">Hansen 2013</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail" id="d7">
+  <div class="detail-inner">
+    <h4>Step 7 — Mismatch Scoring (Canonical Formula)</h4>
+    <p><strong>Formula (professor-approved, weights sum to 1.0):</strong></p>
+    <p>Score = 0.35 × Forest Loss (normalised 0–100) + 0.35 × Claim Specificity (0–100) + 0.15 × Sentiment Positive (0–100) + 0.15 × Spatial Match (% mills above median loss)</p>
+    <p><strong>Forest loss normalised as % of year-2000 forest</strong> — not raw hectares — so companies with more mills are not penalised for size.</p>
+    <p><strong>High score = greenwashing signal:</strong> Strong, specific, confident claims + heavy post-2020 clearing.</p>
+    <p><strong>Final ranking (top 3):</strong> KLK 65.6, GAR 63.1, Musim Mas 56.2. Lowest: Astra Agro 17.6 (not because its loss is small — 87,198 ha — but because its claims are few and vague, giving the method little to contradict).</p>
+    <div class="papers-used">
+      <h5>Research papers used in this step</h5>
+      <div class="paper-ref"><div class="num blue">C</div><div class="txt"><strong>Calamai et al. (2025)</strong> — recommends "decomposed pipelines" that combine text and third-party evidence. The scoring formula is exactly this design.</div></div>
+      <div class="paper-ref"><div class="num green">S</div><div class="txt"><strong>Stammbach (2022) + Webersinke (2022)</strong> — provide the specificity score component.</div></div>
+      <div class="paper-ref"><div class="num amber">A</div><div class="txt"><strong>Araci (2019) FinBERT</strong> — provides the sentiment_positive component.</div></div>
+      <div class="paper-ref"><div class="num orange">H</div><div class="txt"><strong>Hansen (2013)</strong> — provides the forest loss component.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- DIAMOND — Validation -->
+<div class="diamond-wrap">
+  <div class="shape-diamond" onclick="toggle('d8',this)">
+    <div class="diamond-text">Is the score<br/>valid?<br/>Validation</div>
+  </div>
+</div>
+
+<div class="detail" id="d8">
+  <div class="detail-inner red">
+    <h4>Validation — Is the Score Valid? (4 Cross-Checks)</h4>
+    <p><strong>No labelled ground truth exists</strong> — supervised classification is not possible. Four validation approaches:</p>
+    <p><strong>1. NLP gold-label evaluation:</strong> 150 claims manually annotated (Results/nlp_gold_labeled.csv). NLP model comparison across 4 models (Results/nlp_model_comparison.csv). Error rate reported.</p>
+    <p><strong>2. RADD SAR cross-validation:</strong> Independent SAR-based deforestation alert system (Wageningen). Results in Results/radd_validation_summary.csv. Note: RADD tile coverage lower in Sabah; Hansen optical record remains authoritative.</p>
+    <p><strong>3. Descals oil palm overlay:</strong> 56.0% of post-2020 cleared land near mills is confirmed oil palm (Descals 2021). Range: IOI 89.8% to Bumitama 16.6%.</p>
+    <p><strong>4. Prithvi-EO-2.0 foundation model:</strong> IBM-NASA geospatial foundation model evaluated across all 290 mills (Results/prithvi_batch_290.csv). Mean Spearman ρ=0.172 with Hansen loss. Confirms directional agreement. IoU=0.086 (frozen, zero-shot — fine-tuning would improve).</p>
+    <p><strong>Buffer sensitivity:</strong> Scores recomputed at 5, 10, 15, 20, 25, 30 km. Ranking is stable (Results/buffer_sensitivity.csv).</p>
+    <div class="papers-used">
+      <h5>Research papers used in this step</h5>
+      <div class="paper-ref"><div class="num blue">C</div><div class="txt"><strong>Calamai (2025)</strong> — recommends using verified third-party records for validation.</div></div>
+      <div class="paper-ref"><div class="num green">D</div><div class="txt"><strong>Descals et al. (2021)</strong> — oil palm map used for land-cover confirmation overlay.</div></div>
+      <div class="paper-ref"><div class="num blue">J</div><div class="txt"><strong>Jakubik et al. (2023)</strong> arXiv:2310.18660 — Prithvi-EO-2.0 IBM-NASA foundation model.</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="no-row">
+  <span style="font-size:11px;font-weight:700;color:#c0392b;margin-right:6px">No — revise</span>
+  <svg width="200" height="40" viewBox="0 0 200 40" style="overflow:visible">
+    <path d="M100,0 L100,18 L200,18 L200,-90" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#ra)"/>
+    <defs><marker id="ra" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker></defs>
+  </svg>
+</div>
+<div class="yes-label">Yes — proceed</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- STEP 8 -->
+<div class="row">
+  <div class="shape-rect" onclick="toggle('d9',this)">
+    <div class="rect-header"><span class="rect-badge">STEP 8</span><span class="rect-title">Evaluation and Results</span></div>
+    <div class="rect-body">
+      <p>Mismatch scores, charts, case studies (GAR, IOI, SIPEF), 290 Sentinel-2 clearing maps (300 DPI), scatter plots, year-by-year breakdown, interpretation including Astra Agro blind spot.</p>
+      <div class="paper-tags">
+        <span class="ptag green">master_scores.csv</span>
+        <span class="ptag blue">master_forest_loss.csv</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail" id="d9">
+  <div class="detail-inner">
+    <h4>Step 8 — Evaluation and Results (Chapter 5)</h4>
+    <p><strong>Satellite findings:</strong> 890,168 ha post-2020 loss across 11 companies, 290 mills (Hansen et al., 2013). Every mill shows loss. IOI highest intensity (4,959 ha/mill, 15 mills, 19.04%). GAR highest total (171,236 ha, 50 mills). SIPEF lowest (27,341 ha).</p>
+    <p><strong>Mismatch ranking:</strong> KLK 65.6 (1st), GAR 63.1 (2nd), Astra Agro 17.6 (11th — structural blind spot: 87,198 ha loss but near-zero claim specificity).</p>
+    <p><strong>290 Sentinel-2 clearing maps</strong> generated at 300 DPI in Results/satellite_images/clearing_maps/.</p>
+    <p><strong>Descals overlay:</strong> 56.0% of cleared land near mills confirmed as oil palm (IOI 89.8%, Bumitama 16.6%).</p>
+    <p><strong>Prithvi cross-validation:</strong> Mean ρ=0.172 across 290 mills — directional agreement with Hansen, confirms geospatial foundation models as a useful cross-check.</p>
+  </div>
+</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<!-- STEP 9 -->
+<div class="row">
+  <div class="shape-rect" onclick="toggle('d10',this)">
+    <div class="rect-header"><span class="rect-badge">STEP 9</span><span class="rect-title">Thesis Writing and Submission</span></div>
+    <div class="rect-body">
+      <p>~18,750 words. CDS structure: Introduction → Foundations → Related Work → Approach → Evaluation and Results → Conclusion. Deadline: 26 September 2026.</p>
+      <div class="paper-tags">
+        <span class="ptag green">September 2026</span>
+        <span class="ptag blue">Secondary data only</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="detail" id="d10">
+  <div class="detail-inner">
+    <h4>Step 9 — Thesis Writing and Submission</h4>
+    <p><strong>Target:</strong> ~18,750 words (M599 CDS requirement: 16,000 words minimum). Submission deadline: 26 September 2026.</p>
+    <p><strong>Chapter structure (CDS M599 compliant):</strong></p>
+    <p>Ch 1: Introduction (RQ1, RQ2, RQ3) | Ch 2: Foundations (palm oil, satellite RS, transformer NLP, EUDR) | Ch 3: Related Work | Ch 4: Approach (the pipeline) | Ch 5: Evaluation and Results | Ch 6: Conclusion (with Limitations and Future Work)</p>
+    <p><strong>Key limitation stated honestly:</strong> Attribution — loss near a mill ≠ caused by that company. Same as PalmWatch limitation. Measuring correspondence, not causation.</p>
+    <p><strong>Reproducibility:</strong> All sources public. All processing scripted. 23 pytest regression tests passing. Fully reproducible.</p>
+    <p><strong>Remaining actions:</strong> Upload latex/thesis_latex.zip to Overleaf, compile PDF, send to supervisor Prof. Hoseini.</p>
+  </div>
+</div>
+
+<div class="arrow-wrap"><svg width="20" height="32" viewBox="0 0 20 32"><line x1="10" y1="0" x2="10" y2="24" stroke="#6a9b6d" stroke-width="2"/><polygon points="10,32 4,20 16,20" fill="#6a9b6d"/></svg></div>
+
+<div class="row"><div class="shape-oval">END</div></div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-box" style="background:#1a3c1f;border-color:#1a3c1f"></div>Start / End</div>
+  <div class="legend-item"><div class="legend-box" style="background:white;border-color:#2e6b35"></div>Process Step</div>
+  <div class="legend-item"><div class="legend-box" style="background:white;border-color:#c0392b"></div>Decision</div>
+  <div class="legend-item"><div class="legend-box" style="background:#fff8e1;border-color:#f9a825"></div>Input / Data</div>
+  <div class="legend-item"><span class="ptag blue">Paper tag</span> = Research paper justification</div>
+</div>
+</div>
+</div>
+
+<!-- ============================================================
+     PAGE 2 — LITERATURE REVIEW
+     ============================================================ -->
+<div class="page" id="literature">
+
+<div class="page-title">
+  <h1>Literature Review</h1>
+  <p>Research papers reviewed and how they relate to this thesis</p>
+</div>
+
+<div class="lit-section">
+  <h2>Foundational Papers — the pipeline runs on these</h2>
+  <p>These are not "selected" — they are load-bearing. The thesis cannot be described without them.</p>
+
+  <div class="paper-card">
+    <div>
+      <h3>Stammbach et al. (2022) — A Dataset for Detecting Real-World Environmental Claims</h3>
+      <div class="authors">arXiv:2209.00507</div>
+      <p><strong>What it does:</strong> Built a labeled dataset of real corporate environmental claims and trained a classifier on it. The model — climatebert/environmental-claims — is publicly available.</p>
+      <p><strong>How it connects:</strong> This IS the NLP model used in Layer 1. Every claim detection in this thesis depends on this paper. Cite every time the NLP pipeline is mentioned.</p>
+    </div>
+    <div class="used-in">Layer 1 · Claim Detection</div>
+  </div>
+
+  <div class="paper-card">
+    <div>
+      <h3>Webersinke, Kraus, Bingler &amp; Leippold (2022) — ClimateBERT: A Pretrained Language Model for Climate-Related Text</h3>
+      <div class="authors">arXiv:2110.12010</div>
+      <p><strong>What it does:</strong> Fine-tuned BERT on climate documents (IPCC reports, sustainability filings, climate news). Result: ClimateBERT — a model family that understands climate language far better than general models.</p>
+      <p><strong>How it connects:</strong> Both classifiers used (environmental-claims and climate-specificity) are built on ClimateBERT. This is the base model. Cite when explaining why ClimateBERT models were chosen over general-purpose models.</p>
+    </div>
+    <div class="used-in">Layer 1 · Model Base</div>
+  </div>
+
+  <div class="paper-card">
+    <div>
+      <h3>Araci (2019) — FinBERT: Financial Sentiment Analysis with Pre-trained Language Models</h3>
+      <div class="authors">arXiv:1908.10063</div>
+      <p><strong>What it does:</strong> Fine-tuned BERT on financial news corpus. ProsusAI/finbert is the public model. Classifies text as positive/neutral/negative with high accuracy on financial language.</p>
+      <p><strong>How it connects:</strong> FinBERT's positive-sentiment score is the sentiment_score component of the mismatch formula (weight 0.15). Cite when explaining how sentiment enters the score.</p>
+    </div>
+    <div class="used-in">Layer 1 · Sentiment</div>
+  </div>
+
+  <div class="paper-card orange-card">
+    <div>
+      <h3>Hansen et al. (2013) — High-Resolution Global Maps of 21st-Century Forest Cover Change</h3>
+      <div class="authors">Science, 342(6160), 850–853 · 12,000+ citations</div>
+      <p><strong>What it does:</strong> Maps every 30×30 m pixel of forest loss on Earth from 2001 onwards, updated annually. Now at v1.13 (2025).</p>
+      <p><strong>How it connects:</strong> Every forest-loss figure in this thesis comes from this dataset. Cite for every number — 890,168 ha, 127,606 ha (Wilmar), 6,675 ha (Sabahmas mill) — all from Hansen et al. (2013).</p>
+    </div>
+    <div class="used-in" style="background:#fff3e0;color:#e65100">Layer 2 · Satellite Data</div>
+  </div>
+
+  <div class="paper-card purple-card">
+    <div>
+      <h3>EUDR — Regulation (EU) 2023/1115</h3>
+      <div class="authors">EU Official Journal · In force December 2026 for large operators</div>
+      <p><strong>What it does:</strong> Requires palm oil (and 6 other commodities) entering the EU market to be deforestation-free after 31 December 2020, proven with GPS-level data.</p>
+      <p><strong>How it connects:</strong> Justifies the entire post-2020 analysis window (lossyear ≥ 21). Gives the thesis direct policy relevance. Cite when explaining why 2020 was chosen as the cutoff.</p>
+    </div>
+    <div class="used-in" style="background:#f3e5f5;color:#6a1b9a">Policy · Cutoff Date</div>
+  </div>
+
+  <div class="paper-card">
+    <div>
+      <h3>PalmWatch Methodology (Inclusive Development International + U. Chicago)</h3>
+      <div class="authors">palmwatch.inclusivedevelopment.net/about</div>
+      <p><strong>What it does:</strong> Attributes deforestation footprints to consumer brands using mill catchment buffers (10 km) + Hansen data + UML. Publicly documented.</p>
+      <p><strong>How it connects:</strong> This thesis uses the same method but points it at producers not brands, and adds NLP. PalmWatch justifies the 10 km buffer, the UML as a source, and the attribution limitation.</p>
+    </div>
+    <div class="used-in">Layer 2 · Method</div>
+  </div>
+
+  <div class="paper-card orange-card">
+    <div>
+      <h3>Descals et al. (2021) — High-resolution global map of smallholder and industrial closed-canopy oil palm plantations</h3>
+      <div class="authors">Earth System Science Data, 13(3), 1211–1231</div>
+      <p><strong>What it does:</strong> Provides a 10 m global oil palm land-cover map for 2019, distinguishing industrial from smallholder plantations.</p>
+      <p><strong>How it connects:</strong> Used to overlay post-2020 forest loss near mills. Result: 56.0% of cleared land near mills is confirmed oil palm. IOI highest (89.8%), Bumitama lowest (16.6%). Addresses the attribution gap — confirms land use type after clearing.</p>
+    </div>
+    <div class="used-in" style="background:#fff3e0;color:#e65100">Layer 2 · Validation</div>
+  </div>
+</div>
+
+<div class="lit-section">
+  <h2>Recent Papers — justify how the components are assembled</h2>
+  <p>These were selected: one per pillar of the design — NLP method, verification gap, regulatory context.</p>
+
+  <div class="paper-card blue-card">
+    <div>
+      <h3>Calamai et al. (2025) — Detecting Greenwashing: A Natural Language Processing Literature Survey</h3>
+      <div class="authors">arXiv:2502.07541 (v2, January 2025) · 61 papers reviewed</div>
+      <p><strong>What it does:</strong> First comprehensive survey of NLP approaches for greenwashing detection. Finds the field is fragmented. Recommends combining third-party evidence (like satellite data) with NLP, and using decomposed pipelines rather than black-box systems.</p>
+      <p><strong>How it connects:</strong> <strong>Independently recommends exactly this thesis design.</strong> Satellite data = third-party evidence. The 4-layer pipeline = decomposed pipeline. Use in Related Work to prove the research gap and justify the methodology.</p>
+    </div>
+    <div class="used-in" style="background:#e8f4fd;color:#1565c0">Lit Review · Novelty</div>
+  </div>
+
+  <div class="paper-card blue-card">
+    <div>
+      <h3>Ong et al. (2025) — Towards Robust ESG Analysis Against Greenwashing Risks</h3>
+      <div class="authors">ACL 2025 (main conference) · arXiv:2502.15821</div>
+      <p><strong>What it does:</strong> Shows that existing ESG NLP approaches — including Stammbach's model — do not account for how greenwashing distorts the results. Claim extraction alone is not verification.</p>
+      <p><strong>How it connects:</strong> Proves the novelty of this thesis. Stammbach detects claims. This thesis verifies them against satellite data. Ong confirms that verification step is missing from prior work.</p>
+    </div>
+    <div class="used-in" style="background:#e8f4fd;color:#1565c0">Lit Review · Novelty</div>
+  </div>
+
+  <div class="paper-card amber-card">
+    <div>
+      <h3>Bingler et al. (2022) — Cheap Talk and Cherry-Picking</h3>
+      <div class="authors">Ecological Economics · ClimateBERT applied to 14,584 corporate reports</div>
+      <p><strong>What it does:</strong> Proves that corporate climate language is systematically vague. Companies use non-committal language that requires nothing of them. Only companies under investor/regulator pressure use specific language.</p>
+      <p><strong>How it connects:</strong> Motivates why the specificity score matters — soft claims should not be treated the same as hard ones. When Wilmar shows 4 scored claims, Bingler explains why that pattern exists across the whole industry.</p>
+    </div>
+    <div class="used-in">NLP · Motivation</div>
+  </div>
+
+  <div class="gap-box">
+    <h3>The Research Gap — what no paper has done before</h3>
+    <p>Every paper above does either NLP on corporate text OR satellite deforestation monitoring. No paper combines both to verify each producer's own stated commitments against independent satellite evidence and produce a per-company mismatch score. Calamai (2025) confirms this gap. Ong (2025) confirms verification is missing. This thesis fills that gap specifically for palm oil, using the EUDR compliance window as the measurement frame. Across 290 mills and 11 companies, 890,168 ha of post-2020 forest loss was measured — against claims of zero deforestation.</p>
+  </div>
+</div>
+</div>
+
+<!-- ============================================================
+     PAGE 3 — PAPERS TO METHODOLOGY CONNECTION
+     ============================================================ -->
+<div class="page" id="connection">
+
+<div class="page-title">
+  <h1>Research Papers → Methodology Connection</h1>
+  <p>Quick reference: which paper to cite, and where in the thesis</p>
+</div>
+
+<div class="lit-section">
+  <h2>Citation Reference Table</h2>
+  <p>Use this when writing. Every claim in the thesis needs a paper behind it.</p>
+
+  <table class="cite-table">
+    <thead>
+      <tr>
+        <th>When writing about…</th>
+        <th>Cite this paper</th>
+        <th>Because…</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>NLP claim detection model</td><td>Stammbach et al. (2022) arXiv:2209.00507</td><td>The model itself comes from this paper</td></tr>
+      <tr><td>Why ClimateBERT models were chosen</td><td>Webersinke et al. (2022) arXiv:2110.12010</td><td>ClimateBERT understands climate text better than general BERT</td></tr>
+      <tr><td>Sentiment score in mismatch formula</td><td>Araci (2019) arXiv:1908.10063</td><td>FinBERT model used for sentiment_score component</td></tr>
+      <tr><td>ESG category classification</td><td>Broad (2021) nbroad/ESG-BERT</td><td>ESG-BERT model used for esg_category per claim</td></tr>
+      <tr><td>Every forest-loss number</td><td>Hansen et al. (2013) Science 342(6160)</td><td>All numbers come from this dataset</td></tr>
+      <tr><td>Why post-2020 loss was chosen</td><td>EUDR Regulation (EU) 2023/1115</td><td>31 Dec 2020 is the legal cutoff date</td></tr>
+      <tr><td>10 km buffer choice</td><td>PalmWatch methodology</td><td>Standard catchment radius, already peer-reviewed</td></tr>
+      <tr><td>Attribution limitation</td><td>PalmWatch methodology</td><td>Same limitation, already documented</td></tr>
+      <tr><td>Oil palm land-cover overlay</td><td>Descals et al. (2021) ESSD 13(3)</td><td>10 m global oil palm map; 56.0% of cleared land confirmed oil palm</td></tr>
+      <tr><td>Research gap and novelty</td><td>Calamai et al. (2025) arXiv:2502.07541</td><td>Survey confirms the gap; recommends this design</td></tr>
+      <tr><td>Why claim extraction alone is not enough</td><td>Ong et al. (2025) arXiv:2502.15821</td><td>Proves verification step is missing from prior work</td></tr>
+      <tr><td>Why hard vs soft claim matters</td><td>Bingler et al. (2022)</td><td>Corporate climate language is systematically vague</td></tr>
+      <tr><td>PDF extraction approach</td><td>"Glitter or Gold?" (2023) arXiv:2310.05628</td><td>LLMs can extract structured data from sustainability reports</td></tr>
+      <tr><td>Scoring formula design</td><td>Calamai (2025) + Hansen (2013) + Stammbach (2022)</td><td>Decomposed pipeline combining text + satellite</td></tr>
+      <tr><td>Geospatial foundation model (Prithvi)</td><td>Jakubik et al. (2023) arXiv:2310.18660</td><td>IBM-NASA Prithvi-EO-2.0 used for cross-validation</td></tr>
+      <tr><td>Transformer architecture background</td><td>Vaswani et al. (2017) NeurIPS</td><td>Attention mechanism underlying all BERT-family models</td></tr>
+      <tr><td>BERT pre-training</td><td>Devlin et al. (2019) NAACL</td><td>Original BERT model that ClimateBERT/FinBERT build on</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="lit-section" style="margin-top:36px">
+  <h2>Which Paper = Which Layer</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px">
+    <div style="background:white;border:2px solid #2e6b35;border-radius:8px;padding:18px">
+      <div style="font-family:monospace;font-size:11px;color:#2e6b35;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Layer 1 — NLP Claims</div>
+      <div class="paper-ref" style="margin-bottom:8px"><div class="num green" style="min-width:18px">S</div><div class="txt" style="font-size:12px"><strong>Stammbach (2022)</strong> — the model</div></div>
+      <div class="paper-ref" style="margin-bottom:8px"><div class="num blue" style="min-width:18px">W</div><div class="txt" style="font-size:12px"><strong>Webersinke (2022)</strong> — the base</div></div>
+      <div class="paper-ref" style="margin-bottom:8px"><div class="num amber" style="min-width:18px">B</div><div class="txt" style="font-size:12px"><strong>Bingler (2022)</strong> — motivation</div></div>
+      <div class="paper-ref"><div class="num blue" style="min-width:18px">A</div><div class="txt" style="font-size:12px"><strong>Araci (2019)</strong> — sentiment</div></div>
+    </div>
+    <div style="background:white;border:2px solid #f9a825;border-radius:8px;padding:18px">
+      <div style="font-family:monospace;font-size:11px;color:#e65100;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Layer 2 — Satellite</div>
+      <div class="paper-ref" style="margin-bottom:8px"><div class="num orange" style="min-width:18px">H</div><div class="txt" style="font-size:12px"><strong>Hansen (2013)</strong> — the data</div></div>
+      <div class="paper-ref" style="margin-bottom:8px"><div class="num purple" style="min-width:18px">E</div><div class="txt" style="font-size:12px"><strong>EUDR (2023)</strong> — the cutoff</div></div>
+      <div class="paper-ref" style="margin-bottom:8px"><div class="num green" style="min-width:18px">P</div><div class="txt" style="font-size:12px"><strong>PalmWatch</strong> — the method</div></div>
+      <div class="paper-ref"><div class="num green" style="min-width:18px">D</div><div class="txt" style="font-size:12px"><strong>Descals (2021)</strong> — overlay</div></div>
+    </div>
+    <div style="background:white;border:2px solid #1565c0;border-radius:8px;padding:18px">
+      <div style="font-family:monospace;font-size:11px;color:#1565c0;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Justification</div>
+      <div class="paper-ref" style="margin-bottom:8px"><div class="num blue" style="min-width:18px">C</div><div class="txt" style="font-size:12px"><strong>Calamai (2025)</strong> — gap + design</div></div>
+      <div class="paper-ref" style="margin-bottom:8px"><div class="num red" style="min-width:18px">O</div><div class="txt" style="font-size:12px"><strong>Ong (2025)</strong> — novelty</div></div>
+      <div class="paper-ref" style="margin-bottom:8px"><div class="num blue" style="min-width:18px">G</div><div class="txt" style="font-size:12px"><strong>Glitter/Gold (2023)</strong> — PDF</div></div>
+      <div class="paper-ref"><div class="num blue" style="min-width:18px">J</div><div class="txt" style="font-size:12px"><strong>Jakubik (2023)</strong> — Prithvi</div></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function toggle(id, el) {
+  const panel = document.getElementById(id);
+  const all = document.querySelectorAll('.detail');
+  const allBtns = document.querySelectorAll('.shape-rect, .shape-diamond');
+  const isOpen = panel.classList.contains('show');
+  all.forEach(p => p.classList.remove('show'));
+  allBtns.forEach(b => b.classList.remove('active'));
+  if (!isOpen) {
+    panel.classList.add('show');
+    el.classList.add('active');
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+}
+
+function showPage(id, tab) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  tab.classList.add('active');
+}
+</script>
+</body>
+</html>

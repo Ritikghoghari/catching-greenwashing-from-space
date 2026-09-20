@@ -1,0 +1,162 @@
+[descals] 290 mills, 10 km buffers, Hansen post-2020 x Descals oil palm
+  [1/290] wilmar          SABAHMAS                  loss=     5626 ha  ->  palm  94.1%
+  [2/290] wilmar          SAREMAS 1                 loss=     2176 ha  ->  palm  82.6%
+  [3/290] wilmar          SAREMAS 2                 loss=     3834 ha  ->  palm  93.3%
+  [4/290] wilmar          TERUSAN                   loss=     1224 ha  ->  palm  53.7%
+  [5/290] wilmar          SAPI                      loss=     1376 ha  ->  palm  93.0%
+  [6/290] wilmar          REKA HALUS                loss=     1955 ha  ->  palm  79.8%
+  [7/290] wilmar          MUSTIKA SEMBULUH 1        loss=      904 ha  ->  palm  50.6%
+  [8/290] wilmar          KERRY SAWIT INDONESIA 1   loss=      464 ha  ->  palm   3.7%
+  [9/290] wilmar          RIBUBONUS                 loss=     1076 ha  ->  palm  28.6%
+  [10/290] wilmar          SRI KAMUSAN               loss=      856 ha  ->  palm  59.7%
+  [11/290] wilmar          PINANG AWAM               loss=     3428 ha  ->  palm  92.0%
+  [12/290] wilmar          KENCANA SAWIT INDONESIA   loss=     7715 ha  ->  palm  83.8%
+  [13/290] wilmar          BURNAI TIMUR              loss=     1762 ha  ->  palm  53.9%
+  [14/290] wilmar          SARANA TITIAN PERMATA PKS loss=      461 ha  ->  palm   2.8%
+  [15/290] wilmar          AMP PLANTATION            loss=     1487 ha  ->  palm  24.7%
+  [16/290] wilmar          DABUK REJO                loss=     2451 ha  ->  palm  69.2%
+  [17/290] wilmar          BUMI SAWIT KENCANA        loss=      503 ha  ->  palm   7.0%
+  [18/290] wilmar          BENSO OIL PALM PLANTATION loss=     3990 ha  ->  palm  39.5%
+  [19/290] wilmar          DAYA LABUHAN INDAH 2      loss=     2381 ha  ->  palm  69.0%
+  [20/290] wilmar          GERSINDO MINANG PLANTATIO loss=     2197 ha  ->  palm  33.0%
+  [21/290] wilmar          MENTAYA SAWIT MAS         loss=      854 ha  ->  palm   3.5%
+  [22/290] wilmar          RIMBA HARAPAN SAKTI       loss=      452 ha  ->  palm   2.8%
+  [23/290] wilmar          SUBURMAS                  loss=     2582 ha  ->  palm  84.0%
+  [24/290] wilmar          KARUNIA KENCANA PERMAI SE loss=      948 ha  ->  palm   2.0%
+  [25/290] wilmar          SELABU                    loss=     3855 ha  ->  palm  12.8%
+  [26/290] wilmar          AGROINDO INDAH PERSADA 1  loss=     1567 ha  ->  palm  82.9%
+  [27/290] wilmar          BUMI PRATAMA KHATULISTIWA loss=     1670 ha  ->  palm   3.7%
+  [28/290] wilmar          SINAR SIAK DIAN PERMAI    loss=     3906 ha  ->  palm  85.7%
+  [29/290] wilmar          SIAK PRIMA SAKTI          loss=     1535 ha  ->  palm  88.4%
+  [30/290] wilmar          MURINI SAM-SAM PELINTUNG  loss=      681 ha  ->  palm   1.6%
+  [31/290] wilmar          AGRONUSA INVESTAMA 2 - PA loss=     2705 ha  ->  palm   1.3%
+  [32/290] wilmar          SINAR PERDANA CARAKA      loss=     1940 ha  ->  palm  95.0%
+  [33/290] wilmar          BULUH CINA                loss=     2372 ha  ->  palm  89.8%
+  [34/290] wilmar          AEK BATU                  loss=     2377 ha  ->  palm  66.3%
+  [35/290] wilmar          AGROINDO INDAH PERSADA 2  loss=     6213 ha  ->  palm   4.8%
+  [36/290] wilmar          AGROINDO INDAH PERSADA 3  loss=     3568 ha  ->  palm  37.5%
+  [37/290] wilmar          MURINI SAM-SAM KANDIS     loss=     1255 ha  ->  palm  72.5%
+  [38/290] wilmar          KERRY SAWIT INDONESIA 2   loss=      527 ha  ->  palm  12.7%
+  [39/290] wilmar          AGRO PALINDO SAKTI 2      loss=     3883 ha  ->  palm   1.7%
+  [40/290] wilmar          MUSTIKA SEMBULUH 2        loss=      913 ha  ->  palm  11.2%
+  [41/290] wilmar          DAYA LABUHAN INDAH I      loss=     2098 ha  ->  palm  77.8%
+  [42/290] wilmar          SARANA TITIAN PERMATA PKS loss=      855 ha  ->  palm   1.1%
+  [43/290] wilmar          AGRONUSA INVESTAMA 3 - SA loss=     1517 ha  ->  palm   3.4%
+  [44/290] wilmar          CALARO                    loss=     1194 ha  ->  palm   1.8%
+  [45/290] wilmar          EYOP INDUSTRIES LTD       loss=     3651 ha  ->  palm   0.2%
+  [46/290] gar             UJUNG TANJUNG             loss=     1538 ha  ->  palm  88.3%
+  [47/290] gar             LIBO                      loss=      892 ha  ->  palm  77.0%
+  [48/290] gar             SAM-SAM                   loss=     1488 ha  ->  palm  92.4%
+  [49/290] gar             SEKIJANG                  loss=     6155 ha  ->  palm  97.6%
+  [50/290] gar             NAGA SAKTI                loss=     9702 ha  ->  palm  98.4%
+  [51/290] gar             RAMARAMA                  loss=     2718 ha  ->  palm  91.0%
+  [52/290] gar             BUMI PALMA                loss=     1677 ha  ->  palm  23.8%
+  [53/290] gar             INDRA SAKTI               loss=     3453 ha  ->  palm  32.1%
+  [54/290] gar             PADANG HALABAN            loss=     3238 ha  ->  palm  70.8%
+  [55/290] gar             LANGGA PAYUNG PALM OIL MI loss=     1926 ha  ->  palm  31.9%
+  [56/290] gar             BATU AMPAR                loss=     3114 ha  ->  palm  41.2%
+  [57/290] gar             TANAH LAUR                loss=     1685 ha  ->  palm  62.3%
+  [58/290] gar             HANAU                     loss=     2802 ha  ->  palm  74.3%
+  [59/290] gar             SUNGAI RUNGAU             loss=     1185 ha  ->  palm  73.7%
+  [60/290] gar             SEMILAR                   loss=      222 ha  ->  palm  87.4%
+  [61/290] gar             SUNGAI BUAYA              loss=     3567 ha  ->  palm  85.0%
+  [62/290] gar             SUNGAI MERAH              loss=     2436 ha  ->  palm  73.6%
+  [63/290] gar             JELATANG                  loss=     3982 ha  ->  palm  13.7%
+  [64/290] gar             LANGLING                  loss=     4159 ha  ->  palm  45.4%
+  [65/290] gar             MASKAPAI PERKEBUAN LEIDON loss=     8501 ha  ->  palm  79.2%
+  [66/290] gar             TANJUNG KEMBIRI           loss=      853 ha  ->  palm   6.8%
+  [67/290] gar             BUMI SAWIT                loss=     2715 ha  ->  palm  26.6%
+  [68/290] gar             PANGKALAN PANJI           loss=     1574 ha  ->  palm   5.1%
+  [69/290] gar             MUARA KANDIS              loss=     4631 ha  ->  palm   9.4%
+  [70/290] gar             PEKAWAI                   loss=      779 ha  ->  palm   1.9%
+  [71/290] gar             KENANGA PALM OIL MILL     loss=     1593 ha  ->  palm   3.8%
+  [72/290] gar             SUNGAI BENGKAL            loss=     3568 ha  ->  palm   5.4%
+  [73/290] gar             BUKIT PERAK               loss=     7009 ha  ->  palm  48.3%
+  [74/290] gar             MUARA WAHAU               loss=     2194 ha  ->  palm  15.9%
+  [75/290] gar             JAK LUAY                  loss=     1554 ha  ->  palm   9.1%
+  [76/290] gar             PT BINASAWIT ABADI PRATAM loss=      492 ha  ->  palm  35.8%
+  [77/290] gar             BATU KAPUR                loss=     3386 ha  ->  palm  77.3%
+  [78/290] gar             BELIAN                    loss=      544 ha  ->  palm   5.0%
+  [79/290] gar             PERSADA GRAHA MANDIRI     loss=      849 ha  ->  palm   5.0%
+  [80/290] gar             SUNGAI KIKIM              loss=     3452 ha  ->  palm  33.9%
+  [81/290] gar             PELAKAR                   loss=     6629 ha  ->  palm  42.8%
+  [82/290] gar             SENAKIN                   loss=      968 ha  ->  palm  11.1%
+  [83/290] gar             SUNGAI KUPANG             loss=     2909 ha  ->  palm  55.1%
+  [84/290] gar             KUAYAN                    loss=      393 ha  ->  palm  43.4%
+  [85/290] gar             TANGAR                    loss=      536 ha  ->  palm  83.3%
+  [86/290] gar             KAPUASINDO PALM INDUSTRY  loss=      987 ha  ->  palm  24.6%
+  [87/290] gar             KASUARI                   loss=     3275 ha  ->  palm  92.4%
+  [88/290] gar             SUNGAI MAGALAU            loss=     1101 ha  ->  palm  23.8%
+  [89/290] gar             JALEMO                    loss=     1531 ha  ->  palm   0.9%
+  [90/290] gar             SAWITA                    loss=     2345 ha  ->  palm  48.5%
+  [91/290] gar             SAKO                      loss=     1313 ha  ->  palm  23.5%
+  [92/290] gar             SUNGAI AIR JERNIH         loss=     2970 ha  ->  palm   3.3%
+  [93/290] gar             RANTAU PANJANG            loss=     1107 ha  ->  palm   2.6%
+  [94/290] gar             GUNUNG KOMBENG            loss=     2089 ha  ->  palm  16.7%
+  [95/290] gar             BANGUNG NUSA MANDIRI KENA loss=     2607 ha  ->  palm   2.0%
+  [96/290] sdguthrie       BINUANG (SOU 28)          loss=     3008 ha  ->  palm  97.5%
+  [97/290] sdguthrie       MEROTAI (SOU 30)          loss=     3337 ha  ->  palm  91.9%
+  [98/290] sdguthrie       SANDAKAN BAY (SOU 26)     loss=     2746 ha  ->  palm  96.0%
+  [99/290] sdguthrie       EAST (SOU 8)              loss=     1584 ha  ->  palm  63.7%
+  [100/290] sdguthrie       TANAH MERAH (SOU 14)      loss=     1639 ha  ->  palm  57.5%
+  [101/290] sdguthrie       SEGALIUD (SOU 25)         loss=     3374 ha  ->  palm  91.7%
+  [102/290] sdguthrie       WEST (SOU 9)              loss=     1118 ha  ->  palm  68.7%
+  [103/290] sdguthrie       SUNGAI DINGIN (SOU 1)     loss=     1992 ha  ->  palm  39.8%
+  [104/290] sdguthrie       YONG PENG (SOU 19A)       loss=     2962 ha  ->  palm  69.1%
+  [105/290] sdguthrie       BUKIT KERAYONG (SOU 7)    loss=     1710 ha  ->  palm  46.6%
+  [106/290] sdguthrie       JABOR (SOU 12)            loss=     2607 ha  ->  palm  51.3%
+  [107/290] sdguthrie       TENNAMARAM (SOU 6)        loss=     1257 ha  ->  palm  67.6%
+  [108/290] sdguthrie       GIRAM (SOU 29)            loss=     6321 ha  ->  palm  97.8%
+  [109/290] sdguthrie       GUNUNG MAS (SOU 21)       loss=     4272 ha  ->  palm  88.2%
+  [110/290] sdguthrie       DIAMOND JUBILEE (SOU 18)  loss=     2024 ha  ->  palm  44.8%
+  [111/290] sdguthrie       NORDANAL (SOU 19)         loss=     2189 ha  ->  palm  49.7%
+  [112/290] sdguthrie       CHAAH (SOU 20)            loss=     1653 ha  ->  palm  64.1%
+  [113/290] sdguthrie       ELPHIL (SOU 3)            loss=     2719 ha  ->  palm  52.6%
+  [114/290] sdguthrie       BUKIT PUTERI (SOU 10)     loss=     2936 ha  ->  palm  65.1%
+  [115/290] sdguthrie       SERI INTAN (SOU 5)        loss=     2186 ha  ->  palm  83.4%
+  [116/290] sdguthrie       BUKIT BENUT (SOU 22)      loss=     2512 ha  ->  palm  89.3%
+  [117/290] sdguthrie       SELABA (SOU 5)            loss=     2236 ha  ->  palm  63.9%
+  [118/290] sdguthrie       FLEMINGTON (SOU 4)        loss=     1941 ha  ->  palm  67.4%
+  [119/290] sdguthrie       KERDAU (SOU 11)           loss=     1368 ha  ->  palm  22.3%
+  [120/290] sdguthrie       KOK FOH (SOU 16)          loss=     2539 ha  ->  palm  37.7%
+  [121/290] sdguthrie       LABU (SOU 13)             loss=     1380 ha  ->  palm  38.3%
+  [122/290] sdguthrie       SUA BETONG (SOU 15)       loss=     1154 ha  ->  palm  62.1%
+  [123/290] sdguthrie       MELALAP (SOU 27)          loss=     1106 ha  ->  palm  17.2%
+  [124/290] sdguthrie       HADAPAN (SOU 24)          loss=     2204 ha  ->  palm  81.1%
+  [125/290] sdguthrie       CHERSONESE (SOU 2)        loss=      745 ha  ->  palm  44.0%
+  [126/290] sdguthrie       PEKAKA (SOU 34)           loss=     4739 ha  ->  palm  86.8%
+  [127/290] sdguthrie       LAVANG (SOU 31)           loss=     3459 ha  ->  palm  90.2%
+  [128/290] sdguthrie       RAJAWALI (SOU 32)         loss=     4553 ha  ->  palm  85.8%
+  [129/290] sdguthrie       DERAWAN (SOU 33)          loss=     4010 ha  ->  palm  91.8%
+  [130/290] sdguthrie       ULU REMIS (SOU 23)        loss=     1801 ha  ->  palm  93.5%
+Traceback (most recent call last):
+  File "C:\Users\Allah o akbar\thesis\scripts\descals_oilpalm_overlay.py", line 211, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Allah o akbar\thesis\scripts\descals_oilpalm_overlay.py", line 171, in main
+    _flush(rows)
+    ~~~~~~^^^^^^
+  File "C:\Users\Allah o akbar\thesis\scripts\descals_oilpalm_overlay.py", line 182, in _flush
+    df = pd.concat([pd.read_csv(OUT_PER_MILL), df], ignore_index=True)
+                    ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\Allah o akbar\thesis\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 873, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "C:\Users\Allah o akbar\thesis\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 306, in _read
+    return parser.read(nrows)
+           ~~~~~~~~~~~^^^^^^^
+  File "C:\Users\Allah o akbar\thesis\venv\Lib\site-packages\pandas\io\parsers\readers.py", line 1947, in read
+    ) = self._engine.read(  # type: ignore[attr-defined]
+        ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        nrows
+        ^^^^^
+    )
+    ^
+  File "C:\Users\Allah o akbar\thesis\venv\Lib\site-packages\pandas\io\parsers\c_parser_wrapper.py", line 215, in read
+    chunks = self._reader.read_low_memory(nrows)
+  File "pandas/_libs/parsers.pyx", line 832, in pandas._libs.parsers.TextReader.read_low_memory
+  File "pandas/_libs/parsers.pyx", line 897, in pandas._libs.parsers.TextReader._read_rows
+  File "pandas/_libs/parsers.pyx", line 868, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "pandas/_libs/parsers.pyx", line 885, in pandas._libs.parsers.TextReader._check_tokenize_status
+  File "pandas/_libs/parsers.pyx", line 2084, in pandas._libs.parsers.raise_parser_error
+pandas.errors.ParserError: Error tokenizing data. C error: Expected 8 fields in line 75, saw 16
+

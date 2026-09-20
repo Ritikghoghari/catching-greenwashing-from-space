@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Catching Greenwashing from Space: Pure Code Pipeline",
+    "output": "diagrams/thesis_architecture.html",
+    "quality_profile": "showcase",
+    "viewBox": [1220, 560],
+    "views": [
+      {
+        "id": "nlp-track",
+        "label": "Textual claims path",
+        "focus": ["reports", "claims_clf", "nlp_scoring", "scoring_engine"],
+        "note": "Follow corporate commitments from PDF extraction to specificity and sentiment scoring."
+      },
+      {
+        "id": "satellite-track",
+        "label": "Satellite remote sensing",
+        "focus": ["uml_mills", "gee_engine", "forest_loss", "scoring_engine"],
+        "note": "Trace mill catchments through Google Earth Engine to post-2020 forest loss totals."
+      },
+      {
+        "id": "synthesis-validation",
+        "label": "Synthesis and verification",
+        "focus": ["scoring_engine", "validations", "showcase_web", "results_store"],
+        "note": "See the mismatch score calculation and independent sensor cross-checks."
+      }
+    ]
+  },
+  "components": [
+    { "id": "reports", "type": "external", "label": "Corporate Reports", "sublabel": "11 sustainability PDFs", "pos": [40, 140], "size": [135, 60] },
+    { "id": "uml_mills", "type": "external", "label": "Universal Mill List", "sublabel": "290 mill coordinates", "pos": [40, 380], "size": [135, 60] },
+    { "id": "claims_clf", "type": "backend", "label": "Claim Extractor", "sublabel": "ClimateBERT (97.3% F1)", "pos": [245, 140], "size": [145, 60], "tag": "NLP" },
+    { "id": "gee_engine", "type": "cloud", "label": "Google Earth Engine", "sublabel": "Hansen GFC v1.13 (30m)", "pos": [245, 380], "size": [145, 60], "tag": "Satellite" },
+    { "id": "nlp_scoring", "type": "backend", "label": "Specificity & Tone", "sublabel": "ClimateBERT + FinBERT", "pos": [460, 140], "size": [145, 60], "tag": "Scored Claims" },
+    { "id": "forest_loss", "type": "database", "label": "Forest Loss Store", "sublabel": "890,168 ha post-2020", "pos": [460, 380], "size": [145, 60], "tag": "10 km Buffers" },
+    { "id": "scoring_engine", "type": "backend", "label": "Mismatch Engine", "sublabel": "build_scores_v2.py", "pos": [685, 260], "size": [155, 64], "tag": "Canonical Formula" },
+    { "id": "validations", "type": "security", "label": "Cross-Validations", "sublabel": "Prithvi + RADD + Descals", "pos": [980, 140], "size": [150, 60], "tag": "Triangulation" },
+    { "id": "showcase_web", "type": "frontend", "label": "Showcase Website", "sublabel": "Leaflet map + simulator", "pos": [980, 260], "size": [150, 60], "tag": "Interactive UI" },
+    { "id": "results_store", "type": "database", "label": "Results Store", "sublabel": "master_scores.csv", "pos": [980, 380], "size": [150, 60], "tag": "Rankings Table" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Textual Claims Pipeline", "wraps": ["reports", "claims_clf", "nlp_scoring"], "pad": 16 },
+    { "kind": "region", "label": "Satellite Remote Sensing Pipeline", "wraps": ["uml_mills", "gee_engine", "forest_loss"], "pad": 16 },
+    { "kind": "region", "label": "Evaluation & Dissemination", "wraps": ["validations", "showcase_web", "results_store"], "pad": 16 }
+  ],
+  "connections": [
+    { "id": "c-reports-claims", "from": "reports", "to": "claims_clf", "label": "extract text", "variant": "default" },
+    { "id": "c-claims-scoring", "from": "claims_clf", "to": "nlp_scoring", "label": "55 claims", "variant": "emphasis" },
+    { "id": "c-uml-gee", "from": "uml_mills", "to": "gee_engine", "label": "parsed GPS", "variant": "default" },
+    { "id": "c-gee-loss", "from": "gee_engine", "to": "forest_loss", "label": "10 km buffer", "variant": "emphasis" },
+    { "id": "c-nlp-mismatch", "from": "nlp_scoring", "to": "scoring_engine", "label": "claims (50%)", "variant": "emphasis" },
+    { "id": "c-loss-mismatch", "from": "forest_loss", "to": "scoring_engine", "label": "loss (50%)", "variant": "emphasis" },
+    { "id": "c-mismatch-val", "from": "scoring_engine", "to": "validations", "label": "triangulate", "variant": "security", "fromSide": "top", "toSide": "left" },
+    { "id": "c-mismatch-web", "from": "scoring_engine", "to": "showcase_web", "label": "scores", "variant": "emphasis", "fromSide": "right", "toSide": "left" },
+    { "id": "c-mismatch-store", "from": "scoring_engine", "to": "results_store", "label": "rankings", "variant": "default", "fromSide": "bottom", "toSide": "left" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "NLP Claims Track",
+      "items": [
+        "Extracts 55 claims from 11 sustainability reports using ClimateBERT",
+        "Achieves 97.3% accuracy and 0.981 F1 on domain gold benchmark",
+        "Scores claim specificity and FinBERT sentiment independently"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Satellite Remote Sensing Track",
+      "items": [
+        "Processes 290 mills across >91,000 km2 in Google Earth Engine",
+        "Filters Hansen GFC v1.13 to post-2020 EUDR compliance window",
+        "Identifies 890,168 ha of post-2020 loss across all 290 mills"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Synthesis & Multi-Sensor Cross-Validation",
+      "items": [
+        "Canonical mismatch formula balances text (50%) and physical loss (50%)",
+        "IBM/NASA Prithvi ViT foundation model independently recovers loss patterns",
+        "Descals oil palm overlay confirms 56% of cleared buffer area converted to palm"
+      ]
+    }
+  ]
+}

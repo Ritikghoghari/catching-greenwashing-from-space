@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catching Greenwashing from Space — Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg: #0d1a0f;
+  --page: #0a1510;
+  --surface: #141f15;
+  --card: #182419;
+  --border: #253528;
+  --text: #e8f0e8;
+  --secondary: #b7c9b8;
+  --muted: #8aa48d;
+  --dim: #5a7a5d;
+  --blue: #3987e5;
+  --orange: #d95926;
+  --red: #e66767;
+  --green: #4caf6e;
+  --amber: #eda100;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+/* ---------- HEADER ---------- */
+.header {
+  padding: 48px 0 28px;
+  border-bottom: 1px solid var(--border);
+}
+.eyebrow {
+  font-family: 'Consolas', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 10px;
+}
+.header h1 { font-size: 30px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+.header h1 span { color: var(--green); }
+.header .sub { color: var(--secondary); font-size: 15px; max-width: 780px; }
+.nav {
+  display: flex; gap: 4px; flex-wrap: wrap; margin-top: 20px;
+}
+.nav a {
+  font-size: 12px; color: var(--muted); text-decoration: none;
+  padding: 6px 12px; border: 1px solid var(--border); border-radius: 20px;
+  font-family: monospace;
+}
+.nav a:hover { color: var(--text); border-color: var(--dim); }
+
+/* ---------- STAT STRIP ---------- */
+.stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  margin: 28px 0;
+}
+.stat {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 16px 18px;
+}
+.stat-n { font-size: 26px; font-weight: 700; color: var(--green); line-height: 1.1; }
+.stat-l { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+@media (max-width: 800px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---------- SECTION ---------- */
+section { padding: 36px 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+.section-head { margin-bottom: 20px; }
+.section-tag {
+  font-family: monospace; font-size: 10.5px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--dim); margin-bottom: 6px;
+}
+.section-head h2 { font-size: 21px; font-weight: 700; }
+.section-head p.deck { color: var(--secondary); font-size: 14px; margin-top: 6px; max-width: 760px; }
+
+/* ---------- PROSE ---------- */
+.prose { max-width: 760px; }
+.prose p { color: var(--secondary); font-size: 14.5px; margin-bottom: 14px; }
+.prose p:last-child { margin-bottom: 0; }
+.prose strong { color: var(--text); }
+.prose a { color: var(--blue); }
+
+.pipeline {
+  display: flex; gap: 0; margin: 22px 0; flex-wrap: wrap;
+}
+.pstep {
+  flex: 1; min-width: 220px; background: var(--card); border: 1px solid var(--border);
+  padding: 16px 18px; position: relative;
+}
+.pstep:not(:last-child) { border-right: none; }
+.pstep:first-child { border-radius: 10px 0 0 10px; }
+.pstep:last-child { border-radius: 0 10px 10px 0; }
+@media (max-width: 760px) {
+  .pipeline { flex-direction: column; }
+  .pstep { border-right: 1px solid var(--border) !important; border-bottom: none; }
+  .pstep:first-child { border-radius: 10px 10px 0 0; }
+  .pstep:last-child { border-radius: 0 0 10px 10px; }
+}
+.pstep .pnum {
+  font-family: monospace; font-size: 11px; color: var(--green); margin-bottom: 8px;
+}
+.pstep h3 { font-size: 14px; margin-bottom: 6px; }
+.pstep p { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+.parrow {
+  display: flex; align-items: center; justify-content: center;
+  color: var(--dim); font-size: 18px; width: 24px; flex: 0 0 24px;
+}
+@media (max-width: 760px) { .parrow { width: 100%; height: 24px; } .parrow::before { content: "↓"; } }
+.parrow::before { content: "→"; }
+@media (max-width: 760px) { .parrow::before { content: "↓"; } }
+
+/* ---------- CARDS / GRID ---------- */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 22px;
+}
+.card.full { grid-column: 1 / -1; }
+.card h3 { font-size: 14.5px; font-weight: 600; margin-bottom: 4px; }
+.card .note { font-size: 12px; color: var(--muted); margin-bottom: 16px; line-height: 1.55; }
+.chart-wrap { position: relative; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
+
+.insight {
+  background: rgba(76,175,110,0.06);
+  border: 1px solid rgba(76,175,110,0.18);
+  border-radius: 8px; padding: 14px 18px;
+  margin-top: 16px; font-size: 13px; color: var(--secondary);
+  line-height: 1.6;
+}
+.insight strong { color: var(--text); }
+.insight.flag { background: rgba(230,103,103,0.07); border-color: rgba(230,103,103,0.22); }
+.insight.pending {
+  background: rgba(237,161,0,0.06); border-color: rgba(237,161,0,0.22);
+  font-family: monospace; font-size: 12px;
+}
+
+/* ---------- TABLE ---------- */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th {
+  text-align: left; padding: 9px 12px;
+  font-family: monospace; font-size: 10px;
+  letter-spacing: 0.07em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--border);
+}
+.data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(255,255,255,0.015); }
+.company-name { font-weight: 600; font-size: 12.5px; }
+.bar-mini { height: 7px; border-radius: 4px; background: var(--blue); margin-top: 4px; }
+.badge {
+  display: inline-block; font-family: monospace; font-size: 10.5px;
+  padding: 2px 8px; border-radius: 4px;
+  background: rgba(57,135,229,0.15); color: var(--blue);
+}
+.badge.red { background: rgba(230,103,103,0.15); color: var(--red); }
+.badge.amber { background: rgba(237,161,0,0.15); color: var(--amber); }
+
+/* ---------- LIMITATIONS ---------- */
+.limit-list { display: flex; flex-direction: column; gap: 14px; }
+.limit {
+  background: var(--card); border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 8px 8px 0; padding: 14px 18px;
+}
+.limit h4 { font-size: 13.5px; margin-bottom: 5px; }
+.limit p { font-size: 13px; color: var(--secondary); line-height: 1.6; }
+
+/* ---------- REFS ---------- */
+.refs { font-size: 12.5px; color: var(--muted); }
+.refs ol { padding-left: 20px; }
+.refs li { margin-bottom: 8px; line-height: 1.55; }
+.refs a { color: var(--blue); text-decoration: none; }
+.refs a:hover { text-decoration: underline; }
+
+footer {
+  padding: 28px 0 48px; font-size: 12px; color: var(--dim); font-family: monospace;
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ================= HEADER ================= -->
+  <div class="header">
+    <div class="eyebrow">M.Sc. Thesis · GISMA University of Applied Sciences · Submission Sept 2026</div>
+    <h1>Catching Greenwashing <span>from Space</span></h1>
+    <p class="sub">Verifying corporate no-deforestation claims by combining NLP claim extraction from sustainability reports with satellite forest-loss measurement. This page is both the data dashboard and the plain-language explainer for the results.</p>
+    <div class="nav">
+      <a href="#what">What is this</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#results">Results</a>
+      <a href="#trends">Year-by-year</a>
+      <a href="#datafix">Data corrections</a>
+      <a href="#limits">Limitations</a>
+      <a href="#refs">Papers</a>
+    </div>
+  </div>
+
+  <!-- ================= STAT STRIP ================= -->
+  <div class="stats">
+    <div class="stat"><div class="stat-n">11</div><div class="stat-l">Palm oil companies checked</div></div>
+    <div class="stat"><div class="stat-n">290</div><div class="stat-l">Mills matched to coordinates</div></div>
+    <div class="stat"><div class="stat-n">890,168 ha</div><div class="stat-l">Forest lost after the EUDR cutoff (31 Dec 2020)</div></div>
+    <div class="stat"><div class="stat-n">55</div><div class="stat-l">Deforestation claims extracted by NLP</div></div>
+  </div>
+
+  <!-- ================= WHAT IS THIS ================= -->
+  <section id="what">
+    <div class="section-head">
+      <div class="section-tag">01 · Plain-language summary</div>
+      <h2>What this data shows</h2>
+    </div>
+    <div class="prose">
+      <p>Eleven palm oil companies publish sustainability reports that say some version of "we have zero deforestation" or "we are deforestation-free." This project checks that claim against satellite evidence, for every mill each company operates, for the years after the cutoff date set by the EU Deforestation Regulation (31 December 2020).</p>
+      <p>The result: across 290 mills belonging to these 11 companies, <strong>890,168 hectares of forest were lost after the 2020 cutoff</strong>, inside a 10 km radius of the mills. That is roughly the land area of Cyprus. The companies making the strongest "zero deforestation" language are not automatically the ones with the least measured loss — in several cases they are the opposite. That mismatch, between the words in the report and the pixels from the satellite, is what this thesis measures and calls the <strong>mismatch score</strong>.</p>
+      <p>This dashboard is built from the actual pipeline output, not illustrative numbers. Every figure below traces back to a CSV in <code>Results/</code> or <code>data/</code>, reproducible from the scripts in <code>scripts/</code>.</p>
+    </div>
+  </section>
+
+  <!-- ================= PIPELINE ================= -->
+  <section id="pipeline">
+    <div class="section-head">
+      <div class="section-tag">02 · How the numbers were produced</div>
+      <h2>The pipeline: text in, evidence out</h2>
+      <p class="deck">Two independent measurements are made for each company, then combined into one score. Neither measurement depends on the other, which is what makes the comparison meaningful.</p>
+    </div>
+    <div class="pipeline">
+      <div class="pstep">
+        <div class="pnum">STEP 1</div>
+        <h3>NLP claim extraction</h3>
+        <p>A ClimateBERT-based model (Webersinke et al., 2022; Stammbach et al., 2022) reads each company's sustainability report and pulls out sentences that make a deforestation-related claim. Each claim is scored 0-1 for specificity — a vague line like "we care about forests" scores low, a measurable line like "zero deforestation across all operations since 2020" scores high. Bingler et al. (2022) call vague corporate language "cheap talk"; the specificity score is built to catch exactly that.</p>
+      </div>
+      <div class="parrow"></div>
+      <div class="pstep">
+        <div class="pnum">STEP 2</div>
+        <h3>Satellite verification</h3>
+        <p>For every mill belonging to the company, Hansen Global Forest Change data (Hansen et al., 2013, <em>Science</em> 342(6160)) is queried inside a 10 km radius, the standard fresh-fruit-bunch sourcing catchment used in palm oil supply-chain mapping. Forest loss is measured pixel-by-pixel for every year since 2001, then split at the EUDR cutoff date so pre- and post-2020 loss can be compared separately.</p>
+      </div>
+      <div class="parrow"></div>
+      <div class="pstep">
+        <div class="pnum">STEP 3</div>
+        <h3>Mismatch score</h3>
+        <p>The claim-specificity score and the measured post-2020 loss (normalized per mill) are combined into one 0-100 mismatch score per company. A high score means: strong, specific "zero deforestation" language, paired with real measured loss near that company's own mills.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RESULTS ================= -->
+  <section id="results">
+    <div class="section-head">
+      <div class="section-tag">03 · Results</div>
+      <h2>Forest loss by company</h2>
+      <p class="deck">All figures are post-2020 forest loss (hectares), the window the EUDR actually regulates. Sorted from highest total loss to lowest.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card full">
+        <h3>Post-2020 forest loss by company (hectares)</h3>
+        <div class="note">Total hectares of forest lost after 31 Dec 2020, within 10 km of each company's mills. This is driven partly by how many mills a company has — GAR tops this chart with 50 mills, not because its per-mill footprint is the worst.</div>
+        <div class="chart-wrap" style="height:340px"><canvas id="chartTotal"></canvas></div>
+        <div class="insight">
+          <strong>GAR</strong> has the highest total loss: <strong>171,236 ha across 50 mills</strong>. <strong>SD Guthrie</strong> (142,131 ha, 42 mills) and <strong>Wilmar</strong> (127,605 ha, 45 mills) follow. Total hectares mostly tracks mill count — the next chart controls for that.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Intensity: hectares lost per mill</h3>
+        <div class="note">Total loss divided by mill count. This is the fairer comparison between a company with 50 mills and one with 11.</div>
+        <div class="chart-wrap" style="height:300px"><canvas id="chartPerMill"></canvas></div>
+      </div>
+
+      <div class="card">
+        <h3>% of forest area lost since 2000</h3>
+        <div class="note">Post-2020 loss as a share of the forest that existed within each company's mill catchments in the year 2000.</div>
+        <div class="chart-wrap" style="height:300px"><canvas id="chartPct"></canvas></div>
+        <div class="insight flag">
+          <strong>IOI</strong> ranks worst on both intensity measures: <strong>4,959 ha lost per mill</strong>, and <strong>19.04% of its year-2000 forest area</strong> gone since the EUDR cutoff, well ahead of every other company in the set.
+        </div>
+      </div>
+    </div>
+
+    <div class="card full" style="margin-top:18px">
+      <h3>Full company table</h3>
+      <div class="note">All 11 companies, sorted by total post-2020 loss. Source: <code>data/data_array.js</code> and <code>Results/master_forestloss.csv</code>, generated by <code>scripts/run_forestloss_batch.py</code> and <code>scripts/compute_scores.py</code>.</div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Company</th><th>Mills</th>
+            <th>Loss post-2020 (ha)</th><th>ha / mill</th><th>% forest lost</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= TRENDS ================= -->
+  <section id="trends">
+    <div class="section-head">
+      <div class="section-tag">04 · Is it getting better or worse</div>
+      <h2>Year-by-year trends</h2>
+      <p class="deck">A single post-2020 total hides whether clearing stopped after the commitment was made, or kept going. These two case studies show it kept going.</p>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>IOI — worst-intensity company, year by year</h3>
+        <div class="note">All 15 IOI mills, hectares lost per year, 2021-2025 (2025 is a partial year in the Hansen dataset).</div>
+        <div class="chart-wrap" style="height:280px"><canvas id="chartIOI"></canvas></div>
+        <div class="insight flag">
+          Loss roughly doubled from 2021 (10,115 ha) to 2024 (20,359 ha), before dropping in the partial 2025 window. The worst individual mills — <strong>SYARIMO</strong>, <strong>LEEPANG</strong>, and <strong>MORISEM / LADANG SABAH</strong> — were still climbing as of 2024.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Wilmar Sabahmas — one mill, five years</h3>
+        <div class="note">A single Wilmar mill, chosen because it shows continuous clearing rather than a one-off event.</div>
+        <div class="chart-wrap" style="height:280px"><canvas id="chartSabahmas"></canvas></div>
+        <div class="insight flag">
+          <strong>6,675 ha</strong> lost since 2021, with measurable clearing in <strong>every single year, 2021 through 2025</strong>. Wilmar's own group-level report makes no hard zero-deforestation claim (0% claim strength in the scoring layer), so this mill is a case of continued loss without a specific claim to formally contradict — worth flagging on its own.
+        </div>
+      </div>
+
+      <div class="card full">
+        <h3>All 11 companies, year by year (2021-2025)</h3>
+        <div class="note" id="allYearlyNote">
+          This chart is wired up to read <code>Results/all_companies_yearly_loss_summary.csv</code> (company × year matrix), produced by <code>scripts/all_companies_yearly_loss.py</code>, which generalizes the IOI and Wilmar Sabahmas pilots above to every company's full mill list.
+        </div>
+        <div class="chart-wrap" style="height:320px"><canvas id="chartAllYearly"></canvas></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DATA CORRECTIONS ================= -->
+  <section id="datafix">
+    <div class="section-head">
+      <div class="section-tag">05 · Data quality, shown not hidden</div>
+      <h2>A bug we found and fixed</h2>
+    </div>
+    <div class="prose">
+      <p>The mill list (UML — Universal Mill List) records each mill's owning group under two possible columns: <strong>Group Name</strong> and <strong>Parent Company</strong>. The first version of the matching script only searched Group Name. For SD Guthrie, most of its mills are listed under Parent Company instead, so the first pass matched only <strong>2 mills</strong>.</p>
+      <p>Searching both columns raised that to <strong>42 mills</strong>, which changed SD Guthrie's total post-2020 loss from a near-zero placeholder to <strong>142,131 ha</strong>, its correct position in the ranking above. This kind of matching error is easy to miss because the script runs without an error message — it just silently returns too little data. The fix and the before/after numbers are kept here deliberately, since a thesis that catches other companies under-reporting should be transparent about its own data corrections.</p>
+    </div>
+  </section>
+
+  <!-- ================= LIMITATIONS ================= -->
+  <section id="limits">
+    <div class="section-head">
+      <div class="section-tag">06 · What this data does not prove</div>
+      <h2>Limitations, stated honestly</h2>
+    </div>
+    <div class="limit-list">
+      <div class="limit">
+        <h4>This is a proximity proxy, not causal attribution</h4>
+        <p>Forest loss measured within a mill's 10 km catchment cannot be causally attributed to that mill's operator. Other actors — smallholders, other plantations, roads, fires, illegal clearing — can and do operate in the same area. This dashboard measures <strong>correspondence</strong> between a company's claims and forest loss near its mills, not <strong>causation</strong>. PalmWatch, whose methodology this project follows for the 10 km buffer, documents the same limitation in its own work.</p>
+      </div>
+      <div class="limit">
+        <h4>The mill catchment is an approximation</h4>
+        <p>10 km is a standard estimate of how far a mill sources fresh fruit bunches from, not a verified supply-chain boundary for any specific mill. Real sourcing radii vary by geography, road access, and company logistics.</p>
+      </div>
+      <div class="limit">
+        <h4>Claim extraction depends on report language and translation</h4>
+        <p>The NLP model reads what is written in each company's report. A company that simply avoids making any hard claim (as Wilmar and Genting do, at 0% claim strength) will show a low mismatch score even if satellite loss near its mills is high — because there is no specific claim for the loss to formally contradict. Low mismatch does not mean low impact.</p>
+      </div>
+      <div class="limit">
+        <h4>Coverage varies by company</h4>
+        <p>Some companies have far more mills matched in the UML than others (SD Guthrie's 42 versus SIPEF's 11), which affects how representative the per-mill averages are. This is noted per company in the underlying scoring output.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REFS ================= -->
+  <section id="refs">
+    <div class="section-head">
+      <div class="section-tag">07 · Research grounding</div>
+      <h2>Papers behind the method</h2>
+    </div>
+    <div class="refs">
+      <ol>
+        <li><strong>Stammbach, D. et al. (2022)</strong>. NLP model for climate claim classification. arXiv:2209.00507. Used for the claim-extraction step.</li>
+        <li><strong>Webersinke, N. et al. (2022)</strong>. ClimateBERT: A pretrained language model for climate-related text. arXiv:2110.12010. Base model underlying the claim classifier.</li>
+        <li><strong>Hansen, M.C. et al. (2013)</strong>. High-resolution global maps of 21st-century forest cover change. <em>Science</em>, 342(6160). Source of every forest-loss hectare figure on this page.</li>
+        <li><strong>Regulation (EU) 2023/1115</strong> (EUDR). Sets the 31 December 2020 cutoff date used throughout this project.</li>
+        <li><strong>PalmWatch methodology</strong>. Basis for the 10 km mill-catchment buffer and the proximity-proxy limitation stated above.</li>
+        <li><strong>Calamai, et al. (2026)</strong>. arXiv:2502.07541. Motivates the research gap and shaped the two-sided methodology design.</li>
+        <li><strong>Ong, et al. (2025)</strong>. arXiv:2502.15821. Identifies the missing verification step this thesis adds — extraction alone, without satellite checking, is not new; the combination is.</li>
+        <li><strong>Bingler, J. et al. (2022)</strong>. On "cheap talk" in corporate climate disclosures. Motivates scoring claims by specificity rather than presence alone.</li>
+      </ol>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    Catching Greenwashing from Space — M.Sc. Thesis, GISMA University of Applied Sciences, submission September 2026.
+    All figures sourced from Results/ and data/ in the project repository. Reproduce with scripts/compute_scores.py and scripts/run_forestloss_batch.py.
+  </div>
+</footer>
+
+<script>
+// =====================================================================
+// DATA — verified figures. Company totals from data/data_array.js
+// (sums to 290 mills / ~890,168 ha, matching the thesis headline numbers).
+// =====================================================================
+const companies = [
+  { company: "GAR",              n_mills: 50, loss_total: 792970,  loss_post2020: 171236, pct: 13.87, ha_per_mill: 3425 },
+  { company: "SD Guthrie",       n_mills: 42, loss_total: 700217,  loss_post2020: 142131, pct: 14.41, ha_per_mill: 3384 },
+  { company: "Wilmar",           n_mills: 45, loss_total: 711440,  loss_post2020: 127605, pct: 11.40, ha_per_mill: 2836 },
+  { company: "KLK",              n_mills: 30, loss_total: 502073,  loss_post2020: 92208,  pct: 12.18, ha_per_mill: 3074 },
+  { company: "Astra Agro",       n_mills: 34, loss_total: 507344,  loss_post2020: 87198,  pct: 10.76, ha_per_mill: 2565 },
+  { company: "IOI",              n_mills: 15, loss_total: 292261,  loss_post2020: 74385,  pct: 19.04, ha_per_mill: 4959 },
+  { company: "Musim Mas",        n_mills: 18, loss_total: 301860,  loss_post2020: 53059,  pct: 11.45, ha_per_mill: 2948 },
+  { company: "Genting",          n_mills: 15, loss_total: 243363,  loss_post2020: 44362,  pct: 11.61, ha_per_mill: 2957 },
+  { company: "First Resources",  n_mills: 16, loss_total: 267096,  loss_post2020: 40090,  pct: 10.29, ha_per_mill: 2506 },
+  { company: "Bumitama",         n_mills: 14, loss_total: 237175,  loss_post2020: 30549,  pct: 8.66,  ha_per_mill: 2182 },
+  { company: "SIPEF",            n_mills: 11, loss_total: 145321,  loss_post2020: 27340,  pct: 10.42, ha_per_mill: 2486 },
+];
+
+const IOI_YEARLY = { 2021: 10115.37, 2022: 13188.87, 2023: 18380.78, 2024: 20358.50, 2025: 12341.84 };
+const SABAHMAS_YEARLY = { 2021: 2025.13, 2022: 589.19, 2023: 1438.06, 2024: 1372.15, 2025: 1250.51 };
+
+// Placeholder for the per-company yearly matrix. Fill this in once
+// Results/all_companies_yearly_loss_summary.csv exists (produced by
+// scripts/all_companies_yearly_loss.py). Expected shape:
+// { "GAR": {2021: x, 2022: x, 2023: x, 2024: x, 2025: x}, "SD Guthrie": {...}, ... }
+const ALL_COMPANY_YEARLY = null;
+
+// ---------------------------------------------------------------------
+// PALETTE — single hue for magnitude bars (dataviz skill default blue),
+// status red reserved for flagged/worst-in-class values only.
+// ---------------------------------------------------------------------
+const BLUE   = '#3987e5';
+const BLUE_D = '#2a78d6';
+const RED    = '#e66767';
+const AMBER  = '#eda100';
+const GRID   = '#253528';
+const AXIS_INK = '#8aa48d';
+const LABEL_INK = '#e8f0e8';
+
+const sortedByTotal = [...companies].sort((a,b) => b.loss_post2020 - a.loss_post2020);
+const sortedByPerMill = [...companies].sort((a,b) => b.ha_per_mill - a.ha_per_mill);
+const sortedByPct = [...companies].sort((a,b) => b.pct - a.pct);
+
+function barColor(list, key, worstThreshold) {
+  return list.map(d => d[key] >= worstThreshold ? RED : BLUE);
+}
+
+Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
+
+// Chart: total post-2020 loss (horizontal bar)
+new Chart(document.getElementById('chartTotal'), {
+  type: 'bar',
+  data: {
+    labels: sortedByTotal.map(d => d.company),
+    datasets: [{
+      label: 'Post-2020 loss (ha)',
+      data: sortedByTotal.map(d => d.loss_post2020),
+      backgroundColor: sortedByTotal.map((d,i) => i === 0 ? RED : BLUE),
+      borderRadius: 4,
+      maxBarThickness: 26,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} ha` } }
+    },
+    scales: {
+      x: { ticks: { color: AXIS_INK, callback: v => (v/1000).toFixed(0)+'K' }, grid: { color: GRID } },
+      y: { ticks: { color: LABEL_INK, font: { size: 12, weight: '600' } }, grid: { display: false } }
+    }
+  }
+});
+
+// Chart: ha per mill
+new Chart(document.getElementById('chartPerMill'), {
+  type: 'bar',
+  data: {
+    labels: sortedByPerMill.map(d => d.company),
+    datasets: [{
+      label: 'ha / mill',
+      data: sortedByPerMill.map(d => d.ha_per_mill),
+      backgroundColor: sortedByPerMill.map((d,i) => i === 0 ? RED : BLUE),
+      borderRadius: 4,
+      maxBarThickness: 20,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} ha/mill` } }
+    },
+    scales: {
+      x: { ticks: { color: AXIS_INK }, grid: { color: GRID } },
+      y: { ticks: { color: LABEL_INK, font: { size: 11 } }, grid: { display: false } }
+    }
+  }
+});
+
+// Chart: % of forest lost
+new Chart(document.getElementById('chartPct'), {
+  type: 'bar',
+  data: {
+    labels: sortedByPct.map(d => d.company),
+    datasets: [{
+      label: '% of year-2000 forest lost',
+      data: sortedByPct.map(d => d.pct),
+      backgroundColor: sortedByPct.map((d,i) => i === 0 ? RED : BLUE),
+      borderRadius: 4,
+      maxBarThickness: 20,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw}% ` } }
+    },
+    scales: {
+      x: { ticks: { color: AXIS_INK, callback: v => v+'%' }, grid: { color: GRID } },
+      y: { ticks: { color: LABEL_INK, font: { size: 11 } }, grid: { display: false } }
+    }
+  }
+});
+
+// Chart: IOI yearly
+new Chart(document.getElementById('chartIOI'), {
+  type: 'bar',
+  data: {
+    labels: Object.keys(IOI_YEARLY),
+    datasets: [{
+      label: 'Forest loss (ha)',
+      data: Object.values(IOI_YEARLY),
+      backgroundColor: [BLUE, BLUE, BLUE, RED, AMBER],
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} ha` } }
+    },
+    scales: {
+      x: { ticks: { color: AXIS_INK }, grid: { display: false } },
+      y: { ticks: { color: AXIS_INK, callback: v => v.toLocaleString() }, grid: { color: GRID } }
+    }
+  }
+});
+
+// Chart: Sabahmas yearly
+new Chart(document.getElementById('chartSabahmas'), {
+  type: 'bar',
+  data: {
+    labels: Object.keys(SABAHMAS_YEARLY),
+    datasets: [{
+      label: 'Forest loss (ha)',
+      data: Object.values(SABAHMAS_YEARLY),
+      backgroundColor: [RED, AMBER, RED, RED, AMBER],
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()} ha` } }
+    },
+    scales: {
+      x: { ticks: { color: AXIS_INK }, grid: { display: false } },
+      y: { ticks: { color: AXIS_INK, callback: v => v.toLocaleString() }, grid: { color: GRID } }
+    }
+  }
+});
+
+// Chart: all-companies yearly (pending data) or live data if present
+(function renderAllYearly() {
+  const el = document.getElementById('chartAllYearly');
+  const note = document.getElementById('allYearlyNote');
+  if (!ALL_COMPANY_YEARLY) {
+    el.style.display = 'none';
+    note.innerHTML += ' <span style="color:#eda100">Not generated yet as of this dashboard\'s last update — once the CSV exists, paste the company→year data into the <code>ALL_COMPANY_YEARLY</code> object at the top of the script block and this chart renders automatically.</span>';
+    const pending = document.createElement('div');
+    pending.className = 'insight pending';
+    pending.innerHTML = 'DATA PENDING — Results/all_companies_yearly_loss_summary.csv not found. Two data points (IOI, Wilmar Sabahmas) are already live above as a preview of what this chart will show for every company.';
+    el.parentElement.appendChild(pending);
+    return;
+  }
+  const years = ['2021','2022','2023','2024','2025'];
+  const names = Object.keys(ALL_COMPANY_YEARLY);
+  const palette = [BLUE, RED, AMBER, '#1baf7a', '#e87ba4', '#9085e9', '#eb6834', '#008300', '#c98500', '#d55181', '#3987e5'];
+  new Chart(el, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: names.map((name, i) => ({
+        label: name,
+        data: years.map(y => ALL_COMPANY_YEARLY[name][y] ?? null),
+        borderColor: palette[i % palette.length],
+        backgroundColor: palette[i % palette.length],
+        tension: 0.25,
+        pointRadius: 3,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { color: AXIS_INK, boxWidth: 10, font: { size: 11 } } } },
+      scales: {
+        x: { ticks: { color: AXIS_INK }, grid: { display: false } },
+        y: { ticks: { color: AXIS_INK, callback: v => v.toLocaleString()+' ha' }, grid: { color: GRID } }
+      }
+    }
+  });
+})();
+
+// Table
+const tbody = document.getElementById('tableBody');
+sortedByTotal.forEach((d, i) => {
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td style="color:var(--muted);font-family:monospace">${i+1}</td>
+    <td><div class="company-name">${d.company}</div></td>
+    <td>${d.n_mills}</td>
+    <td>
+      ${d.loss_post2020.toLocaleString()}
+      <div class="bar-mini" style="width:${(d.loss_post2020/sortedByTotal[0].loss_post2020*100).toFixed(0)}%"></div>
+    </td>
+    <td>${d.ha_per_mill.toLocaleString()}</td>
+    <td><span class="badge ${d.pct >= 19 ? 'red' : d.pct >= 14 ? 'amber' : ''}">${d.pct}%</span></td>
+  `;
+  tbody.appendChild(row);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+claim,deforestation,traceability,ndpe,peat,deadline,strength,specificity,specificity_score
+"100% deforestation-free products
+2.",True,False,False,False,,hard,spec,0.7086426615715027
+"across Astra Agro’s 31 mills will be achieved by • 100% of FFB supply sources (from partner networks to
+the end of 2021 and will be followed by mapping smallholders) are traceable.",False,True,False,False,,soft,spec,0.7367017865180969

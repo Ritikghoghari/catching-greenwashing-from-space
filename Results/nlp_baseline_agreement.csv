@@ -1,0 +1,5 @@
+comparison,agreement_pct,kappa,note
+claim detection: model vs keyword-filter,99.7,0.0,"model labels 100% of keyword hits 'yes' -- keyword filter already does most of the selection; near-constant, kappa uninformative, use gold set"
+specificity: model(>=0.5) vs number/date/% rule,66.5,0.329,"model 'spec' rate 50%, rule 'spec' rate 77%"
+specificity: model vs hard/soft strength tag,49.4,-0.011,hard/soft tag is the existing heuristic in the tagged pipeline
+ESG topic: ESG-BERT(bucketed) vs keyword tags,72.0,0.247,ESG-BERT 26-class mapped down to deforestation/traceability/ndpe/other

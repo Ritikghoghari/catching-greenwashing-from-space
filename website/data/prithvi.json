@@ -1,0 +1,141 @@
+{
+  "network_summary": {
+    "total_mills": 290,
+    "mean_spearman_rho": 0.172,
+    "mean_iou": 0.086,
+    "poc_single_mill_rho": 0.597,
+    "poc_single_mill_name": "IOI SYARIMO",
+    "linear_probe_rho": 0.805,
+    "linear_probe_iou": 0.765,
+    "linear_probe_precision": 0.897,
+    "linear_probe_recall": 0.839
+  },
+  "experiments": [
+    {
+      "id": 1,
+      "name": "Experiment 1: Zero-Shot Cosine Baseline",
+      "method": "Unsupervised Cosine Distance on Pre-trained ViT Embeddings",
+      "spearman_rho": 0.597,
+      "precision": 0.71,
+      "recall": 0.71,
+      "iou": 0.55,
+      "network_mean_rho": 0.172,
+      "network_mean_iou": 0.086,
+      "key_finding": "Global pre-training struggles with tropical cloud haze and canopy phenology when uncalibrated."
+    },
+    {
+      "id": 2,
+      "name": "Experiment 2: Biophysical Delta-NDVI Gating + Otsu",
+      "method": "Biophysical Vegetation Mask Gating + Dynamic Otsu Thresholding",
+      "spearman_rho": 0.772,
+      "precision": 0.923,
+      "recall": 0.387,
+      "iou": 0.375,
+      "network_mean_rho": null,
+      "network_mean_iou": null,
+      "key_finding": "Surges precision to 92.3% (+30.0%) by eliminating soil and shadow false alarms, but suppresses recall."
+    },
+    {
+      "id": 3,
+      "name": "Experiment 3: Supervised Linear Probe (5-Fold CV)",
+      "method": "Lightweight Linear Probe Head on Frozen 1024-dim Backbone",
+      "spearman_rho": 0.805,
+      "precision": 0.897,
+      "recall": 0.839,
+      "iou": 0.765,
+      "network_mean_rho": null,
+      "network_mean_iou": null,
+      "key_finding": "Optimal equilibrium: +34.8% Spearman correlation gain, +39.1% IoU surge, 89.7% precision, and 83.9% recall."
+    }
+  ],
+  "by_company": [
+    {
+      "company": "bumitama",
+      "mills": 14,
+      "mean_spearman_rho": 0.216,
+      "mean_iou": 0.068,
+      "mean_precision": 0.082,
+      "mean_recall": 0.332
+    },
+    {
+      "company": "firstresources",
+      "mills": 16,
+      "mean_spearman_rho": 0.188,
+      "mean_iou": 0.095,
+      "mean_precision": 0.116,
+      "mean_recall": 0.365
+    },
+    {
+      "company": "klk",
+      "mills": 30,
+      "mean_spearman_rho": 0.188,
+      "mean_iou": 0.093,
+      "mean_precision": 0.119,
+      "mean_recall": 0.326
+    },
+    {
+      "company": "ioi",
+      "mills": 15,
+      "mean_spearman_rho": 0.182,
+      "mean_iou": 0.119,
+      "mean_precision": 0.174,
+      "mean_recall": 0.324
+    },
+    {
+      "company": "gar",
+      "mills": 50,
+      "mean_spearman_rho": 0.174,
+      "mean_iou": 0.089,
+      "mean_precision": 0.122,
+      "mean_recall": 0.31
+    },
+    {
+      "company": "musimmas",
+      "mills": 18,
+      "mean_spearman_rho": 0.173,
+      "mean_iou": 0.077,
+      "mean_precision": 0.099,
+      "mean_recall": 0.285
+    },
+    {
+      "company": "astraagro",
+      "mills": 34,
+      "mean_spearman_rho": 0.168,
+      "mean_iou": 0.078,
+      "mean_precision": 0.098,
+      "mean_recall": 0.318
+    },
+    {
+      "company": "wilmar",
+      "mills": 45,
+      "mean_spearman_rho": 0.163,
+      "mean_iou": 0.084,
+      "mean_precision": 0.109,
+      "mean_recall": 0.331
+    },
+    {
+      "company": "sdguthrie",
+      "mills": 42,
+      "mean_spearman_rho": 0.159,
+      "mean_iou": 0.096,
+      "mean_precision": 0.124,
+      "mean_recall": 0.312
+    },
+    {
+      "company": "sipef",
+      "mills": 11,
+      "mean_spearman_rho": 0.153,
+      "mean_iou": 0.066,
+      "mean_precision": 0.082,
+      "mean_recall": 0.314
+    },
+    {
+      "company": "genting",
+      "mills": 15,
+      "mean_spearman_rho": 0.152,
+      "mean_iou": 0.068,
+      "mean_precision": 0.092,
+      "mean_recall": 0.285
+    }
+  ]
+}

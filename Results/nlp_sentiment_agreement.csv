@@ -1,0 +1,4 @@
+FinBERT,negative,neutral,positive
+negative,0,5,2
+neutral,1,84,71
+positive,0,110,130

@@ -1,0 +1,101 @@
+[
+  {
+    "company": "ioi",
+    "n_mills": 15,
+    "loss_post2020_ha": 55904.90189991297,
+    "loss_on_palm_ha": 50183.97391296694,
+    "loss_on_industrial_ha": 48830.67105098112,
+    "pct_loss_to_palm": 89.8,
+    "pct_loss_to_industrial": 87.3
+  },
+  {
+    "company": "sdguthrie",
+    "n_mills": 42,
+    "loss_post2020_ha": 104231.63767888748,
+    "loss_on_palm_ha": 73680.91919177219,
+    "loss_on_industrial_ha": 59048.72324525203,
+    "pct_loss_to_palm": 70.7,
+    "pct_loss_to_industrial": 56.7
+  },
+  {
+    "company": "genting",
+    "n_mills": 15,
+    "loss_post2020_ha": 34885.57103731641,
+    "loss_on_palm_ha": 20433.176181532093,
+    "loss_on_industrial_ha": 18789.397480196694,
+    "pct_loss_to_palm": 58.6,
+    "pct_loss_to_industrial": 53.9
+  },
+  {
+    "company": "klk",
+    "n_mills": 30,
+    "loss_post2020_ha": 67758.21140110932,
+    "loss_on_palm_ha": 38778.96714399404,
+    "loss_on_industrial_ha": 33382.315498260425,
+    "pct_loss_to_palm": 57.2,
+    "pct_loss_to_industrial": 49.3
+  },
+  {
+    "company": "firstresources",
+    "n_mills": 16,
+    "loss_post2020_ha": 31390.322359813348,
+    "loss_on_palm_ha": 17487.5774475505,
+    "loss_on_industrial_ha": 15538.008387681375,
+    "pct_loss_to_palm": 55.7,
+    "pct_loss_to_industrial": 49.5
+  },
+  {
+    "company": "wilmar",
+    "n_mills": 45,
+    "loss_post2020_ha": 98981.14614053314,
+    "loss_on_palm_ha": 50975.68801914653,
+    "loss_on_industrial_ha": 41056.85193813654,
+    "pct_loss_to_palm": 51.5,
+    "pct_loss_to_industrial": 41.5
+  },
+  {
+    "company": "gar",
+    "n_mills": 50,
+    "loss_post2020_ha": 130394.90042626228,
+    "loss_on_palm_ha": 65494.30787110381,
+    "loss_on_industrial_ha": 58255.01492492708,
+    "pct_loss_to_palm": 50.2,
+    "pct_loss_to_industrial": 44.7
+  },
+  {
+    "company": "astraagro",
+    "n_mills": 34,
+    "loss_post2020_ha": 68017.89543874182,
+    "loss_on_palm_ha": 32295.792400390117,
+    "loss_on_industrial_ha": 25471.781494665174,
+    "pct_loss_to_palm": 47.5,
+    "pct_loss_to_industrial": 37.4
+  },
+  {
+    "company": "sipef",
+    "n_mills": 11,
+    "loss_post2020_ha": 20738.45171588855,
+    "loss_on_palm_ha": 9455.308412829216,
+    "loss_on_industrial_ha": 5704.984028543854,
+    "pct_loss_to_palm": 45.6,
+    "pct_loss_to_industrial": 27.5
+  },
+  {
+    "company": "musimmas",
+    "n_mills": 18,
+    "loss_post2020_ha": 39338.590231187176,
+    "loss_on_palm_ha": 14963.170421594385,
+    "loss_on_industrial_ha": 11205.188633430324,
+    "pct_loss_to_palm": 38.0,
+    "pct_loss_to_industrial": 28.5
+  },
+  {
+    "company": "bumitama",
+    "n_mills": 14,
+    "loss_post2020_ha": 22332.9445009006,
+    "loss_on_palm_ha": 3708.209873623912,
+    "loss_on_industrial_ha": 2894.042782217147,
+    "pct_loss_to_palm": 16.6,
+    "pct_loss_to_industrial": 13.0
+  }
+]

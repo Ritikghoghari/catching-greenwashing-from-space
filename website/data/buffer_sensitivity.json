@@ -1,0 +1,402 @@
+{
+  "radii_km": [
+    5,
+    10,
+    15,
+    20,
+    30
+  ],
+  "correlations": {
+    "10_vs_15_km": 0.8,
+    "15_vs_20_km": 0.9,
+    "20_vs_30_km": 0.96,
+    "10_vs_30_km": 0.49
+  },
+  "records": [
+    {
+      "company": "GAR",
+      "buffer_km": 5,
+      "loss_post2020_ha": 785.97,
+      "forest_2000_ha": 6406.94,
+      "loss_pct": 12.2674
+    },
+    {
+      "company": "GAR",
+      "buffer_km": 10,
+      "loss_post2020_ha": 1808.0,
+      "forest_2000_ha": 27038.92,
+      "loss_pct": 6.6867
+    },
+    {
+      "company": "GAR",
+      "buffer_km": 15,
+      "loss_post2020_ha": 4019.31,
+      "forest_2000_ha": 61587.07,
+      "loss_pct": 6.5262
+    },
+    {
+      "company": "GAR",
+      "buffer_km": 20,
+      "loss_post2020_ha": 7873.92,
+      "forest_2000_ha": 105586.46,
+      "loss_pct": 7.4573
+    },
+    {
+      "company": "GAR",
+      "buffer_km": 30,
+      "loss_post2020_ha": 19282.86,
+      "forest_2000_ha": 236601.84,
+      "loss_pct": 8.1499
+    },
+    {
+      "company": "SD Guthrie",
+      "buffer_km": 5,
+      "loss_post2020_ha": 290.51,
+      "forest_2000_ha": 7502.04,
+      "loss_pct": 3.8724
+    },
+    {
+      "company": "SD Guthrie",
+      "buffer_km": 10,
+      "loss_post2020_ha": 3128.15,
+      "forest_2000_ha": 29842.9,
+      "loss_pct": 10.4821
+    },
+    {
+      "company": "SD Guthrie",
+      "buffer_km": 15,
+      "loss_post2020_ha": 8030.49,
+      "forest_2000_ha": 63074.38,
+      "loss_pct": 12.7318
+    },
+    {
+      "company": "SD Guthrie",
+      "buffer_km": 20,
+      "loss_post2020_ha": 14569.39,
+      "forest_2000_ha": 106384.04,
+      "loss_pct": 13.6951
+    },
+    {
+      "company": "SD Guthrie",
+      "buffer_km": 30,
+      "loss_post2020_ha": 24477.75,
+      "forest_2000_ha": 219687.13,
+      "loss_pct": 11.1421
+    },
+    {
+      "company": "Wilmar",
+      "buffer_km": 5,
+      "loss_post2020_ha": 1117.7,
+      "forest_2000_ha": 6580.0,
+      "loss_pct": 16.9864
+    },
+    {
+      "company": "Wilmar",
+      "buffer_km": 10,
+      "loss_post2020_ha": 6675.04,
+      "forest_2000_ha": 24748.76,
+      "loss_pct": 26.9712
+    },
+    {
+      "company": "Wilmar",
+      "buffer_km": 15,
+      "loss_post2020_ha": 15264.05,
+      "forest_2000_ha": 58558.7,
+      "loss_pct": 26.0662
+    },
+    {
+      "company": "Wilmar",
+      "buffer_km": 20,
+      "loss_post2020_ha": 23899.99,
+      "forest_2000_ha": 103868.56,
+      "loss_pct": 23.0098
+    },
+    {
+      "company": "Wilmar",
+      "buffer_km": 30,
+      "loss_post2020_ha": 42980.41,
+      "forest_2000_ha": 230617.61,
+      "loss_pct": 18.6371
+    },
+    {
+      "company": "KLK",
+      "buffer_km": 5,
+      "loss_post2020_ha": 1438.13,
+      "forest_2000_ha": 6310.74,
+      "loss_pct": 22.7885
+    },
+    {
+      "company": "KLK",
+      "buffer_km": 10,
+      "loss_post2020_ha": 5236.35,
+      "forest_2000_ha": 24892.87,
+      "loss_pct": 21.0356
+    },
+    {
+      "company": "KLK",
+      "buffer_km": 15,
+      "loss_post2020_ha": 10301.06,
+      "forest_2000_ha": 58856.46,
+      "loss_pct": 17.502
+    },
+    {
+      "company": "KLK",
+      "buffer_km": 20,
+      "loss_post2020_ha": 14909.24,
+      "forest_2000_ha": 103782.78,
+      "loss_pct": 14.3658
+    },
+    {
+      "company": "KLK",
+      "buffer_km": 30,
+      "loss_post2020_ha": 30240.61,
+      "forest_2000_ha": 235319.5,
+      "loss_pct": 12.8509
+    },
+    {
+      "company": "Astra Agro",
+      "buffer_km": 5,
+      "loss_post2020_ha": 810.38,
+      "forest_2000_ha": 7126.17,
+      "loss_pct": 11.3719
+    },
+    {
+      "company": "Astra Agro",
+      "buffer_km": 10,
+      "loss_post2020_ha": 2437.14,
+      "forest_2000_ha": 24720.47,
+      "loss_pct": 9.8588
+    },
+    {
+      "company": "Astra Agro",
+      "buffer_km": 15,
+      "loss_post2020_ha": 3679.06,
+      "forest_2000_ha": 49464.82,
+      "loss_pct": 7.4377
+    },
+    {
+      "company": "Astra Agro",
+      "buffer_km": 20,
+      "loss_post2020_ha": 4899.48,
+      "forest_2000_ha": 81827.71,
+      "loss_pct": 5.9876
+    },
+    {
+      "company": "Astra Agro",
+      "buffer_km": 30,
+      "loss_post2020_ha": 9192.79,
+      "forest_2000_ha": 178343.05,
+      "loss_pct": 5.1546
+    },
+    {
+      "company": "IOI",
+      "buffer_km": 5,
+      "loss_post2020_ha": 504.18,
+      "forest_2000_ha": 6646.92,
+      "loss_pct": 7.5852
+    },
+    {
+      "company": "IOI",
+      "buffer_km": 10,
+      "loss_post2020_ha": 2789.92,
+      "forest_2000_ha": 25314.55,
+      "loss_pct": 11.021
+    },
+    {
+      "company": "IOI",
+      "buffer_km": 15,
+      "loss_post2020_ha": 4002.8,
+      "forest_2000_ha": 58863.91,
+      "loss_pct": 6.8001
+    },
+    {
+      "company": "IOI",
+      "buffer_km": 20,
+      "loss_post2020_ha": 5947.57,
+      "forest_2000_ha": 106272.65,
+      "loss_pct": 5.5965
+    },
+    {
+      "company": "IOI",
+      "buffer_km": 30,
+      "loss_post2020_ha": 15854.74,
+      "forest_2000_ha": 231814.79,
+      "loss_pct": 6.8394
+    },
+    {
+      "company": "Musim Mas",
+      "buffer_km": 5,
+      "loss_post2020_ha": 2016.07,
+      "forest_2000_ha": 6077.83,
+      "loss_pct": 33.1709
+    },
+    {
+      "company": "Musim Mas",
+      "buffer_km": 10,
+      "loss_post2020_ha": 5997.68,
+      "forest_2000_ha": 23907.98,
+      "loss_pct": 25.0865
+    },
+    {
+      "company": "Musim Mas",
+      "buffer_km": 15,
+      "loss_post2020_ha": 9588.47,
+      "forest_2000_ha": 56939.51,
+      "loss_pct": 16.8397
+    },
+    {
+      "company": "Musim Mas",
+      "buffer_km": 20,
+      "loss_post2020_ha": 15492.62,
+      "forest_2000_ha": 103087.79,
+      "loss_pct": 15.0286
+    },
+    {
+      "company": "Musim Mas",
+      "buffer_km": 30,
+      "loss_post2020_ha": 27698.52,
+      "forest_2000_ha": 233182.13,
+      "loss_pct": 11.8785
+    },
+    {
+      "company": "Genting",
+      "buffer_km": 5,
+      "loss_post2020_ha": 797.38,
+      "forest_2000_ha": 5675.88,
+      "loss_pct": 14.0486
+    },
+    {
+      "company": "Genting",
+      "buffer_km": 10,
+      "loss_post2020_ha": 2748.99,
+      "forest_2000_ha": 22935.52,
+      "loss_pct": 11.9858
+    },
+    {
+      "company": "Genting",
+      "buffer_km": 15,
+      "loss_post2020_ha": 5496.63,
+      "forest_2000_ha": 54448.17,
+      "loss_pct": 10.0952
+    },
+    {
+      "company": "Genting",
+      "buffer_km": 20,
+      "loss_post2020_ha": 10649.57,
+      "forest_2000_ha": 100307.5,
+      "loss_pct": 10.6169
+    },
+    {
+      "company": "Genting",
+      "buffer_km": 30,
+      "loss_post2020_ha": 23085.4,
+      "forest_2000_ha": 210376.57,
+      "loss_pct": 10.9734
+    },
+    {
+      "company": "First Resources",
+      "buffer_km": 5,
+      "loss_post2020_ha": 1164.96,
+      "forest_2000_ha": 5816.59,
+      "loss_pct": 20.0282
+    },
+    {
+      "company": "First Resources",
+      "buffer_km": 10,
+      "loss_post2020_ha": 2086.64,
+      "forest_2000_ha": 23010.99,
+      "loss_pct": 9.068
+    },
+    {
+      "company": "First Resources",
+      "buffer_km": 15,
+      "loss_post2020_ha": 6135.9,
+      "forest_2000_ha": 50840.12,
+      "loss_pct": 12.069
+    },
+    {
+      "company": "First Resources",
+      "buffer_km": 20,
+      "loss_post2020_ha": 17824.2,
+      "forest_2000_ha": 93254.74,
+      "loss_pct": 19.1134
+    },
+    {
+      "company": "First Resources",
+      "buffer_km": 30,
+      "loss_post2020_ha": 41659.33,
+      "forest_2000_ha": 221091.14,
+      "loss_pct": 18.8426
+    },
+    {
+      "company": "Bumitama",
+      "buffer_km": 5,
+      "loss_post2020_ha": 2126.36,
+      "forest_2000_ha": 5796.1,
+      "loss_pct": 36.6861
+    },
+    {
+      "company": "Bumitama",
+      "buffer_km": 10,
+      "loss_post2020_ha": 4589.7,
+      "forest_2000_ha": 24445.88,
+      "loss_pct": 18.7749
+    },
+    {
+      "company": "Bumitama",
+      "buffer_km": 15,
+      "loss_post2020_ha": 6118.54,
+      "forest_2000_ha": 54815.07,
+      "loss_pct": 11.1621
+    },
+    {
+      "company": "Bumitama",
+      "buffer_km": 20,
+      "loss_post2020_ha": 10017.73,
+      "forest_2000_ha": 95121.8,
+      "loss_pct": 10.5315
+    },
+    {
+      "company": "Bumitama",
+      "buffer_km": 30,
+      "loss_post2020_ha": 17729.83,
+      "forest_2000_ha": 220673.11,
+      "loss_pct": 8.0344
+    },
+    {
+      "company": "SIPEF",
+      "buffer_km": 5,
+      "loss_post2020_ha": 235.68,
+      "forest_2000_ha": 3679.23,
+      "loss_pct": 6.4056
+    },
+    {
+      "company": "SIPEF",
+      "buffer_km": 10,
+      "loss_post2020_ha": 916.38,
+      "forest_2000_ha": 14008.38,
+      "loss_pct": 6.5416
+    },
+    {
+      "company": "SIPEF",
+      "buffer_km": 15,
+      "loss_post2020_ha": 1905.19,
+      "forest_2000_ha": 32259.2,
+      "loss_pct": 5.9059
+    },
+    {
+      "company": "SIPEF",
+      "buffer_km": 20,
+      "loss_post2020_ha": 3093.69,
+      "forest_2000_ha": 58711.5,
+      "loss_pct": 5.2693
+    },
+    {
+      "company": "SIPEF",
+      "buffer_km": 30,
+      "loss_post2020_ha": 4863.57,
+      "forest_2000_ha": 140016.13,
+      "loss_pct": 3.4736
+    }
+  ]
+}

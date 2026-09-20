@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Codebase Pipeline: Computational & Model Architecture",
+    "output": "diagrams/thesis_codebase_pipeline.html",
+    "quality_profile": "showcase",
+    "viewBox": [1260, 560],
+    "views": [
+      {
+        "id": "nlp-flow",
+        "label": "NLP model pipeline",
+        "focus": ["pdf_reader", "claims_model", "nlp_scorer", "mismatch_engine"],
+        "note": "Follow corporate reports through ClimateBERT and FinBERT to the mismatch engine."
+      },
+      {
+        "id": "satellite-flow",
+        "label": "GEE satellite pipeline",
+        "focus": ["uml_parser", "gee_hansen", "spatial_filter", "mismatch_engine"],
+        "note": "Trace Universal Mill List coordinates through Google Earth Engine buffer reductions."
+      },
+      {
+        "id": "verification-flow",
+        "label": "Sensor cross-validations",
+        "focus": ["mismatch_engine", "foundation_model", "radar_descals", "clearing_mapper"],
+        "note": "Inspect the Prithvi foundation model, RADD radar, and Sentinel-2 map generator."
+      }
+    ]
+  },
+  "components": [
+    { "id": "pdf_reader", "type": "external", "label": "PDF Extractor", "sublabel": "pdfplumber + text clean", "pos": [40, 140], "size": [140, 60] },
+    { "id": "uml_parser", "type": "external", "label": "Mill Parser", "sublabel": "scripts/mill_matching.py", "pos": [40, 380], "size": [140, 60] },
+    { "id": "claims_model", "type": "backend", "label": "Claim Classifier", "sublabel": "ClimateBERT (97.3% F1)", "pos": [255, 140], "size": [150, 60], "tag": "scripts/run_nlp_batch.py" },
+    { "id": "gee_hansen", "type": "cloud", "label": "GEE Loss Engine", "sublabel": "all_companies_yearly_loss.py", "pos": [255, 380], "size": [150, 60], "tag": "Hansen GFC 30m" },
+    { "id": "nlp_scorer", "type": "backend", "label": "Tone & Specificity", "sublabel": "sentiment_analysis.py", "pos": [485, 140], "size": [150, 60], "tag": "FinBERT + Specificity" },
+    { "id": "spatial_filter", "type": "database", "label": "Buffer Reduction", "sublabel": "10 km post-2020 loss", "pos": [485, 380], "size": [150, 60], "tag": "master_forest_loss" },
+    { "id": "mismatch_engine", "type": "backend", "label": "Mismatch Engine", "sublabel": "scripts/build_scores_v2.py", "pos": [705, 260], "size": [155, 64], "tag": "Canonical 4-Weights" },
+    { "id": "foundation_model", "type": "backend", "label": "Prithvi ViT 300M", "sublabel": "prithvi_batch_colab.py", "pos": [1020, 140], "size": [150, 60], "tag": "Cosine Dissimilarity" },
+    { "id": "radar_descals", "type": "cloud", "label": "RADD & Descals", "sublabel": "radar SAR + 10m oil palm", "pos": [1020, 260], "size": [150, 60], "tag": "Land Cover Audit" },
+    { "id": "clearing_mapper", "type": "backend", "label": "Clearing Map Gen", "sublabel": "generate_clearing_maps.py", "pos": [1020, 380], "size": [150, 60], "tag": "290 Sentinel-2 Maps" }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "NLP Claim Extraction Subsystem", "wraps": ["pdf_reader", "claims_model", "nlp_scorer"], "pad": 16 },
+    { "kind": "region", "label": "Geospatial Reduction Subsystem", "wraps": ["uml_parser", "gee_hansen", "spatial_filter"], "pad": 16 },
+    { "kind": "region", "label": "Multi-Sensor Cross-Validation Subsystem", "wraps": ["foundation_model", "radar_descals", "clearing_mapper"], "pad": 16 }
+  ],
+  "connections": [
+    { "id": "c-pdf-claims", "from": "pdf_reader", "to": "claims_model", "label": "sentences", "variant": "default" },
+    { "id": "c-claims-score", "from": "claims_model", "to": "nlp_scorer", "label": "claims", "variant": "emphasis" },
+    { "id": "c-uml-gee", "from": "uml_parser", "to": "gee_hansen", "label": "coords", "variant": "default" },
+    { "id": "c-gee-buffer", "from": "gee_hansen", "to": "spatial_filter", "label": "ha loss", "variant": "emphasis" },
+    { "id": "c-nlp-mismatch", "from": "nlp_scorer", "to": "mismatch_engine", "label": "Spec+Tone", "variant": "emphasis" },
+    { "id": "c-loss-mismatch", "from": "spatial_filter", "to": "mismatch_engine", "label": "Loss+Spatial", "variant": "emphasis" },
+    { "id": "c-engine-prithvi", "from": "mismatch_engine", "to": "foundation_model", "label": "validate", "variant": "security", "fromSide": "top", "toSide": "left" },
+    { "id": "c-engine-radar", "from": "mismatch_engine", "to": "radar_descals", "label": "audit", "variant": "security", "fromSide": "right", "toSide": "left" },
+    { "id": "c-engine-maps", "from": "mismatch_engine", "to": "clearing_mapper", "label": "hotspots", "variant": "emphasis", "fromSide": "bottom", "toSide": "left" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "NLP Subsystem",
+      "items": [
+        "Extracts 55 claims from 11 sustainability reports using ClimateBERT",
+        "ClimateBERT environmental-claims classifier achieves 97.3% accuracy",
+        "FinBERT scores corporate promotional tone and cheap-talk confidence"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Satellite Remote Sensing Subsystem",
+      "items": [
+        "Parses 290 Universal Mill List facilities with coordinate error-correction",
+        "Google Earth Engine sums Hansen GFC v1.13 loss over 10 km radial buffers",
+        "Quantifies 890,168 ha of post-2020 forest clearing across all 11 companies"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Scoring Engine & Sensor Verification",
+      "items": [
+        "build_scores_v2.py executes the canonical 4-component mismatch formula",
+        "IBM/NASA Prithvi-EO-2.0 ViT validates spatial loss without fine-tuning",
+        "Descals 10m oil palm map confirms 56% of cleared buffer area converted to palm"
+      ]
+    }
+  ]
+}

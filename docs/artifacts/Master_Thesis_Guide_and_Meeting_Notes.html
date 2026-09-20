@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catching Greenwashing from Space — Master Thesis Complete Reference Guide</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-green: #34d399;
+      --accent-orange: #fb923c;
+      --accent-rose: #fb7185;
+      --accent-violet: #a78bfa;
+      --code-bg: #0b1120;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;
+        --card-bg: #ffffff;
+        --card-border: #e2e8f0;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --accent: #0284c7;
+        --accent-green: #059669;
+        --accent-orange: #ea580c;
+        --accent-rose: #e11d48;
+        --accent-violet: #7c3aed;
+        --code-bg: #f1f5f9;
+      }
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    header {
+      border-bottom: 2px solid var(--card-border);
+      padding-bottom: 28px;
+      margin-bottom: 36px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background-color: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+    .subtitle {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+    .meta-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 12px 16px;
+      border-radius: 8px;
+    }
+    .meta-item strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+    .toc {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+    .toc h2 {
+      font-size: 1.15rem;
+      margin-bottom: 14px;
+      color: var(--accent);
+      border-left: none;
+      padding-left: 0;
+    }
+    .toc ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 10px;
+      margin-left: 0;
+    }
+    .toc a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.15s;
+    }
+    .toc a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    section {
+      margin-bottom: 50px;
+    }
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      border-left: 4px solid var(--accent);
+      padding-left: 14px;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-top: 26px;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+    p, li {
+      color: var(--text-main);
+      font-size: 1rem;
+    }
+    p {
+      margin-bottom: 16px;
+    }
+    ul, ol {
+      margin-left: 26px;
+      margin-bottom: 18px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+      margin: 20px 0;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .card.blue { border-top: 4px solid var(--accent); }
+    .card.green { border-top: 4px solid var(--accent-green); }
+    .card.orange { border-top: 4px solid var(--accent-orange); }
+    .card.rose { border-top: 4px solid var(--accent-rose); }
+    .card.violet { border-top: 4px solid var(--accent-violet); }
+    .card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .formula-box {
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.92rem;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+    th {
+      background-color: rgba(255, 255, 255, 0.04);
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    tr:hover td {
+      background-color: rgba(56, 189, 248, 0.05);
+    }
+    td.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+    th.num {
+      text-align: right;
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.88rem;
+      color: var(--text-main);
+      overflow-x: auto;
+      margin: 16px 0;
+      line-height: 1.55;
+    }
+    .quote-box {
+      border-left: 4px solid var(--accent-green);
+      background: rgba(52, 211, 153, 0.08);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 18px 0;
+    }
+    .print-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 12px 22px;
+      font-weight: 700;
+      border-radius: 9999px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      font-size: 0.92rem;
+      transition: transform 0.15s;
+    }
+    .print-btn:hover {
+      transform: scale(1.05);
+    }
+    @media print {
+      body { background: #fff; color: #000; padding: 0; }
+      .print-btn, .toc { display: none; }
+      .card, table, pre, .meta-item { border: 1px solid #ccc; background: #fff; color: #000; }
+      th { color: #555; background: #eee; }
+      .formula-box { background: #f5f5f5; color: #000; border: 1px solid #ccc; }
+      h2 { border-left-color: #000; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge">Master Thesis Technical Reference</span>
+      <h1>Catching Greenwashing from Space</h1>
+      <div class="subtitle">
+        Verifying Palm Oil Zero-Deforestation Claims Using Satellite Remote Sensing and Natural Language Processing
+      </div>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <strong>Author</strong>
+          Ritik Ghoghari
+        </div>
+        <div class="meta-item">
+          <strong>Degree &amp; Institution</strong>
+          M.Sc. Data Science, AI &amp; Digital Business &bull; GISMA Berlin
+        </div>
+        <div class="meta-item">
+          <strong>Academic Supervisor</strong>
+          Professor Mohamad Hoseini
+        </div>
+        <div class="meta-item">
+          <strong>Submission Deadline</strong>
+          26 September 2026
+        </div>
+        <div class="meta-item">
+          <strong>Verified Status</strong>
+          100% Completed (23 of 23 Tests Pass)
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc">
+      <h2>Table of Contents</h2>
+      <ul>
+        <li><a href="#prologue">1. The Big Picture: Why This Thesis Exists</a></li>
+        <li><a href="#first-principles">2. First Principles &amp; Industry Vocabulary</a></li>
+        <li><a href="#remote-sensing">3. Remote Sensing &amp; Satellite Science</a></li>
+        <li><a href="#nlp-science">4. Natural Language Processing (NLP) &amp; Models</a></li>
+        <li><a href="#chronology">5. Chronological Pipeline: From Raw Data to Results</a></li>
+        <li><a href="#math">6. The Mathematics &amp; Scoring Formula</a></li>
+        <li><a href="#findings">7. Headline Results &amp; Company Case Studies</a></li>
+        <li><a href="#validations">8. Independent Multi-Sensor Cross-Validations</a></li>
+        <li><a href="#engineering">9. Data Engineering Battles (108 Hours Log)</a></li>
+        <li><a href="#summary-card">10. Quick Revision Reference Card</a></li>
+      </ul>
+    </nav>
+
+    <!-- SECTION 1 -->
+    <section id="prologue">
+      <h2>1. The Big Picture: Why This Thesis Exists</h2>
+      <p>
+        Over the past decade, multinational consumer brands and palm oil conglomerates faced immense public pressure to end tropical deforestation. In response, virtually every major producer published formal <strong>Zero-Deforestation, No Peat, No Exploitation (NDPE)</strong> commitments.
+      </p>
+      <p>
+        However, corporate sustainability auditing suffers from an open verification gap:
+      </p>
+      <ul>
+        <li>
+          <strong>Text-Only Auditing:</strong> Natural Language Processing tools can analyze sustainability reports, corporate filings, and ESG disclosures. They can detect whether the language is confident, vague, or optimistic. However, text models cannot see the Earth. A company can write ambitious commitments while trees are being cleared thousands of miles away.
+        </li>
+        <li>
+          <strong>Satellite-Only Auditing:</strong> Remote sensing platforms (such as PalmWatch or Global Forest Watch) use Earth observation satellites to measure forest clearing. However, satellite tools do not connect this physical data to what corporate executives specifically promised. They track deforestation footprints without measuring corporate accountability or truthfulness.
+        </li>
+      </ul>
+      <div class="quote-box">
+        <strong>The Core Thesis Contribution:</strong><br>
+        This thesis closes this gap by building an automated, reproducible audit architecture. It pairs an independent Natural Language Processing claims pipeline with an independent Google Earth Engine satellite pipeline, comparing stated commitments against physical observations through an objective <strong>Mismatch Score (0 to 100)</strong>.
+      </div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section id="first-principles">
+      <h2>2. First Principles &amp; Industry Vocabulary</h2>
+      <p>Every scientific discipline has its foundational vocabulary. In this thesis, data science meets tropical agro-industrial supply chains:</p>
+
+      <div class="card-grid">
+        <div class="card blue">
+          <h4>🌴 Palm Oil (*Elaeis guineensis*)</h4>
+          <p>
+            An edible vegetable oil derived from the fruit of oil palm trees. It is the most productive oil crop per hectare in the world. Palm oil is in 50% of packaged supermarket products (chocolate, biscuits, shampoo, cosmetics, soap, and biofuel). Indonesia and Malaysia produce roughly 85% of global supply. Its expansion has driven significant historical deforestation in Borneo, Sumatra, Sulawesi, and New Guinea.
+          </p>
+        </div>
+
+        <div class="card orange">
+          <h4>🏭 The Palm Oil Mill &amp; The 24-Hour Rule</h4>
+          <p>
+            The industrial crushing facility located directly inside or adjacent to plantations. Oil palm trees produce heavy fruit clusters called <strong>Fresh Fruit Bunches (FFB)</strong>. <br><br>
+            <strong>The 24-to-48-Hour Freshness Rule:</strong> Once harvested, enzymatic acidification begins immediately. If the fruit is not processed within <strong>24 to 48 hours</strong>, the oil degrades into Free Fatty Acids (FFA) and becomes commercially ruined. Therefore, fresh fruit bunches cannot be transported across long distances; they must be trucked directly to a local mill. Mills are permanent, known geographic anchor points.
+          </p>
+        </div>
+
+        <div class="card green">
+          <h4>📐 Hectare (ha)</h4>
+          <p>
+            The international metric unit for measuring land area (1 hectare = 10,000 square meters, or a square 100 meters by 100 meters). <br><br>
+            <strong>Mental Comparison:</strong> 1 hectare is roughly <strong>1.4 standard soccer fields</strong>. <br>
+            In this study, you detected <strong>890,168 hectares</strong> of post-2020 forest loss across 290 mills. That area is roughly 10 times the size of Berlin, or the entire landmass of Cyprus.
+          </p>
+        </div>
+
+        <div class="card violet">
+          <h4>⭕ The 10 km Buffer &amp; Catchment</h4>
+          <p>
+            Around each mill coordinate, code draws a <strong>10 kilometer radial circular buffer</strong> (covering 314 square kilometers, or 31,400 hectares). In rural Southeast Asia, plantation trucks hauling heavy fruit bunches can travel roughly 10 to 20 km over dirt roads within the 24-hour freshness window. <br><br>
+            This 10 km radius follows the published methodology of <strong>PalmWatch</strong> (Inclusive Development International). It measures <em>spatial proximity and correspondence</em>, not definitive legal causation, because third-party farmers also operate within that radius.
+          </p>
+        </div>
+
+        <div class="card blue">
+          <h4>🌲 Tree Cover Loss vs. Deforestation</h4>
+          <p>
+            <strong>Hansen Global Forest Change (GFC)</strong> measures biophysical <em>tree cover loss</em>: the removal of canopy cover exceeding 30% density at 30-meter Landsat pixel resolution. It does not determine whether trees were cleared for oil palm, timber, or lost to fire. <br><br>
+            Strict <em>deforestation</em> means permanent land-use conversion. To address this difference, the thesis incorporates the Descals et al. (2021) 10m deep learning map to prove what the cleared land became.
+          </p>
+        </div>
+
+        <div class="card rose">
+          <h4>⚖️ Greenwashing vs. Cheap Talk</h4>
+          <p>
+            <strong>Greenwashing:</strong> When a company spends more effort marketing itself as environmentally friendly than actually minimizing its environmental impact. In palm oil, it means claiming "100% No Deforestation" while surrounding forests continue to be cleared.<br><br>
+            <strong>Cheap Talk:</strong> Statements that sound ambitious but are unmeasurable, cost nothing to say, and cannot be falsified (e.g., "We cherish our planet's green heritage").
+          </p>
+        </div>
+      </div>
+
+      <h3>In-Depth: What Exactly Does "Post-2020" Mean?</h3>
+      <div class="card-grid">
+        <div class="card blue">
+          <h4>1. The Literal Meaning &amp; Time Scope</h4>
+          <p>
+            <strong>"Post-2020" means any forest clearing that occurred after 31 December 2020.</strong><br><br>
+            In your dataset, this specifically covers calendar years <strong>2021, 2022, 2023, 2024, and 2025</strong>.<br><br>
+            Across all 290 mills evaluated in your thesis, this post-2020 filter identified <strong>890,168 hectares</strong> of forest loss. Every single mill (290 of 290) recorded post-2020 clearing.
+          </p>
+        </div>
+
+        <div class="card green">
+          <h4>2. Legal Motivation: The EUDR Cutoff Date</h4>
+          <p>
+            The cutoff date of 31 December 2020 was not picked arbitrarily. It is the exact legal baseline established by the <strong>European Union Deforestation Regulation (EUDR, Regulation EU 2023/1115)</strong>.<br><br>
+            Under EUDR law, any palm oil, soy, beef, cocoa, coffee, rubber, or timber entering the European single market must be verified deforestation-free:<br>
+            <em>"Any agricultural commodity produced on land that was deforested after 31 December 2020 is illegal to import or sell in the European Union."</em><br><br>
+            By anchoring the thesis to 31 December 2020, your research evaluates companies directly against the real regulatory standard they face in global commerce.
+          </p>
+        </div>
+
+        <div class="card orange">
+          <h4>3. Historical Clearing vs. Post-2020 Ongoing Clearing</h4>
+          <p>
+            Understanding this difference is critical for demonstrating greenwashing:<br><br>
+            • <strong>Historical Clearing (Before 2021):</strong> If a plantation cleared rainforest in 2005 or 2012, corporate executives can defend themselves by claiming: <em>"That occurred years ago before our modern sustainability policies were enacted."</em><br><br>
+            • <strong>Post-2020 Ongoing Clearing (2021 to 2025):</strong> By 2020, all 11 companies in this study had already enacted public <strong>No Deforestation, No Peat, No Exploitation (NDPE)</strong> commitments. If trees are cut down near their mills in 2021 through 2025, they cannot claim legacy excuses. It is ongoing clearing occurring while they actively market themselves as 100% sustainable. That is the essence of greenwashing.
+          </p>
+        </div>
+
+        <div class="card violet">
+          <h4>4. Python &amp; GEE Code Implementation</h4>
+          <p>
+            The <strong>Hansen Global Forest Change (UMD/hansen/global_forest_change_2025_v1_13)</strong> dataset encodes each detected loss pixel with an integer <code>lossyear</code>:<br>
+            • <code>lossyear = 0</code> : No loss recorded<br>
+            • <code>lossyear = 1</code> : Clearing occurred in 2001<br>
+            • <code>lossyear = 20</code> : Clearing occurred in 2020 (pre-cutoff)<br>
+            • <code>lossyear = 21</code> : Clearing occurred in 2021 (post-cutoff)<br>
+            • <code>lossyear = 25</code> : Clearing occurred in 2025 (post-cutoff)<br><br>
+            In your analysis script (<code>scripts/all_companies_yearly_loss.py</code>), the filter is defined as:
+          </p>
+          <pre># Filter for post-2020 loss pixels (lossyear >= 21)
+post2020_loss = lossyear.gte(21)</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section id="remote-sensing">
+      <h2>3. Remote Sensing &amp; Satellite Science</h2>
+      <p>
+        Remote sensing is the science of acquiring information about the Earth's surface using airborne or satellite-based sensors without physical ground contact.
+      </p>
+
+      <h3>What is an Earth Observation Satellite?</h3>
+      <p>
+        An Earth observation satellite is an uncrewed spacecraft orbiting the Earth at altitudes typically between 500 and 800 kilometers. As it orbits, digital sensors scan the Earth's surface line by line, taking continuous calibrated multi-spectral photographs. Because satellites revisit the exact same coordinates every few days, they allow researchers to detect landscape changes over time across vast, inaccessible tropical forests without needing ground patrols.
+      </p>
+
+      <h3>Key Satellite Concepts Explained:</h3>
+      <div class="card-grid">
+        <div class="card blue">
+          <h4>Pixel Resolution: 30-Meter vs. 10-Meter</h4>
+          <p>
+            A satellite image is composed of a grid of tiny square pixels:<br><br>
+            • <strong>30-Meter Resolution (Landsat):</strong> Each pixel represents an area on the ground measuring 30 meters by 30 meters (900 square meters, or 0.09 hectares). If a single tree falls, Landsat will not see it. But if an area the size of a soccer field is cleared, the pixel value changes dramatically.<br><br>
+            • <strong>10-Meter Resolution (Sentinel-2):</strong> Each pixel represents 10 meters by 10 meters (100 square meters). It provides 9 times more spatial detail, making plantation roads, drainage channels, small clearings, and concession boundaries clearly visible.
+          </p>
+        </div>
+
+        <div class="card green">
+          <h4>Multi-Spectral Bands &amp; Chlorophyll Reflection</h4>
+          <p>
+            Satellites capture light beyond the visible human spectrum (Red, Green, Blue):<br><br>
+            • <strong>Near-Infrared (NIR, around 842 nm):</strong> Healthy, living green leaves have internal spongy mesophyll cells that reflect near-infrared radiation like a mirror. In a satellite NIR band, healthy rainforest glows intensely. When trees are cut down or burned, NIR reflectance drops sharply to near zero.<br><br>
+            • <strong>Shortwave Infrared (SWIR, 1610 nm and 2190 nm):</strong> Highly sensitive to moisture content. Living forest absorbs SWIR; dry, cleared, bare soil reflects high SWIR. Comparing NIR and SWIR enables automated clearing detection.
+          </p>
+        </div>
+
+        <div class="card orange">
+          <h4>Cloud Masking &amp; Median Composites</h4>
+          <p>
+            In tropical equatorial countries like Indonesia and Malaysia, persistent cloud cover and smoke obscure optical satellite views almost daily.<br><br>
+            <strong>The Technical Solution:</strong> Rather than relying on a single cloudy day, Google Earth Engine collects every satellite image captured over an entire year (e.g., 30 observations in 2024). It masks out cloud and shadow pixels using QA quality assessment bands, then calculates the statistical <strong>median value</strong> for each pixel. This produces a cloud-free, standardized composite of the mill's landscape.
+          </p>
+        </div>
+
+        <div class="card violet">
+          <h4>Synthetic Aperture Radar (Sentinel-1 SAR)</h4>
+          <p>
+            Unlike optical satellites that passively capture sunlight, Sentinel-1 is an active radar sensor. It emits microwave pulses (C-band, around 5.6 cm wavelength) toward the ground and measures the returning backscatter.<br><br>
+            Microwaves pass directly through clouds, rain, and smoke. When dense tree canopies are cleared, the radar bounce pattern changes immediately. This powers the <strong>Wageningen RADD alert system</strong>.
+          </p>
+        </div>
+      </div>
+
+      <h3>The Three Satellite Constellations Used in Your Thesis:</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Satellite Name</th>
+            <th>Operating Agency</th>
+            <th>Sensor Type &amp; Resolution</th>
+            <th>Role in Your Thesis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Landsat 7 / 8 / 9</strong></td>
+            <td>NASA &amp; USGS (USA)</td>
+            <td>Optical Multi-Spectral &bull; 30-meter resolution</td>
+            <td>Primary Evidence Layer: Powers the Hansen Global Forest Change v1.13 dataset. Measures the headline 890,168 ha forest loss across all 290 mills.</td>
+          </tr>
+          <tr>
+            <td><strong>Sentinel-2 (A &amp; B)</strong></td>
+            <td>European Space Agency (ESA)</td>
+            <td>Optical Multi-Spectral &bull; 10-meter resolution</td>
+            <td>High-Resolution Verification &amp; AI: Used to generate the 290 comparative clearing maps at 300 DPI, and provides multi-spectral patches for the IBM/NASA Prithvi foundation model.</td>
+          </tr>
+          <tr>
+            <td><strong>Sentinel-1 (A &amp; B)</strong></td>
+            <td>European Space Agency (ESA)</td>
+            <td>Synthetic Aperture Radar (SAR) &bull; C-band microwaves</td>
+            <td>All-Weather Radar Cross-Validation: Penetrates equatorial clouds and rain to detect ground disturbances (Wageningen RADD alerts), confirming clearing at 4 of 5 top mills.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Google Earth Engine (GEE) Cloud Platform</h3>
+      <p>
+        Google Earth Engine is a planetary-scale cloud platform for geospatial analysis. Instead of downloading terabytes of satellite imagery to a local computer, code runs on Google's cloud servers:
+      </p>
+      <ul>
+        <li><code>ee.Image("UMD/hansen/global_forest_change_2025_v1_13")</code>: Calls the global multi-decadal forest change raster.</li>
+        <li><code>ee.Geometry.Point([lon, lat]).buffer(10000)</code>: Creates a 10,000-meter circular polygon (314 km<sup>2</sup> catchment) around each mill coordinate.</li>
+        <li><code>reduceRegion(ee.Reducer.sum(), region, scale=30)</code>: Computes the spatial sum of all loss pixels inside the polygon at 30-meter resolution.</li>
+        <li><code>maxPixels = 1e10</code>: Expands the default memory ceiling (from 10 million to 10 billion pixels) to allow batch reductions across 91,000 km<sup>2</sup> of mill buffers without memory exhaustion.</li>
+      </ul>
+
+      <h3>How Satellites "Catch Greenwashing" Step-by-Step:</h3>
+      <ol>
+        <li>A company publishes an annual PDF sustainability report claiming 100% zero-deforestation compliance.</li>
+        <li>Your code extracts the exact GPS coordinates of the company's mills from the Universal Mill List.</li>
+        <li>Google Earth Engine draws a 10 km sourcing radius around each mill and queries the Landsat / Hansen archive for calendar years 2021 through 2025.</li>
+        <li>The satellite sensor provides an unbiased, physical record showing exactly how many hectares of tree canopy were removed near those mills post-2020.</li>
+        <li>Your canonical scoring engine compares the specificity of the claim against the measured satellite loss, assigning an objective Mismatch Score.</li>
+      </ol>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section id="nlp-science">
+      <h2>4. Natural Language Processing (NLP) &amp; Models</h2>
+      <p>
+        Natural Language Processing (NLP) is the branch of artificial intelligence that enables computers to understand, interpret, and extract meaning from human text.
+      </p>
+
+      <h3>From Text to Transformers</h3>
+      <p>
+        Traditional NLP used simple keyword matching (checking if the word "deforestation" appears). However, keyword search produces heavy false positives (for example, table of contents headings).
+      </p>
+      <p>
+        Modern NLP uses <strong>Transformers</strong> (Vaswani et al., 2017) and <strong>BERT</strong> (Bidirectional Encoder Representations from Transformers). BERT processes entire sentences bidirectionally, understanding words in context.
+      </p>
+
+      <h3>The NLP Model Stack Used in This Thesis:</h3>
+      <div class="card-grid">
+        <div class="card blue">
+          <h4>1. Claim Detection: <code>climatebert/environmental-claims</code></h4>
+          <p>
+            Pre-trained on corporate climate text and fine-tuned on Stammbach et al. (2022) criteria. Classifies whether a sentence is an active environmental assertion or incidental text. Achieved <strong>97.3% accuracy and 0.981 F1</strong> on your 150-sentence gold benchmark.
+          </p>
+        </div>
+
+        <div class="card green">
+          <h4>2. Specificity Scoring: <code>climatebert/distilroberta-base-climate-specificity</code></h4>
+          <p>
+            Scores text from 0.0 (vague) to 1.0 (highly concrete). Separates unfalsifiable "cheap talk" (Bingler et al., 2022) from checkable commitments naming dates, targets, percentages, or audit mechanisms.
+          </p>
+        </div>
+
+        <div class="card orange">
+          <h4>3. Sentiment Analysis: <code>ProsusAI/finbert</code></h4>
+          <p>
+            A financial domain transformer model that measures corporate tone, confidence, and promotional optimism. High scores detect self-congratulatory rhetoric that contrasts with physical clearing.
+          </p>
+        </div>
+
+        <div class="card violet">
+          <h4>4. ESG Topic Classifier: <code>nbroad/ESG-BERT</code></h4>
+          <p>
+            Categorizes extracted claims into SASB corporate sustainability topics: GHG Emissions, Ecological Impacts, Energy Management, and Supply Chain Management.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section id="chronology">
+      <h2>5. Chronological Pipeline: From Raw Data to Results</h2>
+      <p>The thesis was executed in eight sequential phases:</p>
+
+      <div class="card-grid">
+        <div class="card blue">
+          <h4>Phase 1: PDF Corpus Collection</h4>
+          <p>Collected recent sustainability and integrated reports for 11 major companies. Extracted text, cleaned encoding, and resolved non-breaking spaces (<code>\u00a0</code>).</p>
+        </div>
+
+        <div class="card green">
+          <h4>Phase 2: Registry Error Correction</h4>
+          <p>Parsed the Universal Mill List. Fixed corrupted numeric coordinates by extracting uncorrupted text strings. Resolved SD Guthrie parent-subsidiary naming, expanding matched mills from 2 to 42.</p>
+        </div>
+
+        <div class="card orange">
+          <h4>Phase 3: NLP Inference &amp; Gold Evaluation</h4>
+          <p>Extracted 403 candidate sentences, confirming 55 group-level deforestation commitments. Scored specificity and sentiment. Benchmarked against a 150-sentence domain gold evaluation dataset.</p>
+        </div>
+
+        <div class="card violet">
+          <h4>Phase 4: Satellite Reductions in GEE</h4>
+          <p>Created 10 km buffers around all 290 mills. Evaluated Hansen GFC v1.13 for post-2020 clearing. Raised memory ceiling to 10 billion pixels (10<sup>10</sup> pixels) to prevent GEE quota crashes.</p>
+        </div>
+
+        <div class="card rose">
+          <h4>Phase 5: Canonical Mismatch Engine</h4>
+          <p>Engineered <code>scripts/build_scores_v2.py</code>. Applied the 4-component weighted formula. Enforced unit test suite with 23 passing tests.</p>
+        </div>
+
+        <div class="card blue">
+          <h4>Phase 6: Multi-Sensor Cross-Validations</h4>
+          <p>Executed Prithvi foundation model across all 290 mills (Spearman rho = 0.172). Queried RADD radar alerts (4 of 5 confirmed). Ran Descals oil palm overlay (56% converted to palm). Conducted buffer sensitivity (5 to 30 km).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section id="math">
+      <h2>6. The Mathematics &amp; Scoring Formula</h2>
+
+      <div class="formula-box">
+        Mismatch Score = 0.35 × Forest Loss + 0.35 × Specificity + 0.15 × Sentiment + 0.15 × Spatial Match
+      </div>
+
+      <p>
+        Before weighting, every metric is rescaled to a normalized range of 0 to 100 using standard Min-Max normalization:
+      </p>
+      <div class="formula-box" style="font-size: 1.05rem;">
+        Normalized Value = [ (Value - Min) / (Max - Min) ] × 100
+      </div>
+
+      <h3>Why Each Component Matters:</h3>
+      <ul>
+        <li>
+          <strong>Forest Loss Score (35% weight):</strong> Normalizes the percentage of baseline year-2000 forest lost inside the company's mill catchments post-2020.
+        </li>
+        <li>
+          <strong>Specificity Score (35% weight):</strong> Normalizes the mean specificity of corporate commitments. High score = concrete, verifiable promises.
+        </li>
+        <li>
+          <strong>Sentiment Score (15% weight):</strong> Normalizes the promotional confidence and tone evaluated by FinBERT.
+        </li>
+        <li>
+          <strong>Spatial Match Score (15% weight):</strong> The percentage of a company's mills that exceed the dataset-wide median per-mill loss (<strong>2,653 hectares</strong>). A company where most mills are above-median violators receives a higher score than one where clearing is confined to one outlier mill.
+        </li>
+      </ul>
+
+      <h3>Worked Example: Kuala Lumpur Kepong (KLK)</h3>
+      <p>How KLK's Rank 1 score of 65.6 was calculated step-by-step:</p>
+      <pre>
+1. Forest Loss Score:    33.9  ×  0.35  =  11.9
+2. Specificity Score:   100.0  ×  0.35  =  35.0
+3. Sentiment Score:      68.4  ×  0.15  =  10.3
+4. Spatial Match Score:  56.7  ×  0.15  =   8.5
+───────────────────────────────────────────────
+TOTAL MISMATCH SCORE:                      65.6  (Rank 1)
+      </pre>
+
+      <h3>Evaluation Metrics Defined in Clean English:</h3>
+      <ul>
+        <li><strong>Accuracy:</strong> (True Positives + True Negatives) / Total Evaluated Sentences. Overall proportion of correct classifications.</li>
+        <li><strong>Precision:</strong> True Positives / (True Positives + False Positives). Of all sentences tagged as claims, how many were genuinely claims?</li>
+        <li><strong>Recall:</strong> True Positives / (True Positives + False Negatives). Of all actual claims in the report, how many did the model find?</li>
+        <li><strong>F1 Score:</strong> 2 &times; (Precision &times; Recall) / (Precision + Recall). The balanced harmonic mean of precision and recall.</li>
+        <li><strong>Cohen's Kappa (&kappa;):</strong> Measures agreement between two models above chance (&kappa; = 0 means random agreement; &kappa; = 1 means perfect agreement).</li>
+        <li><strong>Spearman's Rank Correlation (&rho;):</strong> Measures how well the relationship between two rankings can be described using a monotonic function. Used to evaluate Prithvi change embeddings against Hansen loss fractions.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section id="findings">
+      <h2>7. Headline Results &amp; Company Case Studies</h2>
+
+      <p>
+        The dataset covers <strong>11 companies</strong>, <strong>290 mills</strong>, and <strong>890,168 hectares</strong> of post-2020 forest clearing:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Company</th>
+            <th class="num">Mismatch</th>
+            <th class="num">Loss (35%)</th>
+            <th class="num">Spec. (35%)</th>
+            <th class="num">Sent. (15%)</th>
+            <th class="num">Spatial (15%)</th>
+            <th class="num">Post-2020 Loss</th>
+            <th class="num">Mills</th>
+            <th class="num">% of 2000 Forest</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td><strong>KLK</strong></td><td class="num"><strong>65.6</strong></td><td class="num">33.9</td><td class="num">100.0</td><td class="num">68.4</td><td class="num">56.7</td><td class="num">92,209 ha</td><td class="num">30</td><td class="num">12.18%</td></tr>
+          <tr><td><strong>2</strong></td><td><strong>GAR</strong></td><td class="num"><strong>63.1</strong></td><td class="num">50.2</td><td class="num">67.6</td><td class="num">91.6</td><td class="num">54.0</td><td class="num">171,236 ha</td><td class="num">50</td><td class="num">13.87%</td></tr>
+          <tr><td><strong>3</strong></td><td><strong>Musim Mas</strong></td><td class="num"><strong>56.2</strong></td><td class="num">26.9</td><td class="num">85.1</td><td class="num">63.6</td><td class="num">50.0</td><td class="num">53,060 ha</td><td class="num">18</td><td class="num">11.45%</td></tr>
+          <tr><td><strong>4</strong></td><td><strong>IOI</strong></td><td class="num"><strong>56.1</strong></td><td class="num">100.0</td><td class="num">0.0</td><td class="num">60.3</td><td class="num">80.0</td><td class="num">74,385 ha</td><td class="num">15</td><td class="num">19.04%</td></tr>
+          <tr><td><strong>5</strong></td><td><strong>SD Guthrie</strong></td><td class="num"><strong>55.2</strong></td><td class="num">55.4</td><td class="num">32.9</td><td class="num">100.0</td><td class="num">61.9</td><td class="num">142,131 ha</td><td class="num">42</td><td class="num">14.41%</td></tr>
+          <tr><td><strong>6</strong></td><td><strong>Wilmar</strong></td><td class="num"><strong>50.3</strong></td><td class="num">26.4</td><td class="num">67.2</td><td class="num">70.0</td><td class="num">46.7</td><td class="num">127,606 ha</td><td class="num">45</td><td class="num">11.40%</td></tr>
+          <tr><td><strong>7</strong></td><td><strong>First Resources</strong></td><td class="num"><strong>41.7</strong></td><td class="num">15.7</td><td class="num">75.6</td><td class="num">27.8</td><td class="num">37.5</td><td class="num">40,090 ha</td><td class="num">16</td><td class="num">10.29%</td></tr>
+          <tr><td><strong>8</strong></td><td><strong>Genting</strong></td><td class="num"><strong>39.5</strong></td><td class="num">28.4</td><td class="num">46.6</td><td class="num">41.4</td><td class="num">46.7</td><td class="num">44,362 ha</td><td class="num">15</td><td class="num">11.61%</td></tr>
+          <tr><td><strong>9</strong></td><td><strong>Bumitama</strong></td><td class="num"><strong>38.5</strong></td><td class="num">0.0</td><td class="num">67.1</td><td class="num">71.4</td><td class="num">28.6</td><td class="num">30,549 ha</td><td class="num">14</td><td class="num">8.66%</td></tr>
+          <tr><td><strong>10</strong></td><td><strong>SIPEF</strong></td><td class="num"><strong>26.1</strong></td><td class="num">17.0</td><td class="num">28.3</td><td class="num">41.0</td><td class="num">27.3</td><td class="num">27,341 ha</td><td class="num">11</td><td class="num">10.42%</td></tr>
+          <tr><td><strong>11</strong></td><td><strong>Astra Agro</strong></td><td class="num"><strong>17.6</strong></td><td class="num">20.2</td><td class="num">13.8</td><td class="num">0.0</td><td class="num">38.2</td><td class="num">87,198 ha</td><td class="num">34</td><td class="num">10.76%</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Detailed Company Case Studies:</h3>
+      <div class="card-grid">
+        <div class="card blue">
+          <h4>KLK (Rank #1 — Score: 65.6)</h4>
+          <p>
+            KLK had 92,209 ha of post-2020 loss (12.18% of baseline forest). Its claims scored <strong>100.0 on specificity</strong>, naming explicit audit methods and geographic targets. When highly specific commitments meet substantial physical clearing, the model flags the strongest mismatch. <em>(Low claim count warning: n=8 claims, reported transparently)</em>.
+          </p>
+        </div>
+
+        <div class="card green">
+          <h4>Golden Agri-Resources / GAR (Rank #2 — Score: 63.1)</h4>
+          <p>
+            GAR exhibits the largest total forest loss in the study: <strong>171,236 hectares</strong> across 50 mills. In its 2025 sustainability report, it claims <strong>99.8% traceability to plantation</strong> with confident promotional tone (91.6 sentiment). NAGA SAKTI mill in Riau alone recorded 10,197 ha of post-2020 clearing.
+          </p>
+        </div>
+
+        <div class="card rose">
+          <h4>IOI Corporation (Rank #4 — Score: 56.1)</h4>
+          <p>
+            IOI has the highest clearing intensity in the study: <strong>19.04% of baseline forest lost</strong> (4,959 ha per mill, 80% severe mills). Single highest loss mill in the study: <strong>SYARIMO</strong> in Sabah (12,318 ha). Yet IOI ranks 4th because its 66 claims were so vague (0.0 specificity) that it gave the model little to falsify. Cheap talk acted as a protective shield.
+          </p>
+        </div>
+
+        <div class="card orange">
+          <h4>Astra Agro Lestari (Rank #11 — Score: 17.6)</h4>
+          <p>
+            Astra Agro recorded <strong>87,198 ha</strong> of post-2020 loss (5th highest in absolute terms), yet ranks last. Why? It published few claims, worded in flat, unmeasurable language (Sentiment: 0.0, Specificity: 13.8). Ranking 11th means a low mismatch between words and deeds, not that operations are clean.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8 -->
+    <section id="validations">
+      <h2>8. Independent Multi-Sensor Cross-Validations</h2>
+      <p>
+        To prove that findings did not rely on a single satellite algorithm, the thesis implemented four separate validation checks:
+      </p>
+
+      <div class="card-grid">
+        <div class="card violet">
+          <h4>1. Foundation Model: IBM/NASA Prithvi-EO-2.0-300M</h4>
+          <p>
+            A 300M parameter Vision Transformer pretrained on multi-spectral satellite sequences. Applied <strong>frozen with zero fine-tuning</strong>. Tiled Sentinel-2 patches across 2019 (pre-cutoff) and 2024 (post-cutoff). Computed temporal cosine dissimilarity on 768-dimensional embeddings. Reached network-wide mean Spearman correlation <strong>rho = 0.172</strong> (p &lt; 0.0001) against Hansen loss across all 290 mills (and rho = 0.597 on IOI Syarimo pilot).
+          </p>
+        </div>
+
+        <div class="card blue">
+          <h4>2. Radar SAR Alerts: Wageningen RADD</h4>
+          <p>
+            Sentinel-1 Synthetic Aperture Radar (SAR) shoots microwave beams that penetrate equatorial cloud cover and rain. Evaluated on the highest-loss mill across 5 companies. Confirmed active radar disturbance signals at <strong>4 of the 5 mills</strong>, validating optical findings through clouds.
+          </p>
+        </div>
+
+        <div class="card green">
+          <h4>3. Land Cover Ground Truth: Descals et al. (2021)</h4>
+          <p>
+            Independent 10-meter deep learning classification of oil palm plantations. Overlaid onto post-2020 Hansen loss pixels. Confirmed that <strong>56.0% of post-2020 clearing inside mill buffers</strong> (and <strong>89.8% for IOI</strong>) is now oil palm plantation, refuting the argument that clearing was for unrelated crops.
+          </p>
+        </div>
+
+        <div class="card orange">
+          <h4>4. Buffer Distance Sensitivity (5 to 30 km)</h4>
+          <p>
+            Tested 5, 10, 15, 20, and 30 km radial buffers around representative mills. Rankings remained stable across adjacent radii (Spearman rho = 0.80 to 0.96). At 30 km (covering 2,827 square kilometers), outside regional noise enters, validating 10 km as the appropriate operational catchment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9 -->
+    <section id="engineering">
+      <h2>9. Data Engineering Battles (108 Hours Log)</h2>
+      <p>
+        Table 3.4 of the thesis documents 108 hours of technical implementation solving silent real-world data corruptions:
+      </p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Pipeline Phase</th>
+            <th>Obstacle Encountered</th>
+            <th>Technical Resolution Implemented</th>
+            <th class="num">Hours Spent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mill Registry Parsing</strong></td>
+            <td>UML numeric lat/long columns dropped decimal exponents, placing mills in the ocean.</td>
+            <td>Parsed uncorrupted composite text string (<code>"GPS coordinates"</code>) with geographic bounding box checks.</td>
+            <td class="num">4</td>
+          </tr>
+          <tr>
+            <td><strong>Corporate Entity Matching</strong></td>
+            <td>SD Guthrie undercounted at 2 mills because subsidiaries were listed under <code>Group Name</code>.</td>
+            <td>Dual-column matching (<code>Group Name</code> + <code>Parent Company</code>), expanding matched mills to 42 and recovering 142k ha.</td>
+            <td class="num">5</td>
+          </tr>
+          <tr>
+            <td><strong>Text Cleaning</strong></td>
+            <td>Non-breaking spaces (<code>\u00a0</code>) in PDFs caused silent Pandas merge failures.</td>
+            <td>Collapsing whitespace regex and enforcing <code>regex=False</code> with case-insensitive matching.</td>
+            <td class="num">3</td>
+          </tr>
+          <tr>
+            <td><strong>Satellite Extraction</strong></td>
+            <td>GEE default memory ceiling (10 million pixels, or 10<sup>7</sup> pixels) exceeded across 290 buffers (over 91,000 square kilometers).</td>
+            <td>Configured <code>maxPixels = 1e10</code> (10 billion pixels), isolated Python venv, and built intermediate CSV disk caching.</td>
+            <td class="num">12</td>
+          </tr>
+          <tr>
+            <td><strong>NLP Modeling</strong></td>
+            <td>FinBERT and ClimateBERT climate-sentiment agreed on only 53.1% of claims (Cohen's kappa = 0.08).</td>
+            <td>Discovered FinBERT captures promotional optimism (cheap talk), while ClimateBERT tagged 99.8% as opportunity. Retained FinBERT for tone.</td>
+            <td class="num">6</td>
+          </tr>
+          <tr>
+            <td><strong>Domain Gold Benchmark</strong></td>
+            <td>Lack of verified palm oil claim evaluation datasets.</td>
+            <td>Stratified manual labeling of 150 sentences evaluated across 4 NLP tasks.</td>
+            <td class="num">10</td>
+          </tr>
+          <tr>
+            <td><strong>Production Theory</strong></td>
+            <td>Corporate annual reports and RSPO filings mixed FFB, CPO, and refinery output inconsistently.</td>
+            <td>Formally dropped production normalization to eliminate noisy denominators from company rankings.</td>
+            <td class="num">8</td>
+          </tr>
+          <tr>
+            <td><strong>Clearing Maps</strong></td>
+            <td>Equatorial cloud cover and persistent tropical haze.</td>
+            <td>Cloud-masked median composites and percentile contrast stretching (1.5% to 98.5%) for 290 mills at 300 DPI.</td>
+            <td class="num">14</td>
+          </tr>
+          <tr>
+            <td><strong>Prithvi Scaling</strong></td>
+            <td>Local CPU hardware constraints for 300M parameter model.</td>
+            <td>Built remote Colab GPU workflow tiling Sentinel-2 patches across all 290 mills.</td>
+            <td class="num">12</td>
+          </tr>
+          <tr>
+            <td><strong>Cross-Validations</strong></td>
+            <td>Addressing the mill buffer attribution limitation.</td>
+            <td>Ran Descals 10m overlay, RADD radar SAR, and buffer distance sensitivity.</td>
+            <td class="num">10</td>
+          </tr>
+          <tr>
+            <td><strong>Scoring Engine &amp; Tests</strong></td>
+            <td>Verifying formula constraints and normalization stability.</td>
+            <td>Constructed regression test suite with 23 passing pytest tests.</td>
+            <td class="num">4</td>
+          </tr>
+          <tr>
+            <td><strong>Thesis Manuscript</strong></td>
+            <td>Drafting full 9 chapters and citation audits.</td>
+            <td>Drafted ~19,565 words, zero em dashes, zero AI buzzwords, balanced environments.</td>
+            <td class="num">20</td>
+          </tr>
+          <tr style="font-weight: 700; background: rgba(56, 189, 248, 0.08);">
+            <td colspan="3">Total Engineering &amp; Problem-Solving Time</td>
+            <td class="num">108 hrs</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECTION 10 -->
+    <section id="summary-card">
+      <h2>10. Quick Revision Reference Card</h2>
+      <div class="card-grid">
+        <div class="card blue">
+          <h4>Core Objective</h4>
+          <p>Verify palm oil corporate zero-deforestation commitments by comparing NLP claim scores against Google Earth Engine satellite evidence using an objective 0 to 100 Mismatch Score.</p>
+        </div>
+
+        <div class="card green">
+          <h4>Verified Headline Numbers</h4>
+          <p><strong>11 companies &bull; 290 mills &bull; 890,168 hectares</strong> of post-2020 forest loss. Every single mill (290/290) recorded post-2020 loss.</p>
+        </div>
+
+        <div class="card orange">
+          <h4>Scoring Weights</h4>
+          <p><code>Mismatch = 0.35*Loss + 0.35*Specificity + 0.15*Sentiment + 0.15*Spatial</code>. Balanced 50% Space / 50% Text. Sum of weights = 1.0.</p>
+        </div>
+
+        <div class="card rose">
+          <h4>Top &amp; Bottom Rankings</h4>
+          <p><strong>KLK Rank 1 (65.6)</strong> due to 100 specificity next to 92k ha loss. <strong>Astra Agro Rank 11 (17.6)</strong> due to flat, minimal claims despite 87k ha loss.</p>
+        </div>
+
+        <div class="card violet">
+          <h4>Key Cross-Validation Result</h4>
+          <p>Descals et al. overlay confirms <strong>56.0%</strong> of cleared buffer area across all 290 mills (and <strong>89.8% for IOI</strong>) was converted directly to oil palm.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+</body>
+</html>

@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catching Greenwashing from Space — Satellite & NLP Thesis Showcase</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS (local) -->
+  <link rel="stylesheet" href="css/leaflet.css" />
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="css/style.css?v=8.0">
+
+  <!-- Chart.js & Leaflet JS (local) -->
+  <script src="js/chart.min.js"></script>
+  <script src="js/leaflet.js"></script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- MOBILE NAV OVERLAY -->
+  <div id="mobile-nav-overlay" class="mobile-nav-overlay">
+    <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+    <a href="#overview" onclick="closeMobileNav()">Overview</a>
+    <a href="#about" onclick="closeMobileNav()">About the Study</a>
+    <a href="#scoreboard" onclick="closeMobileNav()">Scoreboard</a>
+    <a href="#charts" onclick="closeMobileNav()">Data Charts</a>
+    <a href="#map-section" onclick="closeMobileNav()">290-Mill Map</a>
+    <a href="#gallery" onclick="closeMobileNav()">Satellite Gallery</a>
+    <a href="#claims" onclick="closeMobileNav()">NLP Claims</a>
+    <a href="#methodology" onclick="closeMobileNav()">Methodology</a>
+    <a href="#limitations" onclick="closeMobileNav()">Limitations</a>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-accent-bar"></div>
+    <div class="container nav-wrap">
+      <a href="#overview" class="brand" aria-label="Go to top">
+        <div class="brand-icon">🛰️</div>
+        <div class="brand-text">
+          <span class="brand-title">Greenwashing from Space <span class="pulse-dot" title="GEE Pipeline Verified"></span></span>
+          <span class="brand-sub">M.Sc. Thesis · GISMA Berlin</span>
+        </div>
+      </a>
+      <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Open navigation">☰</button>
+      <nav class="nav-scroll-wrap">
+        <ul class="nav-links">
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#scoreboard">Scoreboard</a></li>
+          <li><a href="#map-section">Map</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#claims">NLP Claims</a></li>
+          <li><a href="#models">Models</a></li>
+          <li><a href="#methodology">Methodology</a></li>
+          <li><a href="#limitations">Limitations</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="overview" class="hero" id="main-content">
+    <div class="container">
+      <div class="badge-row">
+        <span class="tag accent">EUDR 2020 Cutoff Audited</span>
+        <span class="tag">Google Earth Engine</span>
+        <span class="tag">Hansen GFC v1.13</span>
+        <span class="tag">Sentinel-2 10m Multi-spectral</span>
+        <span class="tag">ClimateBERT & FinBERT</span>
+        <span class="tag">Prithvi-EO-2.0 Linear Probe (&rho; = 0.805)</span>
+        <span class="tag accent">9 ML Models Deployed</span>
+      </div>
+
+      <h2>Verifying Palm Oil Zero-Deforestation Commitments with <span>Satellite Observation & NLP</span></h2>
+      <p class="lead">
+        Do corporate zero-deforestation commitments match physical reality on the ground? This research audits 11 global palm oil conglomerates across 290 supply chain mills, computing an empirical 0–100
+        <span class="term" data-def="Mismatch Score (0–100): measures how much a company's claims diverge from satellite-measured forest loss. Higher = bigger gap between rhetoric and physical evidence.">Mismatch Score</span>
+        that cross-examines
+        <span class="term" data-def="NLP = Natural Language Processing. AI models read corporate sustainability reports and score each claim for specificity (concrete vs. vague) and sentiment (positive vs. cautious).">NLP</span>-extracted sustainability claims against
+        <span class="term" data-def="Hansen Global Forest Change v1.13: Landsat 30m annual satellite dataset detecting forest loss globally since 2000. Used to count hectares lost within 10km of each mill after Jan 2021.">satellite forest-loss data</span>
+        under the
+        <span class="term" data-def="EUDR (EU Deforestation Regulation 2023/1115): EU law requiring companies to prove their products did not cause deforestation after 31 December 2020.">EUDR</span>
+        framework.
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <span class="label">Researcher</span>
+          <span class="val">Ritik Ghoghari</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Institution</span>
+          <span class="val">GISMA University of Applied Sciences, Berlin</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Supervisor</span>
+          <span class="val">Prof. Mohamad Hoseini</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Submission</span>
+          <span class="val">September 2026</span>
+        </div>
+      </div>
+
+      <!-- STAT TICKER -->
+      <div class="stats-strip">
+        <div class="stat-card">
+          <div class="stat-num">11</div>
+          <div class="stat-desc">Palm Oil Corporates</div>
+          <div class="stat-sub">Audited in global supply chain</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">290</div>
+          <div class="stat-desc">Processing Mills</div>
+          <div class="stat-sub">Universal Mill List verified</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">890,168 <span style="font-size:16px;">ha</span></div>
+          <div class="stat-desc">Post-2020 Forest Loss</div>
+          <div class="stat-sub">Within 10 km mill catchments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">290 / 290</div>
+          <div class="stat-desc">Satellite Maps Complete</div>
+          <div class="stat-sub">100% 300 DPI Sentinel-2 panels</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / PLAIN-LANGUAGE EXPLAINER SECTION -->
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="sec-eyebrow">Understanding This Research</div>
+      <h3 style="font-size:26px; font-weight:800; margin-bottom:12px;">What Is This Project Studying?</h3>
+      <p class="about-intro">
+        Many large palm oil companies promise "zero deforestation" in their annual sustainability reports.
+        This research checks whether those promises match reality — by combining satellite observations
+        of actual forest loss with AI-powered analysis of corporate language.
+        A higher <strong>Mismatch Score</strong> means a larger gap between what a company claims and what satellites detect.
+      </p>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-card-icon">🌍</div>
+          <h4>Where &amp; What?</h4>
+          <p>11 palm oil conglomerates, 290 processing mills across Indonesia, Malaysia, and West Africa.
+          Forest loss is measured within a 10 km radius of each mill — the typical area from which mills source fruit.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">📅</div>
+          <h4>When?</h4>
+          <p>Loss is counted from <strong>1 January 2021 onwards</strong> — the cutoff date set by the EU Deforestation Regulation (EUDR).
+          Companies were required to be deforestation-free by 31 December 2020 to sell into the EU.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🛰️</div>
+          <h4>How Was It Measured?</h4>
+          <p>Satellite data from the <strong>Hansen Global Forest Change</strong> dataset (Landsat 30 m, annual) detects where tree cover disappeared.
+          Each mill's catchment area is processed through <strong>Google Earth Engine</strong>.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">🤖</div>
+          <h4>What Did NLP Add?</h4>
+          <p>Five AI language models read 403 corporate sustainability statements and scored them on specificity (concrete vs. vague)
+          and sentiment (promotional tone). High specificity + high sentiment + high loss = high mismatch.</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">📊</div>
+          <h4>What Is the Mismatch Score?</h4>
+          <p>A 0–100 index where <strong>higher = greater discrepancy</strong> between claims and satellite evidence.
+          It weights forest loss (35%), claim specificity (35%), promotional sentiment (15%), and spatial distribution (15%).</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">⚠️</div>
+          <h4>What Can't We Conclude?</h4>
+          <p>Proximity to a mill does not prove the company caused the deforestation. Smallholders and third parties
+          also operate nearby. This measures <strong>spatial correspondence</strong>, not legal responsibility.</p>
+        </div>
+      </div>
+
+      <div class="observation-banner">
+        <div class="obs-item">
+          <div class="obs-label">Study Period</div>
+          <div class="obs-value">Jan 2021 – Dec 2024</div>
+          <div class="obs-note">4 years post-EUDR cutoff</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-label">Satellite Dataset</div>
+          <div class="obs-value">Hansen GFC v1.13</div>
+          <div class="obs-note">Landsat 30 m · annual · global · 2000–2024</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-label">Mill Catchment</div>
+          <div class="obs-value">10 km radius</div>
+          <div class="obs-note">~314 km² · aligns with PalmWatch / IDI methodology</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-label">NLP Claims Corpus</div>
+          <div class="obs-value">403 claims</div>
+          <div class="obs-note">Extracted from annual sustainability reports, 2021–2024</div>
+        </div>
+        <div class="obs-item">
+          <div class="obs-label">Legal Framework</div>
+          <div class="obs-value">EUDR 2023/1115</div>
+          <div class="obs-note">EU law requiring zero deforestation after 31 Dec 2020</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCOREBOARD & DECISION MATRIX SECTION -->
+  <section id="scoreboard">
+    <div class="container">
+      <div class="sec-header">
+        <div class="sec-eyebrow">The Greenwashing Rankings & Matrix</div>
+        <h3>Corporate Mismatch Scoreboard & Decision Matrix</h3>
+        <p>
+          The 0–100 Mismatch Score measures the divergence between corporate claim assertiveness and satellite-detected forest loss. Click any table row or scatter point to inspect the company's sub-score radar profile, or click <strong>Compare Companies</strong> to run a head-to-head analysis.
+        </p>
+      </div>
+
+      <!-- DECISION MATRIX 2D SCATTER PLOT -->
+      <div class="matrix-container">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div style="font-size:13px; font-weight:700; color:var(--text);">
+              2D Diagnostic Space: Forest Loss Intensity vs. Claim Specificity
+            </div>
+            <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+              Bubble size = post-2020 loss (ha)
+            </div>
+          </div>
+          <div class="matrix-chart-wrap">
+            <canvas id="matrixScatterCanvas" height="380"></canvas>
+          </div>
+        </div>
+        <div class="matrix-sidebar">
+          <div>
+            <div style="font-size:12px; font-weight:700; text-transform:uppercase; color:var(--muted); margin-bottom:8px; font-family:var(--font-mono);">
+              Diagnostic Quadrants
+            </div>
+            <div class="quadrant-box alert">
+              <div class="quadrant-title" style="color:var(--red);">🚨 High Mismatch (Rank 1: KLK)</div>
+              <div>High claim specificity combined with substantial forest loss (71k ha). High accountability risk.</div>
+            </div>
+            <div class="quadrant-box warning">
+              <div class="quadrant-title" style="color:var(--amber);">⚠️ Deforestation Severity (IOI)</div>
+              <div>Highest loss intensity (19% of forest), but scored lower due to vague claims (0.0 specificity).</div>
+            </div>
+            <div class="quadrant-box neutral">
+              <div class="quadrant-title" style="color:var(--blue);">📋 High Rhetoric / Mid Loss (GAR)</div>
+              <div>Largest absolute loss (171k ha) alongside highest positive sentiment (91.6) and high specificity.</div>
+            </div>
+            <div class="quadrant-box low">
+              <div class="quadrant-title" style="color:var(--accent);">🛡️ Procedural Alignment (Astra Agro)</div>
+              <div>Lowest mismatch (17.6) due to neutral tone and low specificity despite 87k ha loss.</div>
+            </div>
+          </div>
+          <div style="font-size:11.5px; color:var(--muted); padding-top:10px; border-top:1px solid var(--border);">
+            💡 <em>Weights: 0.35 Loss + 0.35 Specificity + 0.15 Sentiment + 0.15 Spatial Match = 1.0</em>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABLE TOOLBAR -->
+      <div class="table-toolbar">
+        <div style="font-size:13px; color:var(--text-secondary);">
+          Showing <strong>11 Palm Oil Conglomerates</strong> (click column headers to sort)
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn-control" onclick="openBufferModal()" style="font-weight:700; background:rgba(34,197,94,0.12); border-color:var(--accent); color:#4ade80;">
+            📐 5–30 km Buffer Matrix
+          </button>
+          <button class="btn-control" onclick="openCompareModal('klk', 'astraagro')" style="background:var(--card); font-weight:700; border-color:var(--border-light);">
+            ⚔️ Head-to-Head Company Comparison
+          </button>
+        </div>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-wrap">
+        <table class="data-table" id="scoreboard-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('rank')">Rank ⬍</th>
+              <th onclick="sortTable('name')">Company ⬍</th>
+              <th onclick="sortTable('mismatch_score')">Mismatch Score ⬍</th>
+              <th onclick="sortTable('forest_loss')">Forest Loss (35%) ⬍</th>
+              <th onclick="sortTable('specificity')">Specificity (35%) ⬍</th>
+              <th onclick="sortTable('sentiment')">Sentiment (15%) ⬍</th>
+              <th onclick="sortTable('spatial_match')">Spatial Match (15%) ⬍</th>
+              <th onclick="sortTable('loss_post2020_ha')">Post-2020 Loss ⬍</th>
+              <th onclick="sortTable('n_mills')">Mills ⬍</th>
+            </tr>
+          </thead>
+          <tbody id="scoreboard-body">
+            <!-- Injected by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA VISUALIZATIONS SECTION -->
+  <section id="charts" class="charts-section">
+    <div class="container">
+      <div class="sec-eyebrow">Data Visualizations</div>
+      <h3 class="charts-heading">What the Data Shows</h3>
+      <p class="charts-sub">Six verified datasets — 11 companies, 290 mills, 890,168 ha of forest loss measured from space.</p>
+
+      <!-- Key stats row -->
+      <div class="chart-stats-row">
+        <div class="chart-stat">
+          <span class="chart-stat-num" data-target="890168" data-suffix=" ha">0</span>
+          <span class="chart-stat-label">Forest lost post-2020</span>
+        </div>
+        <div class="chart-stat">
+          <span class="chart-stat-num" data-target="290" data-suffix=" mills">0</span>
+          <span class="chart-stat-label">Mills monitored</span>
+        </div>
+        <div class="chart-stat">
+          <span class="chart-stat-num" data-target="56" data-suffix="% oil palm">0</span>
+          <span class="chart-stat-label">Clearing confirmed plantation</span>
+        </div>
+        <div class="chart-stat">
+          <span class="chart-stat-num" data-target="403" data-suffix=" claims">0</span>
+          <span class="chart-stat-label">NLP-verified claims analysed</span>
+        </div>
+        <div class="chart-stat">
+          <span class="chart-stat-num" data-target="65.6" data-suffix=" / 100" data-decimals="1">0</span>
+          <span class="chart-stat-label">Top mismatch score (KLK)</span>
+        </div>
+      </div>
+
+      <!-- Charts 2×2 + 1 wide -->
+      <div class="charts-grid">
+
+        <!-- Chart 1: Mismatch Score Leaderboard (wide) -->
+        <div class="chart-box chart-box--wide">
+          <div class="chart-box-header">
+            <div>
+              <div class="chart-box-title">Greenwashing Mismatch Score</div>
+              <div class="chart-box-sub">Combined score 0–100: high = large forest loss + specific zero-deforestation claims</div>
+            </div>
+            <span class="chart-badge chart-badge--red">Main Finding</span>
+          </div>
+          <div class="chart-canvas-wrap">
+            <canvas id="mismatchChart" height="340"></canvas>
+          </div>
+          <p class="chart-caption">KLK (65.6) and GAR (63.1) rank highest. Score weights: forest loss 35%, claim specificity 35%, sentiment 15%, spatial coverage 15%.</p>
+          <p class="chart-source">Formula: 0.35 × forest_loss + 0.35 × specificity + 0.15 × sentiment + 0.15 × spatial · build_scores_v2.py · 23 tests passing</p>
+        </div>
+
+        <!-- Chart 2: Score Components stacked -->
+        <div class="chart-box">
+          <div class="chart-box-header">
+            <div>
+              <div class="chart-box-title">Score Component Breakdown</div>
+              <div class="chart-box-sub">What drives each company's mismatch score</div>
+            </div>
+          </div>
+          <div class="chart-canvas-wrap">
+            <canvas id="subscoreChart" height="300"></canvas>
+          </div>
+          <p class="chart-caption">Forest loss and claim specificity (35% each) dominate. IOI's high score comes almost entirely from forest loss intensity (4,959 ha/mill). KLK is driven by extreme specificity claims paired with high loss.</p>
+          <p class="chart-source">Source: master_scores.csv · build_scores_v2.py</p>
+        </div>
+
+        <!-- Chart 3: Scatter forest loss % vs mismatch -->
+        <div class="chart-box">
+          <div class="chart-box-header">
+            <div>
+              <div class="chart-box-title">Loss Rate vs Mismatch Score</div>
+              <div class="chart-box-sub">Does higher forest loss always mean higher mismatch?</div>
+            </div>
+          </div>
+          <div class="chart-canvas-wrap">
+            <canvas id="scatterChart" height="300"></canvas>
+          </div>
+          <p class="chart-caption">IOI has the highest loss rate (19%) but mid-range mismatch — its specificity sub-score is zero (vague claims). Bumitama has near-zero loss score but still scores 38.5 due to specific pledges.</p>
+          <p class="chart-source">Source: master_scores.csv · Hansen GFC v1.13</p>
+        </div>
+
+        <!-- Chart 4: Forest loss absolute -->
+        <div class="chart-box">
+          <div class="chart-box-header">
+            <div>
+              <div class="chart-box-title">Post-2020 Forest Loss by Company</div>
+              <div class="chart-box-sub">Hectares within 10 km of all mills, Jan 2021 – Dec 2024</div>
+            </div>
+          </div>
+          <div class="chart-canvas-wrap">
+            <canvas id="forestLossChart" height="300"></canvas>
+          </div>
+          <p class="chart-caption">GAR largest absolute loss (171,236 ha, 50 mills). IOI highest per-mill intensity (4,959 ha/mill). Colors: red &gt; 60 loss-score, amber 30–60, green &lt; 30.</p>
+          <p class="chart-source">Source: Hansen GFC v1.13 (Hansen et al., 2013) · Google Earth Engine · EUDR cutoff 31 Dec 2020</p>
+        </div>
+
+        <!-- Chart 5: Oil palm conversion -->
+        <div class="chart-box">
+          <div class="chart-box-header">
+            <div>
+              <div class="chart-box-title">Oil Palm Conversion Rate</div>
+              <div class="chart-box-sub">% of cleared land confirmed as oil palm plantation (Descals 2021 CNN)</div>
+            </div>
+          </div>
+          <div class="chart-canvas-wrap">
+            <canvas id="descalsChart" height="300"></canvas>
+          </div>
+          <p class="chart-caption">IOI 89.8% — nearly all clearing was converted to palm. Cross-dataset average 56%. Confirms clearing is palm expansion, not timber or other land use.</p>
+          <p class="chart-source">Source: Descals et al. (2021) Global Oil Palm Map · Sentinel-1 + Sentinel-2 CNN · 10 m</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP SECTION -->
+  <section id="map-section">
+    <div class="container">
+      <div class="sec-header">
+        <div class="sec-eyebrow">Geospatial Distribution</div>
+        <h3>Interactive 290-Mill Supply Chain Map</h3>
+        <p>
+          Explore the spatial footprint of 290 mills across Indonesia, Malaysia, and West Africa. Circle size and colour indicate post-2020 forest clearance within each mill's 10 km catchment.
+        </p>
+      </div>
+
+      <div class="map-controls">
+        <select id="company-filter" class="select-control">
+          <option value="all">All Companies (11)</option>
+        </select>
+        <select id="severity-filter" class="select-control">
+          <option value="0">All Severity Levels</option>
+          <option value="1500">> 1,500 ha loss</option>
+          <option value="3000">> 3,000 ha loss (Severe)</option>
+          <option value="5000">> 5,000 ha loss (Extreme)</option>
+        </select>
+        <div class="country-pills">
+          <button class="btn-control" onclick="zoomToRegion('all')">🌏 All</button>
+          <button class="btn-control" onclick="zoomToRegion('indonesia')">🇮🇩 Indonesia (232)</button>
+          <button class="btn-control" onclick="zoomToRegion('malaysia')">🇲🇾 Malaysia (53)</button>
+          <button class="btn-control" onclick="zoomToRegion('africa')">🌍 West Africa (5)</button>
+        </div>
+        <button id="basemap-sat-btn" class="btn-control active" onclick="setBasemap('sat')">🛰️ Satellite</button>
+        <button id="basemap-dark-btn" class="btn-control" onclick="setBasemap('dark')">🌑 Dark Canvas</button>
+        <button class="btn-control" onclick="resetMapView()">↺ Reset</button>
+        <button id="clear-rings-btn" class="btn-control" onclick="clearBufferRings()" style="display:none; color:#ef4444; border-color:rgba(239,68,68,0.4);">✕ Clear Buffer Rings</button>
+        <span id="map-counter" style="font-size:12px; color:var(--muted); font-family:var(--font-mono); margin-left:auto;">
+          Showing 290 mills
+        </span>
+      </div>
+
+      <div class="map-container">
+        <div id="map"></div>
+
+        <!-- FLOATING MAP LEGEND -->
+        <div class="map-legend">
+          <div class="legend-title">Post-2020 Loss (10 km)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#ef4444;"></span> > 5,000 ha (Extreme)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#f97316;"></span> 3,000 – 5,000 ha (Severe)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span> 1,500 – 3,000 ha (Moderate)</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#22c55e;"></span> < 1,500 ha (Low)</div>
+          <div style="border-top:1px solid var(--border); margin:6px 0; padding-top:6px;">
+            <div class="legend-title">Sourcing Buffer Radii</div>
+            <div class="legend-item"><span style="display:inline-block; width:12px; height:2px; border-top:2px dashed #06b6d4; margin-right:6px;"></span> 5 km (79 km²)</div>
+            <div class="legend-item"><span style="display:inline-block; width:12px; height:2px; background:#22c55e; margin-right:6px;"></span> 10 km (314 km² Canonical)</div>
+            <div class="legend-item"><span style="display:inline-block; width:12px; height:2px; border-top:2px dashed #f59e0b; margin-right:6px;"></span> 15 km (707 km²)</div>
+            <div class="legend-item"><span style="display:inline-block; width:12px; height:2px; border-top:2px dashed #f97316; margin-right:6px;"></span> 20 km (1,257 km²)</div>
+            <div class="legend-item"><span style="display:inline-block; width:12px; height:2px; border-top:2px dashed #ef4444; margin-right:6px;"></span> 30 km (2,827 km²)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SATELLITE GALLERY SECTION -->
+  <section id="gallery">
+    <div class="container">
+      <div class="sec-header">
+        <div class="sec-eyebrow">Satellite Evidence Archive</div>
+        <h3>High-Resolution Sentinel-2 Clearing Maps</h3>
+        <p>
+          Each panel shows a <strong>before-and-after comparison</strong>: 2019 Sentinel-2 imagery (left, pre-EUDR baseline)
+          vs. 2024 Sentinel-2 with <span class="term" data-def="Hansen Global Forest Change v1.13: annual Landsat 30m dataset detecting tree cover loss globally since 2000 (Hansen et al., Science 2013)">Hansen GFC</span>
+          loss overlays (right). Red and orange grid cells mark forest cleared after 1 January 2021.
+          Click any thumbnail to open the full-resolution lightbox — the side panel explains the data source, colors, measurements, and limitations.
+        </p>
+      </div>
+
+      <!-- GALLERY FILTER TABS -->
+      <div class="gallery-tabs">
+        <button class="btn-control active" id="tab-all-mills" onclick="setGalleryTab('all')">All Mills (290)</button>
+        <button class="btn-control" id="tab-featured" onclick="setGalleryTab('featured')">⭐ Key Case Studies (7)</button>
+        <button class="btn-control" id="tab-severe" onclick="setGalleryTab('severe')">🚨 Severe Clearances (>3,000 ha)</button>
+      </div>
+
+      <div class="map-controls">
+        <select id="gallery-company-filter" class="select-control">
+          <option value="all">All Companies</option>
+        </select>
+        <input type="text" id="gallery-search" class="input-control" placeholder="Search mill name (e.g. Kekayaan, Sabahmas)..." style="min-width:260px;">
+        <span id="gallery-counter" style="font-size:12px; color:var(--muted); font-family:var(--font-mono); margin-left:auto;">
+          Showing 24 of 290 mills
+        </span>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <!-- Injected by JavaScript -->
+      </div>
+
+      <!-- LOAD MORE BUTTON -->
+      <div style="text-align:center; margin-top:28px;">
+        <button id="load-more-btn" class="btn-control" style="padding:10px 28px; font-size:14px; background:var(--card);" onclick="loadMoreGallery()">
+          Load More Maps (24 more)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLAIMS SECTION -->
+  <section id="claims">
+    <div class="container">
+      <div class="sec-header">
+        <div class="sec-eyebrow">Natural Language Processing</div>
+        <h3>Corporate Sustainability Claims Explorer</h3>
+        <p>
+          403 extracted environmental claims scored by ClimateBERT (specificity) and FinBERT (sentiment). Filter by company, commitment strength, or keywords to examine corporate rhetoric against physical evidence.
+        </p>
+      </div>
+
+      <div class="map-controls">
+        <select id="claims-company-filter" class="select-control">
+          <option value="all">All Companies</option>
+        </select>
+        <select id="claims-strength-filter" class="select-control">
+          <option value="all">All Strengths</option>
+          <option value="hard">Hard Commitments</option>
+          <option value="soft">Soft Aspirations</option>
+        </select>
+        <select id="claims-topic-filter" class="select-control">
+          <option value="all">All ESG Categories</option>
+        </select>
+        <input type="text" id="claims-search" class="input-control" placeholder="Search keywords (e.g. NDPE, peat, 2025, traceability)..." style="min-width:280px;">
+        <button class="btn-control" onclick="resetClaimsFilters()">Reset</button>
+        <span id="claims-counter" style="font-size:12px; color:var(--muted); font-family:var(--font-mono); margin-left:auto;">
+          Showing 403 claims
+        </span>
+      </div>
+
+      <div class="claims-grid" id="claims-grid">
+        <!-- Injected by JavaScript -->
+      </div>
+
+      <button id="claims-load-more-btn" class="btn-control" onclick="loadMoreClaims()" style="display:none;">
+        Load More Claims
+      </button>
+
+      <div style="margin-top:16px; padding:14px 18px; background:rgba(56,189,248,0.06); border:1px solid rgba(56,189,248,0.2); border-radius:var(--radius-md); font-size:12.5px; color:var(--text-secondary);">
+        <strong style="color:var(--blue);">How to read these cards:</strong>
+        <strong>Specificity</strong> (0–1) — how concrete the commitment is: 1.0 means measurable targets with deadlines, 0 means vague promotional language.
+        <strong>Sentiment</strong> (0–1) — how positive/promotional the tone is (FinBERT). High specificity <em>and</em> high sentiment combined with high satellite loss = high mismatch signal.
+        <strong>Hard commitment</strong> = verifiable pledge with target. <strong>Soft aspiration</strong> = intent without auditable metrics.
+      </div>
+    </div>
+  </section>
+
+  <!-- DUAL-TRACK MODEL INVENTORY SECTION -->
+  <section id="models" style="border-top: 1px solid var(--border); padding: 60px 0;">
+    <div class="container">
+      <div class="sec-header">
+        <div class="sec-eyebrow">Dual-Track Verification Stack</div>
+        <h3>9 Machine Learning Models & Empirical Accuracy Benchmark</h3>
+        <p>
+          Our methodology enforces strict isolation between textual claim extraction and satellite ground truth. 5 NLP Transformer models audit corporate sustainability disclosures while 4 geospatial and vision AI systems quantify physical canopy loss across 290 mill catchments.
+        </p>
+      </div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(480px, 1fr)); gap: 24px; margin-bottom: 24px;">
+        
+        <!-- TRACK 1: NLP -->
+        <div style="background: var(--surface); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow-sm);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px;">
+            <div>
+              <div style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--blue); text-transform:uppercase;">Track 1: Textual Claims Audit</div>
+              <h4 style="font-size:18px; font-weight:800; color:#fff; margin-top:2px;">5 NLP Transformer Models</h4>
+            </div>
+            <span class="badge blue">NLP Benchmark Stack</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap: 14px;">
+            
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px; color:#fff;">1. climatebert/environmental-claims</strong>
+                <span class="badge green" style="font-family:var(--font-mono);">Acc: 97.3% · F1: 0.981</span>
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin: 6px 0;">
+                DistilRoBERTa model detecting genuine zero-deforestation commitments. Precision: 100%, Recall: 96.2% on gold palm oil benchmark (n=150).
+              </p>
+              <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+                Baseline comparison: Keyword regex achieved only 70.7% Acc and 0.828 F1.
+              </div>
+            </div>
+
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px; color:#fff;">2. climatebert/climate-specificity</strong>
+                <span class="badge amber" style="font-family:var(--font-mono);">Acc: 53.8% · Score: 0–100</span>
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin: 6px 0;">
+                DistilRoBERTa scoring commitment concreteness. Found an even 50/50 split between concrete targets and vague promotional talk across 403 claims.
+              </p>
+              <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+                Continuous score directly calibrates the specificity dimension in the mismatch formula.
+              </div>
+            </div>
+
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px; color:#fff;">3. ProsusAI/finbert</strong>
+                <span class="badge green" style="font-family:var(--font-mono);">Acc: 81.1%</span>
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin: 6px 0;">
+                Domain-adapted financial BERT quantifying promotional cheerfulness in corporate disclosures. Directly feeds the mismatch score formula (weight 0.15).
+              </p>
+              <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+                Baseline comparison: Standard lexicon sentiment achieved 62.4% accuracy.
+              </div>
+            </div>
+
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px; color:#fff;">4. climatebert/climate-sentiment</strong>
+                <span class="badge blue" style="font-family:var(--font-mono);">Acc: 50.9% · 99.8% Opportunity</span>
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin: 6px 0;">
+                SASB climate framing classifier showing that 99.8% of palm oil corporate claims frame climate change as an opportunity rather than an operational risk.
+              </p>
+              <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+                Baseline comparison: Generic sentiment lexicons scored 44.1% accuracy.
+              </div>
+            </div>
+
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px; color:#fff;">5. nbroad/ESG-BERT</strong>
+                <span class="badge green" style="font-family:var(--font-mono);">Acc: 80.2%</span>
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin: 6px 0;">
+                Multi-class BERT categorizing claims into official SASB ESG pillars (Land Use & Biodiversity, GHG Emissions, Labor Practices).
+              </p>
+              <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+                Baseline comparison: Keyword rule tags achieved only 18.9% accuracy.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- TRACK 2: SATELLITE -->
+        <div style="background: var(--surface); border: 1px solid rgba(34, 197, 94, 0.25); border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow-sm);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px;">
+            <div>
+              <div style="font-family:var(--font-mono); font-size:11px; font-weight:700; color:var(--accent); text-transform:uppercase;">Track 2: Physical Ground Truth</div>
+              <h4 style="font-size:18px; font-weight:800; color:#fff; margin-top:2px;">4 Satellite & Vision Systems</h4>
+            </div>
+            <span class="badge green">Remote Sensing Stack</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap: 14px;">
+
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px; color:#fff;">1. Hansen Global Forest Change v1.13</strong>
+                <span class="badge green" style="font-family:var(--font-mono);">99.5% Global Acc</span>
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin: 6px 0;">
+                Landsat 30m time-series random forest model. Detected <strong>890,168 ha post-2020 forest loss</strong> across all 290 mills in 10 km radial catchments post-EUDR cutoff.
+              </p>
+              <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+                Tropical user accuracy: 88.0%. Detected loss across 100% of the 290 mills.
+              </div>
+            </div>
+
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px; color:#fff;">2. Descals Global 10m Oil Palm CNN</strong>
+                <span class="badge green" style="font-family:var(--font-mono);">86.9% Overall Acc</span>
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin: 6px 0;">
+                Multi-sensor deep CNN fusing Sentinel-1 radar and Sentinel-2 optical imagery. Confirmed <strong>56.0% of all post-2020 buffer clearing</strong> was converted directly into oil palm plantations (reaches <strong>89.8%</strong> for IOI).
+              </p>
+              <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+                Attribution proof: Forest clearings were turned into palm estates, not subsistence crops.
+              </div>
+            </div>
+
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px; color:#fff;">3. RADD Radar Disturbance Alerts</strong>
+                <span class="badge blue" style="font-family:var(--font-mono);">&gt;95% User Acc</span>
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin: 6px 0;">
+                Sentinel-1 C-band Synthetic Aperture Radar (SAR) alerts piercing equatorial cloud cover and monsoon haze. Confirmed active weekly clearing at <strong>4 of the 5 highest-loss mills</strong>.
+              </p>
+              <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+                All-weather validation: Confirms that optical clearing signals are not cloud artifacts.
+              </div>
+            </div>
+
+            <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:14px; color:#fff;">4. NASA/IBM Prithvi-EO-2.0-300M + Probe</strong>
+                <span class="badge purple" style="font-family:var(--font-mono);">&rho; = 0.805 · IoU: 0.765</span>
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin: 6px 0;">
+                300M Vision Transformer (ViT) spatial foundation model. While zero-shot baseline achieved &rho; = 0.597 (&rho; = 0.172 network mean), our <strong>Supervised Linear Probe on frozen embeddings</strong> achieved <strong>&rho; = 0.805</strong>, <strong>89.7% precision</strong>, <strong>83.9% recall</strong>, and <strong>76.5% IoU</strong>.
+              </p>
+              <div style="font-size:11px; color:var(--muted); font-family:var(--font-mono);">
+                Breakthrough: +34.8% correlation gain without expensive supercomputer retraining.
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY & CROSS-VALIDATION -->
+  <section id="methodology">
+    <div class="container">
+      <div class="sec-header">
+        <div class="sec-eyebrow">Methodology & Robustness</div>
+        <h3>Canonical Scoring Formula & Multi-Modal Triangulation</h3>
+        <p>
+          The Mismatch Score integrates physical forest loss with NLP claim specificity, sentiment, and spatial dispersion.
+        </p>
+      </div>
+
+      <!-- TRIANGULATION 4-CARD GRID -->
+      <div class="validation-grid">
+        <!-- 1. RADD SAR Radar -->
+        <div class="validation-card" style="--card-accent: var(--blue);">
+          <div>
+            <div class="validation-header">
+              <div class="validation-title">
+                <span style="font-size: 18px;">📡</span> RADD SAR Radar
+              </div>
+              <span class="badge blue">Sentinel-1 C-Band</span>
+            </div>
+            <div class="validation-body">
+              Validated on top mills using Sentinel-1 Synthetic Aperture Radar. Radar penetration confirms deforestation signals at 4/5 highest-loss mills regardless of cloud cover or seasonal monsoon haze.
+            </div>
+          </div>
+          <div class="validation-footer">
+            <span style="font-size:11.5px; color:var(--muted); font-family:var(--font-mono);">Optical-SAR Agreement</span>
+            <span style="font-size:12px; font-weight:700; color:var(--blue); font-family:var(--font-mono);">80% Match</span>
+          </div>
+        </div>
+
+        <!-- 2. Descals Oil Palm Overlay -->
+        <div class="validation-card" style="--card-accent: var(--amber);">
+          <div>
+            <div class="validation-header">
+              <div class="validation-title">
+                <span style="font-size: 18px;">🌴</span> Descals Oil Palm Overlay
+              </div>
+              <span class="badge amber">Land Use Ground Truth</span>
+            </div>
+            <div class="validation-body">
+              Cross-checked against the global industrial closed-canopy oil palm map (Descals et al.). 56% of post-2020 forest clearance within 10 km mill catchments converted directly into oil palm plantations.
+            </div>
+          </div>
+          <div class="validation-footer">
+            <span style="font-size:11.5px; color:var(--muted); font-family:var(--font-mono);">Agri-Conversion Rate</span>
+            <span style="font-size:12px; font-weight:700; color:var(--amber); font-family:var(--font-mono);">56% Confirmed</span>
+          </div>
+        </div>
+
+        <!-- 3. Buffer Sensitivity (5–30 km) -->
+        <div class="validation-card" style="--card-accent: var(--accent);">
+          <div>
+            <div class="validation-header">
+              <div class="validation-title">
+                <span style="font-size: 18px;">📐</span> Buffer Sensitivity (5–30 km)
+              </div>
+              <span class="badge green">Catchment Stability</span>
+            </div>
+            <div class="validation-body">
+              Evaluated concentric radial catchments across 5, 10, 15, 20, and 30 km. High rank correlation (Spearman &rho; = 0.80–0.96) validates the canonical 10 km boundary before 30 km dilution (&rho; = 0.49).
+            </div>
+          </div>
+          <div class="validation-footer" style="flex-direction:column; align-items:stretch; gap:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11.5px; color:var(--muted); font-family:var(--font-mono);">Rank Stability</span>
+              <span style="font-size:12px; font-weight:700; color:var(--accent); font-family:var(--font-mono);">&rho; = 0.80–0.96 (5–20km)</span>
+            </div>
+            <button class="btn-explore-matrix" onclick="openBufferModal()" title="Explore Interactive 5–30 km Sensitivity Matrix">
+              <span>📊 Explore Matrix</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. Prithvi Foundation Model & Linear Probe (290 Mills) -->
+        <div class="validation-card" style="--card-accent: var(--purple);">
+          <div>
+            <div class="validation-header">
+              <div class="validation-title">
+                <span style="font-size: 18px;">🧠</span> Prithvi Foundation Model
+              </div>
+              <span class="badge purple">&rho; = 0.805 · Linear Probe</span>
+            </div>
+            <div class="validation-body">
+              Evaluated across all 290 mills. While zero-shot ViT baseline achieved &rho; = 0.172 (&rho; = 0.597 on POC), our supervised Linear Probe on frozen 1024-dim embeddings achieved <strong>&rho; = 0.805</strong>, <strong>IoU = 0.765</strong>, <strong>89.7% precision</strong>, and <strong>83.9% recall</strong> (+34.8% gain).
+            </div>
+          </div>
+          <div class="validation-footer" style="flex-direction:column; align-items:stretch; gap:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11.5px; color:var(--muted); font-family:var(--font-mono);">Probe Performance</span>
+              <span style="font-size:12px; font-weight:700; color:var(--purple); font-family:var(--font-mono);">&rho; = 0.805 · IoU = 0.765</span>
+            </div>
+            <button class="btn-explore-matrix" style="border-color:var(--purple); color:#e9d5ff; background:linear-gradient(135deg, rgba(192, 132, 252, 0.22), rgba(168, 85, 247, 0.10));" onclick="openPrithviModal()" title="Explore Prithvi Zero-Shot vs Linear Probe Experiments">
+              <span>🔬 Explore Prithvi Experiments</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACADEMIC REPRODUCIBILITY & CITATION HUB -->
+      <div class="citation-card">
+        <div style="margin-bottom:18px;">
+          <div class="sec-eyebrow" style="margin-bottom:8px;">Open Science & Reproducibility</div>
+          <h4 style="font-size:18px; font-weight:800; color:var(--text);">Academic Citation & Open Data Hub</h4>
+          <p style="font-size:13px; color:var(--text-secondary); margin-top:3px;">
+            GISMA University of Applied Sciences, Berlin • All pipeline code, model scores, geolocated mill lists, and Sentinel-2 satellite maps are openly accessible.
+          </p>
+        </div>
+
+        <div class="reproducibility-grid">
+          <!-- Left: BibTeX Block -->
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-family:var(--font-mono); font-size:11.5px; font-weight:700; color:var(--muted); text-transform:uppercase;">
+                BibTeX Entry
+              </span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span id="copy-feedback" style="font-size:11px; color:var(--accent); font-family:var(--font-mono); display:none;">✓ Copied!</span>
+                <button class="btn-control" onclick="copyBibtex()" style="font-size:11.5px; padding:4px 10px;">
+                  📋 Copy BibTeX
+                </button>
+              </div>
+            </div>
+            <pre class="citation-pre" id="bibtex-text">@mastersthesis{ghoghari2026catching,
+  title={Catching Greenwashing from Space: Verifying Palm Oil Zero-Deforestation Claims Using Satellite Data and Natural Language Processing},
+  author={Ghoghari, Ritik},
+  school={GISMA University of Applied Sciences, Berlin},
+  year={2026},
+  type={M.Sc. Thesis in Data Science, AI \& Digital Business},
+  supervisor={Hoseini, Mohamad}
+}</pre>
+          </div>
+
+          <!-- Right: Direct Data Downloads -->
+          <div>
+            <div style="font-family:var(--font-mono); font-size:11.5px; font-weight:700; color:var(--muted); text-transform:uppercase; margin-bottom:8px;">
+              Open Datasets (JSON)
+            </div>
+            <div class="download-list">
+              <a href="data/companies.json" download="master_scores.json" class="download-btn-card">
+                <div class="download-btn-header">
+                  <span>🏢 Master Scores</span>
+                  <span style="color:var(--accent); font-size:15px;">↓</span>
+                </div>
+                <div class="download-btn-sub">11 Corporates • 0–100 Scores</div>
+              </a>
+              <a href="data/mills.json" download="mills_290.json" class="download-btn-card">
+                <div class="download-btn-header">
+                  <span>🏭 290 Mills Catchments</span>
+                  <span style="color:var(--accent); font-size:15px;">↓</span>
+                </div>
+                <div class="download-btn-sub">UML Geocodes • 890k ha Loss</div>
+              </a>
+              <a href="data/prithvi.json" download="prithvi_290.json" class="download-btn-card">
+                <div class="download-btn-header">
+                  <span>🧠 Prithvi Embeddings</span>
+                  <span style="color:var(--accent); font-size:15px;">↓</span>
+                </div>
+                <div class="download-btn-sub">Foundation Model • 290 Mills</div>
+              </a>
+              <a href="data/buffer_sensitivity.json" download="buffer_sensitivity.json" class="download-btn-card">
+                <div class="download-btn-header">
+                  <span>📐 Buffer Sensitivity</span>
+                  <span style="color:var(--accent); font-size:15px;">↓</span>
+                </div>
+                <div class="download-btn-sub">5–30 km Matrix • Spearman &rho;</div>
+              </a>
+              <a href="data/models_inventory.json" download="models_inventory.json" class="download-btn-card">
+                <div class="download-btn-header">
+                  <span>🤖 9 ML Models Stack</span>
+                  <span style="color:var(--accent); font-size:15px;">↓</span>
+                </div>
+                <div class="download-btn-sub">5 NLP + 4 Satellite Systems • Verified Accuracies</div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HEAD-TO-HEAD COMPARISON MODAL -->
+  <div id="compare-modal" class="compare-modal" onclick="closeCompareModal(event)">
+    <div class="compare-card" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeCompareModal(null)">✕</button>
+      
+      <div style="margin-bottom:20px;">
+        <div style="font-family:var(--font-mono); font-size:11px; color:var(--accent); text-transform:uppercase;">Diagnostic Comparison</div>
+        <h3 style="font-size:22px; font-weight:800;">Head-to-Head Company Contrast</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin-top:2px;">
+          Select two companies to compare their sub-score divergence, loss footprint, and claim profiles.
+        </p>
+      </div>
+
+      <div class="compare-selectors">
+        <select id="compare-select-a" class="select-control" onchange="updateComparison()"></select>
+        <span class="vs-pill">VS</span>
+        <select id="compare-select-b" class="select-control" onchange="updateComparison()"></select>
+      </div>
+
+      <div style="height:280px; background:var(--card); border:1px solid var(--border); border-radius:var(--radius-md); padding:14px; margin-bottom:20px;">
+        <canvas id="compareRadarCanvas"></canvas>
+      </div>
+
+      <div class="compare-columns" id="compare-details">
+        <!-- Injected by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX MODAL WITH METADATA PANEL -->
+  <div id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content lightbox-with-meta" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeLightbox(null)" style="z-index:10;">✕</button>
+      <div class="lightbox-nav-btn lightbox-prev" onclick="navigateLightbox(-1)" title="Previous (Left Arrow)" style="z-index:10;">◀</div>
+
+      <div class="lightbox-body">
+        <img id="lightbox-img" src="" alt="High-Resolution Sentinel-2 Clearing Map">
+        <div class="lightbox-caption-box" id="lightbox-caption"></div>
+      </div>
+
+      <div class="lightbox-meta-panel" id="lightbox-meta">
+        <div style="font-size:12px; color:var(--muted); font-family:var(--font-mono);">
+          Click a thumbnail from the gallery to see image metadata here.
+        </div>
+      </div>
+
+      <div class="lightbox-nav-btn lightbox-next" onclick="navigateLightbox(1)" title="Next (Right Arrow)" style="z-index:10;">▶</div>
+    </div>
+  </div>
+
+  <!-- COMPANY DETAIL MODAL -->
+  <div id="company-modal" class="company-modal" onclick="closeCompanyModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closeCompanyModal(null)">✕</button>
+      <div id="modal-content">
+        <!-- Injected by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- BUFFER SENSITIVITY MODAL -->
+  <div id="buffer-modal" class="company-modal" onclick="closeBufferModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()" style="max-width:850px; max-height:85vh; overflow-y:auto;">
+      <button class="close-btn" onclick="closeBufferModalDirect()">✕</button>
+      <div>
+        <div class="sec-eyebrow">Spatial Methodology Cross-Validation</div>
+        <h3 style="font-size:20px; font-weight:800; margin-top:2px;">Radial Catchment Sensitivity Analysis (5–30 km)</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin-top:4px;">
+          Testing company rank stability across 5 concentric buffer radii to validate the canonical 10 km sourcing catchment.
+        </p>
+      </div>
+
+      <!-- Spearman Rho Metrics Grid -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px; margin:20px 0;">
+        <div class="buffer-metric-card">
+          <span style="font-size:11px; color:var(--muted); text-transform:uppercase; font-weight:700; font-family:var(--font-mono);">10 km vs 15 km</span>
+          <div style="font-size:24px; font-weight:800; color:var(--accent); font-family:var(--font-mono); margin:4px 0;">&rho; = 0.80</div>
+          <span style="font-size:12px; color:var(--text-secondary);">Very Strong Agreement</span>
+        </div>
+        <div class="buffer-metric-card">
+          <span style="font-size:11px; color:var(--muted); text-transform:uppercase; font-weight:700; font-family:var(--font-mono);">15 km vs 20 km</span>
+          <div style="font-size:24px; font-weight:800; color:var(--accent); font-family:var(--font-mono); margin:4px 0;">&rho; = 0.90</div>
+          <span style="font-size:12px; color:var(--text-secondary);">Near-Identical Ranking</span>
+        </div>
+        <div class="buffer-metric-card">
+          <span style="font-size:11px; color:var(--muted); text-transform:uppercase; font-weight:700; font-family:var(--font-mono);">20 km vs 30 km</span>
+          <div style="font-size:24px; font-weight:800; color:var(--accent); font-family:var(--font-mono); margin:4px 0;">&rho; = 0.96</div>
+          <span style="font-size:12px; color:var(--text-secondary);">Asymptotic Rank Stability</span>
+        </div>
+        <div class="buffer-metric-card warning">
+          <span style="font-size:11px; color:#f59e0b; text-transform:uppercase; font-weight:700; font-family:var(--font-mono);">10 km vs 30 km</span>
+          <div style="font-size:24px; font-weight:800; color:#f59e0b; font-family:var(--font-mono); margin:4px 0;">&rho; = 0.49</div>
+          <span style="font-size:12px; color:var(--text-secondary);">Outer Area Dilution</span>
+        </div>
+      </div>
+
+      <!-- Data Table -->
+      <div class="table-wrap" style="margin-bottom:16px;">
+        <table class="data-table" style="font-size:12px;">
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>5 km Loss %</th>
+              <th style="color:var(--accent); font-weight:700;">10 km Loss % (Canonical)</th>
+              <th>15 km Loss %</th>
+              <th>20 km Loss %</th>
+              <th>30 km Loss %</th>
+            </tr>
+          </thead>
+          <tbody id="buffer-table-body">
+            <!-- Injected by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+
+      <div style="background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.25); border-radius:8px; padding:14px; font-size:12.5px; line-height:1.5;">
+        <strong style="color:var(--text);">Methodological Conclusion:</strong>
+        A 10 km radius encompasses approximately 314 km&sup2; around the mill, aligning with fresh fruit bunch (FFB) transport time-decay curves. At 30 km (2,827 km&sup2;), the catchment captures unrelated concession clearings and third-party smallholders, which explains the correlation drop to 0.49 and confirms 10 km as the optimal empirical boundary.
+      </div>
+    </div>
+  </div>
+
+  <!-- PRITHVI EXPERIMENTS MODAL -->
+  <div id="prithvi-modal" class="company-modal" onclick="closePrithviModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()" style="max-width:880px; max-height:85vh; overflow-y:auto;">
+      <button class="close-btn" onclick="closePrithviModalDirect()">✕</button>
+      <div>
+        <div class="sec-eyebrow" style="color:var(--purple);">Foundation Model Cross-Validation</div>
+        <h3 style="font-size:20px; font-weight:800; margin-top:2px;">NASA/IBM Prithvi-EO-2.0: Zero-Shot Challenge & Linear Probe Breakthrough</h3>
+        <p style="font-size:13px; color:var(--text-secondary); margin-top:4px;">
+          Comparing 3 empirical configurations across 224px Sentinel-2 tile embeddings (1024-dimensional) on IOI Syarimo mill and network-wide.
+        </p>
+      </div>
+
+      <!-- 3 Experiments Cards Grid -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:14px; margin:20px 0;">
+        
+        <!-- Exp 1 -->
+        <div class="buffer-metric-card" style="border-color:rgba(255,255,255,0.15);">
+          <span style="font-size:11px; color:var(--muted); text-transform:uppercase; font-weight:700; font-family:var(--font-mono);">Experiment 1 · Zero-Shot</span>
+          <div style="font-size:18px; font-weight:800; color:#cbd5e1; margin:6px 0;">Cosine Baseline</div>
+          <div style="font-family:var(--font-mono); font-size:12.5px; color:var(--text-secondary); line-height:1.7;">
+            <div>Spearman &rho;: <strong style="color:#fff;">0.597</strong> (p=0.000)</div>
+            <div>Precision: <strong style="color:#fff;">0.710</strong></div>
+            <div>Recall: <strong style="color:#fff;">0.710</strong></div>
+            <div>IoU (Jaccard): <strong style="color:#fff;">0.550</strong></div>
+            <div style="font-size:11px; color:var(--muted); margin-top:4px;">Network mean: &rho; = 0.172, IoU = 0.086</div>
+          </div>
+        </div>
+
+        <!-- Exp 2 -->
+        <div class="buffer-metric-card" style="border-color:rgba(245, 158, 11, 0.35);">
+          <span style="font-size:11px; color:var(--amber); text-transform:uppercase; font-weight:700; font-family:var(--font-mono);">Experiment 2 · Gating</span>
+          <div style="font-size:18px; font-weight:800; color:var(--amber); margin:6px 0;">&Delta;NDVI + Otsu</div>
+          <div style="font-family:var(--font-mono); font-size:12.5px; color:var(--text-secondary); line-height:1.7;">
+            <div>Spearman &rho;: <strong style="color:#fff;">0.772</strong> (p=0.000)</div>
+            <div>Precision: <strong style="color:#4ade80;">0.923 (+30.0%)</strong></div>
+            <div>Recall: <strong style="color:#f87171;">0.387</strong></div>
+            <div>IoU (Jaccard): <strong style="color:#fff;">0.375</strong></div>
+            <div style="font-size:11px; color:var(--muted); margin-top:4px;">High precision, but suppresses recall</div>
+          </div>
+        </div>
+
+        <!-- Exp 3 -->
+        <div class="buffer-metric-card" style="border-color:var(--purple); background:rgba(192, 132, 252, 0.06);">
+          <span style="font-size:11px; color:var(--purple); text-transform:uppercase; font-weight:700; font-family:var(--font-mono);">Experiment 3 · Breakthrough</span>
+          <div style="font-size:18px; font-weight:800; color:var(--purple); margin:6px 0;">Linear Probe (5-Fold CV)</div>
+          <div style="font-family:var(--font-mono); font-size:12.5px; color:var(--text-secondary); line-height:1.7;">
+            <div>Spearman &rho;: <strong style="color:#c084fc;">0.805 (+34.8%)</strong></div>
+            <div>Precision: <strong style="color:#c084fc;">0.897</strong></div>
+            <div>Recall: <strong style="color:#c084fc;">0.839</strong></div>
+            <div>IoU (Jaccard): <strong style="color:#c084fc;">0.765 (+39.1%)</strong></div>
+            <div style="font-size:11px; color:var(--accent); margin-top:4px;">Optimal harmonic equilibrium</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="background:rgba(192, 132, 252, 0.08); border:1px solid rgba(192, 132, 252, 0.25); border-radius:8px; padding:14px; font-size:12.5px; line-height:1.6;">
+        <strong style="color:#fff;">Core Takeaway for Thesis & Defense:</strong>
+        Pre-trained Earth observation foundation models (like NASA/IBM Prithvi) struggle out-of-the-box with tropical forest boundaries due to equatorial haze, cloud artifacts, and canopy moisture phenology. However, <strong>freezing the 300M Vision Transformer backbone</strong> and training a lightweight linear probing head (with 5-fold cross-validation) solves this trade-off completely—yielding <strong>&rho; = 0.805</strong> and <strong>76.5% IoU</strong> without multi-gpu supercomputer fine-tuning.
+      </div>
+    </div>
+  </div>
+
+  <!-- LIMITATIONS SECTION -->
+  <section id="limitations" class="limitations-section">
+    <div class="container">
+      <div class="sec-eyebrow" style="color:var(--amber);">Research Limitations</div>
+      <h3 style="font-size:24px; font-weight:800; margin-bottom:6px;">What This Study Cannot Conclude</h3>
+      <p style="font-size:14px; color:var(--text-secondary); max-width:760px;">
+        These limitations are documented in the thesis (Chapter 5) and must be considered when interpreting any finding.
+        The Mismatch Score measures a statistical signal — it does not constitute legal evidence of greenwashing.
+      </p>
+
+      <div class="limitations-grid">
+
+        <div class="limitation-card">
+          <div class="limitation-card-icon">🏭</div>
+          <h4>Proximity ≠ Causation</h4>
+          <p>Forest loss is measured within 10 km of each mill. Smallholder farmers, other companies, and government concessions
+          also operate in the same area. The study measures <em>spatial correspondence</em>, not proven legal responsibility for clearing.</p>
+        </div>
+
+        <div class="limitation-card">
+          <div class="limitation-card-icon">📡</div>
+          <h4>30 m Resolution Cap</h4>
+          <p>Hansen GFC uses Landsat at 30 m per pixel. Clearings smaller than one pixel (~0.09 ha) may be missed.
+          High-frequency small-scale clearing, common in smallholder areas, is likely under-detected.</p>
+        </div>
+
+        <div class="limitation-card">
+          <div class="limitation-card-icon">☁️</div>
+          <h4>Cloud Cover in Tropics</h4>
+          <p>Equatorial regions have persistent cloud cover. While the Hansen model uses multi-year composites to reduce cloud artifacts,
+          some loss events may be missed or dated inaccurately in high-cloud years.</p>
+        </div>
+
+        <div class="limitation-card">
+          <div class="limitation-card-icon">📄</div>
+          <h4>NLP Claim Availability</h4>
+          <p>KLK (8 claims) and Wilmar (4 claims) had very few accessible English-language sustainability disclosures for the study period.
+          Low claim counts reduce the reliability of their NLP sub-scores and are flagged in the data.</p>
+        </div>
+
+        <div class="limitation-card">
+          <div class="limitation-card-icon">🗺️</div>
+          <h4>10 km Buffer Choice</h4>
+          <p>The 10 km catchment boundary is a methodological choice, not a physical law. Buffer sensitivity analysis (5–30 km)
+          confirms rank stability up to 20 km (Spearman ρ = 0.80–0.96), but the 30 km buffer dilutes results (ρ = 0.49)
+          by capturing unrelated concessions.</p>
+        </div>
+
+        <div class="limitation-card">
+          <div class="limitation-card-icon">🏷️</div>
+          <h4>Mismatch Score Is Not a Legal Finding</h4>
+          <p>A high score signals a discrepancy between corporate language and satellite observations — not proven fraud
+          or a regulatory violation. Independent legal audits, supply-chain traceability data, and concession maps
+          would be required to make regulatory claims.</p>
+        </div>
+
+      </div>
+
+      <div style="margin-top:24px; padding:16px 22px; background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.25); border-radius:var(--radius-md); font-size:13px; color:var(--text-secondary); line-height:1.6;">
+        <strong style="color:var(--text);">Note on Descals oil palm overlay:</strong> The 56% oil palm conversion figure uses a treecover2000 &gt; 30% forest mask.
+        This produces slightly different hectare totals (~695k ha) compared to the headline 890,168 ha figure from the main pipeline (different mask).
+        All percentages are comparable across companies; use the headline figure for absolute totals.
+        Both are sourced from the same GEE pipeline run on the same 290 mills.
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p><strong>Catching Greenwashing from Space</strong> • Master of Science Thesis</p>
+      <p>Ritik Ghoghari • GISMA University of Applied Sciences, Berlin • Supervisor: Prof. Mohamad Hoseini</p>
+      <p style="font-family:var(--font-mono); font-size:11px; color:var(--muted); margin-top:8px;">
+        Dataset: 11 Companies • 290 Mills • 890,168 ha Post-2020 Forest Loss • European Union Deforestation Regulation (EUDR) Auditing Framework
+      </p>
+    </div>
+  </footer>
+
+  <!-- App JS -->
+  <script src="js/app.js?v=8.0"></script>
+</body>
+</html>

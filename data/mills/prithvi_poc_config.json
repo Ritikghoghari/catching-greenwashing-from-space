@@ -1,0 +1,102 @@
+{
+  "company": "ioi",
+  "mill_name": "SYARIMO",
+  "country": "Malaysia",
+  "latitude": 5.334037,
+  "longitude": 117.781334,
+  "loss_post2020_ha": 12317.757444139772,
+  "buffer_m": 10000,
+  "region_bbox_geojson": {
+    "geodesic": false,
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          117.69169130163478,
+          5.244082917378546
+        ],
+        [
+          117.8712642520644,
+          5.244082917378546
+        ],
+        [
+          117.8712642520644,
+          5.424025659514847
+        ],
+        [
+          117.69169130163478,
+          5.424025659514847
+        ],
+        [
+          117.69169130163478,
+          5.244082917378546
+        ]
+      ]
+    ]
+  },
+  "hansen_dataset": "UMD/hansen/global_forest_change_2025_v1_13",
+  "eudr_cutoff": "lossyear >= 21 (post 31 Dec 2020)",
+  "s2_bands": [
+    "B2",
+    "B3",
+    "B4",
+    "B8",
+    "B11",
+    "B12"
+  ],
+  "s2_band_labels": [
+    "Blue",
+    "Green",
+    "Red",
+    "NIR",
+    "SWIR1",
+    "SWIR2"
+  ],
+  "before_date_range": [
+    "2019-01-01",
+    "2019-12-31"
+  ],
+  "after_date_range": [
+    "2023-06-01",
+    "2024-12-31"
+  ],
+  "scale_s2_m": 10,
+  "scale_hansen_m": 30,
+  "drive_folder": "thesis_prithvi_poc",
+  "exports": {
+    "sentinel2_before_2019": {
+      "filename": "sentinel2_before_2019.tif",
+      "task_id": "4TSKY5Y5IJBHLOOJ2LMJLGSZ",
+      "n_scenes": 21,
+      "bands": [
+        "B2",
+        "B3",
+        "B4",
+        "B8",
+        "B11",
+        "B12"
+      ]
+    },
+    "sentinel2_after_2024": {
+      "filename": "sentinel2_after_2024.tif",
+      "task_id": "S5Y2IK7DMSCFICR6FRX4KTNQ",
+      "n_scenes": 6,
+      "bands": [
+        "B2",
+        "B3",
+        "B4",
+        "B8",
+        "B11",
+        "B12"
+      ]
+    },
+    "hansen_groundtruth": {
+      "filename": "hansen_groundtruth.tif",
+      "task_id": "2VJRWCZVHWPZHTBZHS67XLOM",
+      "bands": [
+        "forest2000",
+        "loss_post2020"
+      ]
+    }
+  }
+}

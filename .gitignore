@@ -1,0 +1,34 @@
+# Internal agent/tooling directories
+.agents/
+.claude/
+.kilo/
+
+# Large binary data — too big for GitHub
+latex/
+Reports/
+Results/satellite_images/
+Results/satellite_images_labeled/
+website/maps/
+
+# Generated archives and Word docs
+latex/thesis_latex.zip
+latex/thesis_latex.zip.bak
+latex/figures.zip
+*.docx
+Dissertation Module Handbook.pdf
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+venv/
+env/
+.venv/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
