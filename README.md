@@ -7,6 +7,12 @@
 **Supervisor:** Professor Mohamad Hoseini  
 **Submission Deadline:** 26 September 2026  
 
+
+## Use of AI tools
+
+AI coding assistants ([Claude and Gemini]) were used for [scripting and debugging support]. The research question, the method design, the choice of models and score weights, and the interpretation of the results are the author's own. The reported numbers were checked by the author against the files in `Results/`.
+Note: the folder tree below describes the full local workspace. Some folders (Reports, latex, satellite_images, parts of docs) are not included in this public repository.
+
 ---
 
 ## Executive Summary
